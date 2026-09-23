@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#080d24">
+<title>คิงโดมิโน — อาณาจักรเวทมนตร์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PALETTE — Indigo Night  ×  Amber Gold  (คู่ตรงข้าม)
+   accent: Mint / Rose  (split-complementary)
+   ============================================================ */
+:root{
+  --bg0:#05081c; --bg1:#0b1130; --bg2:#151a45; --bg3:#221a52;
+  --ink:#f0f3ff; --muted:#98a4d6; --dim:#6d78ad;
+
+  --gold:#ffc košík; /* placeholder replaced below */
+}
+:root{
+  --gold:#ffc martin;
+}
+:root{
+  --gold:#FFC24B; --gold-l:#FFE9A8; --gold-d:#A9741A;
+  --mint:#2FE3BE; --mint-d:#12907a;
+  --rose:#FF5D8F; --violet:#7C5CFF; --sky:#4CC9FF;
+  --glass:rgba(22,28,66,.72);
+  --glass2:rgba(34,42,92,.66);
+  --line:rgba(255,194,75,.28);
+  --line2:rgba(160,180,255,.16);
+  --rad:20px;
+  --sh1:0 18px 44px rgba(0,0,0,.55);
+  --sh2:0 8px 22px rgba(0,0,0,.42);
+  --cs:34px; --chs:30px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;padding:0}
+body{
+  font-family:'Kanit',system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:var(--bg0); color:var(--ink); overflow:hidden;
+  user-select:none;-webkit-user-select:none;
+  text-rendering:optimizeLegibility;
+}
+button{font-family:inherit;border:0;background:none;color:inherit}
+svg{display:block}
+.hide{display:none !important}
+
+/* ================= BACKGROUND SCENE ================= */
+#scene{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+#sceneSvg{position:absolute;inset:0;width:100%;height:100%}
+.aur{animation:aurora 22s ease-in-out infinite alternate;transform-origin:center}
+.aur2{animation-duration:29s;animation-delay:-6s}
+@keyframes aurora{
+  0%{transform:translate3d(-3%,0,0) scaleY(1)}
+  50%{transform:translate3d(2%,-1.5%,0) scaleY(1.18)}
+  100%{transform:translate3d(4%,1%,0) scaleY(.92)}
+}
+.twk{animation:twk 4s ease-in-out infinite}
+.twk2{animation-duration:6.5s;animation-delay:-2s}
+.twk3{animation-duration:5.2s;animation-delay:-3.4s}
+@keyframes twk{0%,100%{opacity:.25}50%{opacity:1}}
+.win-l{animation:winl 3.6s ease-in-out infinite}
+.win-l2{animation-delay:-1.2s}
+.win-l3{animation-delay:-2.4s}
+@keyframes winl{0%,100%{opacity:.45}50%{opacity:1}}
+#dragon{animation:fly 38s linear infinite;transform-origin:center}
+@keyframes fly{
+  0%{transform:translate(-320px,60px) scale(.85)}
+  45%{transform:translate(680px,-30px) scale(1)}
+  50%{transform:translate(760px,-20px) scale(1)}
+  100%{transform:translate(1780px,70px) scale(.8)}
+}
+.wing{animation:flap 1.15s ease-in-out infinite;transform-origin:52% 58%;transform-box:fill-box}
+.wing2{animation-delay:-.08s}
+@keyframes flap{0%,100%{transform:rotate(-16deg) scaleY(1)}50%{transform:rotate(16deg) scaleY(.72)}}
+.ff{animation:ff 9s ease-in-out infinite}
+.ff2{animation-duration:12s;animation-delay:-3s}
+.ff3{animation-duration:10.5s;animation-delay:-6s}
+.ff4{animation-duration:14s;animation-delay:-8s}
+@keyframes ff{
+  0%{transform:translate(0,0);opacity:0}
+  15%{opacity:.95}
+  50%{transform:translate(38px,-46px);opacity:.5}
+  85%{opacity:.9}
+  100%{transform:translate(-12px,-96px);opacity:0}
+}
+.boat{animation:boat 7s ease-in-out infinite}
+@keyframes boat{0%,100%{transform:translate(0,0) rotate(-1.4deg)}50%{transform:translate(14px,-3px) rotate(1.4deg)}}
+#vig{position:absolute;inset:0;background:
+  radial-gradient(120% 80% at 50% 8%,transparent 40%,rgba(3,5,18,.55) 100%)}
+
+/* ================= SHELL ================= */
+#app{position:relative;z-index:2;height:100dvh;display:flex;flex-direction:column}
+.screen{display:none;flex:1;min-height:0;flex-direction:column}
+.screen.active{display:flex}
+.scroller{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;
+  padding:16px 14px 26px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.panel{
+  position:relative;width:100%;max-width:540px;border-radius:var(--rad);padding:18px;
+  background:linear-gradient(160deg,var(--glass2),var(--glass));
+  border:1px solid var(--line2);
+  box-shadow:var(--sh1), inset 0 1px 0 rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.panel::before{
+  content:'';position:absolute;inset:0;border-radius:var(--rad);pointer-events:none;
+  padding:1px;background:linear-gradient(140deg,rgba(255,194,75,.55),rgba(124,92,255,.15) 45%,rgba(47,227,190,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:.75}
+h1,h2,h3,h4{margin:0 0 8px;font-weight:600}
+.brand{display:flex;flex-direction:column;align-items:center;gap:2px}
+.logo{
+  font-size:clamp(30px,9vw,50px);font-weight:700;letter-spacing:2px;line-height:1.05;text-align:center;
+  background:linear-gradient(180deg,#fff7e0 4%,var(--gold) 46%,#c98d1e 78%,#8a5c0c);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 3px 0 rgba(0,0,0,.35)) drop-shadow(0 10px 22px rgba(255,180,60,.28))}
+.tagline{font-size:13px;color:var(--muted);letter-spacing:1.5px;text-align:center}
+.crest{width:min(120px,30vw);height:auto;filter:drop-shadow(0 12px 26px rgba(0,0,0,.6));animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+
+/* ================= BUTTONS ================= */
+.btn{
+  position:relative;display:flex;align-items:center;justify-content:center;gap:9px;width:100%;
+  padding:14px 16px;margin-top:10px;border-radius:15px;cursor:pointer;font-size:16px;font-weight:600;
+  color:#2b1c02;letter-spacing:.3px;overflow:hidden;
+  background:linear-gradient(180deg,#ffe7a6 0%,var(--gold) 48%,#dc9f2a 100%);
+  box-shadow:0 5px 0 #8f6414, 0 12px 26px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.7);
+  transition:transform .09s ease,box-shadow .09s ease,filter .18s}
+.btn::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:skewX(-18deg);animation:shine 5.5s ease-in-out infinite}
+@keyframes shine{0%,72%{left:-70%}88%,100%{left:130%}}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #8f6414,0 5px 14px rgba(0,0,0,.45)}
+.btn.sec{color:#eaefff;background:linear-gradient(180deg,#4c3f9e,#2b2263);
+  box-shadow:0 5px 0 #1b1442,0 12px 24px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.18)}
+.btn.sec:active{box-shadow:0 1px 0 #1b1442,0 5px 14px rgba(0,0,0,.4)}
+.btn.mint{color:#032a26;background:linear-gradient(180deg,#a8ffee,var(--mint) 48%,#12a78c);
+  box-shadow:0 5px 0 #0b6c5b,0 12px 24px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.65)}
+.btn.mint:active{box-shadow:0 1px 0 #0b6c5b,0 5px 14px rgba(0,0,0,.4)}
+.btn.rose{color:#3a0417;background:linear-gradient(180deg,#ffb3cb,var(--rose) 50%,#c92f5f);
+  box-shadow:0 5px 0 #8c1f42,0 12px 24px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.6)}
+.btn.sm{width:auto;padding:10px 14px;font-size:14px;margin-top:0;border-radius:13px;box-shadow:0 4px 0 #8f6414,0 8px 18px rgba(0,0,0,.4)}
+.btn.sm.sec{box-shadow:0 4px 0 #1b1442,0 8px 18px rgba(0,0,0,.4)}
+.btn.sm.mint{box-shadow:0 4px 0 #0b6c5b,0 8px 18px rgba(0,0,0,.4)}
+.btn[disabled]{filter:grayscale(.8) brightness(.62);pointer-events:none}
+.btn .bic{width:20px;height:20px;flex:0 0 auto;fill:currentColor}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.row>.btn{flex:1;min-width:130px}
+
+/* ================= FORM ================= */
+label.fld{display:block;font-size:12.5px;color:var(--muted);margin:14px 0 6px;letter-spacing:.4px}
+input.txt{width:100%;padding:13px;border-radius:13px;font-size:16px;font-family:inherit;text-align:center;
+  color:var(--ink);letter-spacing:1px;
+  background:rgba(4,8,26,.55);border:1px solid var(--line2);
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.45)}
+input.txt::placeholder{color:var(--dim)}
+input.txt:focus{outline:none;border-color:var(--mint);box-shadow:inset 0 2px 8px rgba(0,0,0,.45),0 0 0 3px rgba(47,227,190,.22)}
+.seg{display:flex;gap:7px}
+.seg button{flex:1;padding:11px 4px;border-radius:13px;font-size:14px;font-weight:600;cursor:pointer;
+  color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--line2);transition:.16s}
+.seg button.on{color:#2b1c02;border-color:var(--gold-l);
+  background:linear-gradient(180deg,#ffe7a6,var(--gold));box-shadow:0 4px 14px rgba(255,194,75,.35)}
+.chk{display:flex;align-items:center;gap:10px;padding:11px 12px;margin-top:8px;border-radius:13px;
+  font-size:13.5px;cursor:pointer;background:rgba(255,255,255,.045);border:1px solid var(--line2)}
+.chk input{width:19px;height:19px;accent-color:var(--gold)}
+.note{font-size:12px;color:var(--muted);line-height:1.65}
+.divider{height:1px;margin:16px 0 4px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+.hsec{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;margin-top:4px}
+.hsec svg{width:18px;height:18px;fill:var(--gold)}
+
+/* ================= TOP BAR ================= */
+#gameTop{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:7px 9px;
+  background:linear-gradient(180deg,rgba(9,13,38,.92),rgba(9,13,38,.6));
+  border-bottom:1px solid var(--line2);backdrop-filter:blur(10px)}
+.icobtn{width:38px;height:38px;flex:0 0 auto;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.07);border:1px solid var(--line2);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.icobtn svg{width:19px;height:19px;fill:var(--gold-l)}
+.icobtn.off{opacity:.4}
+.icobtn.off svg{fill:var(--dim)}
+#hdInfo{flex:1;min-width:0}
+#hdRound{font-size:13.5px;font-weight:600;line-height:1.15}
+#hdLeft{font-size:10.5px;color:var(--muted);line-height:1.2}
+#hdBar{height:4px;border-radius:3px;margin-top:4px;background:rgba(255,255,255,.1);overflow:hidden}
+#hdBarIn{height:100%;width:0;border-radius:3px;transition:width .4s ease;
+  background:linear-gradient(90deg,var(--mint),var(--gold))}
+#hdRoom{flex:0 0 auto;text-align:center;cursor:pointer;padding:3px 9px;border-radius:11px;
+  background:rgba(0,0,0,.35);border:1px dashed var(--line);line-height:1.15}
+#hdRoom span{font-size:9.5px;color:var(--muted);letter-spacing:.5px}
+#hdRoom b{display:block;font-size:15px;color:var(--gold);letter-spacing:3px}
+
+/* ================= DRAFT ================= */
+#draft{flex:0 0 auto;display:flex;gap:14px;justify-content:center;padding:8px 8px 2px}
+.dwrap{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+.dwrap h4{margin:0;font-size:10.5px;font-weight:500;color:var(--muted);letter-spacing:.6px;white-space:nowrap}
+.dcol{display:flex;flex-direction:column;gap:6px;align-items:center}
+.chip{position:relative;display:flex;gap:3px;padding:4px;border-radius:11px;
+  background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.05));
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 4px 10px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.28);
+  transition:transform .18s cubic-bezier(.2,1.2,.4,1),opacity .25s,box-shadow .2s}
+.chip .num{position:absolute;left:-6px;top:-8px;z-index:4;min-width:17px;padding:0 4px;
+  font-size:10px;font-weight:700;text-align:center;border-radius:8px;color:#2b1c02;
+  background:linear-gradient(180deg,#fff2c9,var(--gold));box-shadow:0 2px 5px rgba(0,0,0,.5)}
+.chip .kg{position:absolute;right:-7px;top:-9px;z-index:4;width:19px;height:19px;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.9))}
+.half{position:relative;width:var(--chs);height:var(--chs);border-radius:7px;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),inset 0 3px 7px rgba(255,255,255,.22),inset 0 -5px 9px rgba(0,0,0,.22)}
+.half .tic{width:62%;height:62%;opacity:.95}
+.crw{position:absolute;right:1px;top:0;display:flex;gap:-1px}
+.crw .cri{width:calc(var(--chs)*.31);height:calc(var(--chs)*.31);fill:#fff3cf;
+  filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.95))}
+.chip.selectable{cursor:pointer;border-color:var(--mint);
+  box-shadow:0 0 0 2px rgba(47,227,190,.5),0 0 18px rgba(47,227,190,.35),0 4px 10px rgba(0,0,0,.5);
+  animation:breathe 1.7s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.chip.active{border-color:var(--gold);box-shadow:0 0 0 2px rgba(255,194,75,.65),0 0 20px rgba(255,194,75,.35),0 4px 10px rgba(0,0,0,.5)}
+.chip.done{opacity:.24;filter:grayscale(.75)}
+.chip.deal{animation:deal .42s cubic-bezier(.2,1.35,.35,1) backwards}
+@keyframes deal{from{transform:translateY(-22px) scale(.55) rotate(-10deg);opacity:0}}
+.emptyhint{font-size:10.5px;color:var(--dim);padding:10px 6px;text-align:center}
+
+/* ================= BOARD ================= */
+#boardArea{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;gap:5px;padding:3px 8px}
+#boardOwner{flex:0 0 auto;font-size:12px;font-weight:600;letter-spacing:.5px;
+  display:flex;align-items:center;gap:6px}
+#boardOwner svg{width:14px;height:14px;fill:currentColor}
+#boardWrap{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center}
+#board{position:relative;display:grid;gap:3px;padding:8px;border-radius:18px;
+  background:
+    radial-gradient(120% 120% at 20% 0%,rgba(124,92,255,.32),transparent 60%),
+    linear-gradient(180deg,rgba(38,32,86,.9),rgba(12,16,44,.94));
+  border:1px solid var(--line);
+  box-shadow:0 20px 48px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.12),0 0 0 4px rgba(255,194,75,.07)}
+#fxLayer{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:visible}
+.cell{position:relative;width:var(--cs);height:var(--cs);border-radius:calc(var(--cs)*.17);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.035);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+  transition:transform .16s,box-shadow .16s,filter .3s}
+.cell .tic{width:58%;height:58%;opacity:0}
+.cell.has{box-shadow:inset 0 0 0 1px rgba(0,0,0,.45),inset 0 3px 8px rgba(255,255,255,.2),
+  inset 0 -6px 10px rgba(0,0,0,.26),0 2px 6px rgba(0,0,0,.5)}
+.cell.has .tic{opacity:.95}
+.cell .crw{right:2px;top:0}
+.cell .crw .cri{width:calc(var(--cs)*.3);height:calc(var(--cs)*.3)}
+.cell .gh{position:absolute;font-size:calc(var(--cs)*.44);line-height:1;color:rgba(255,255,255,.9);
+  font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.cell.valid{cursor:pointer;background:rgba(47,227,190,.15);
+  box-shadow:inset 0 0 0 2px var(--mint),0 0 14px rgba(47,227,190,.3)}
+.cell.prev{box-shadow:inset 0 0 0 2px var(--gold),0 0 18px rgba(255,194,75,.6);z-index:3}
+.cell.pop{animation:pop .4s cubic-bezier(.2,1.5,.4,1)}
+@keyframes pop{from{transform:scale(.3) rotate(-14deg)}}
+.cell.castle{box-shadow:inset 0 0 0 2px var(--gold-l),0 0 20px rgba(255,194,75,.55)}
+.cell.sdim{filter:brightness(.34) saturate(.45)}
+.cell.slit{filter:none;z-index:4;box-shadow:inset 0 0 0 2px var(--gold-l),0 0 22px rgba(255,194,75,.75);
+  animation:litp .6s ease-out}
+@keyframes litp{from{transform:scale(1.14)}}
+.cell.sdone{filter:brightness(.78) saturate(.9)}
+/* terrain */
+.t-wheat {background:linear-gradient(160deg,#ffde7d,#f0b93c 45%,#c98515);color:#5a3a02}
+.t-forest{background:linear-gradient(160deg,#5ee39a,#23a765 45%,#0d5d38);color:#042d18}
+.t-water {background:linear-gradient(160deg,#7fdcff,#2f9ee6 45%,#125a9e);color:#032b4d}
+.t-grass {background:linear-gradient(160deg,#cdf389,#8cc73f 45%,#4f8a1e);color:#213d06}
+.t-swamp {background:linear-gradient(160deg,#cdb183,#9a7c48 45%,#5d4520);color:#2c1d06}
+.t-mine  {background:linear-gradient(160deg,#a8adcd,#646a92 45%,#2b2f4f);color:#0c0e20}
+.t-castle{background:linear-gradient(160deg,#ffeeb8,#e6bc5c 45%,#a57a18);color:#44300a}
+.half .tic,.cell .tic{fill:currentColor}
+
+/* score badges */
+.sbadge{position:absolute;transform:translate(-50%,-50%) scale(.4);opacity:0;
+  padding:5px 11px;border-radius:13px;text-align:center;white-space:nowrap;
+  background:linear-gradient(180deg,rgba(255,240,205,.98),rgba(255,194,75,.96));
+  color:#31210a;box-shadow:0 8px 22px rgba(0,0,0,.6),0 0 0 2px rgba(255,255,255,.4);
+  animation:sbin .42s cubic-bezier(.2,1.5,.4,1) forwards}
+.sbadge.zero{background:linear-gradient(180deg,rgba(150,160,200,.95),rgba(90,100,150,.95));color:#e9edff}
+.sbadge.bonus{background:linear-gradient(180deg,#b7ffe9,var(--mint));color:#04302a}
+.sbadge.total{background:linear-gradient(180deg,#ffd7e6,var(--rose));color:#3d0418;
+  padding:8px 18px;box-shadow:0 10px 30px rgba(0,0,0,.65),0 0 0 3px rgba(255,255,255,.45)}
+@keyframes sbin{to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.sb-t{font-size:10.5px;font-weight:500;opacity:.82;line-height:1.2}
+.sb-b{font-size:17px;font-weight:700;line-height:1.15}
+.sbadge.total .sb-b{font-size:24px}
+
+/* ================= HAND / HUD ================= */
+#handBar{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:9px;padding:2px 6px;min-height:54px}
+#handChip{display:flex;gap:3px;padding:4px;border-radius:12px;--chs:clamp(27px,8.5vw,40px);
+  background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.06));
+  border:1px solid var(--gold);
+  box-shadow:0 0 0 2px rgba(255,194,75,.28),0 8px 18px rgba(0,0,0,.55);
+  transition:transform .2s}
+#handChip .half{width:var(--chs);height:var(--chs)}
+#handChip .anchor::after{content:'';position:absolute;inset:3px;border-radius:5px;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.95)}
+#scoreHud{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:12px;padding:4px 0}
+#shName{font-size:13px;color:var(--muted)}
+#shVal{font-size:30px;font-weight:700;color:var(--gold);line-height:1;
+  text-shadow:0 3px 14px rgba(255,194,75,.5)}
+#statusMsg{flex:0 0 auto;font-size:12.5px;text-align:center;min-height:19px;padding:0 10px;color:var(--gold-l)}
+#statusMsg.warn{color:#ff8a9e}
+
+/* ================= PLAYERS ================= */
+#players{flex:0 0 auto;display:grid;gap:6px;padding:4px 8px 9px;grid-template-columns:repeat(var(--np,2),1fr)}
+.pcard{position:relative;padding:6px 5px;border-radius:14px;text-align:center;cursor:pointer;overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.03));
+  border:1px solid var(--line2);box-shadow:0 4px 12px rgba(0,0,0,.35);transition:.18s}
+.pcard .bar{position:absolute;left:0;top:0;width:100%;height:3px;background:currentColor;opacity:.9}
+.pcard .pn{font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.pcard .ps{font-size:18px;font-weight:700;color:var(--gold);line-height:1.1}
+.pcard .pt{font-size:9.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard.turn{border-color:var(--gold);background:linear-gradient(180deg,rgba(255,194,75,.2),rgba(255,194,75,.05));
+  box-shadow:0 0 0 2px rgba(255,194,75,.45),0 6px 16px rgba(0,0,0,.45)}
+.pcard.turn::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);
+  transform:translateX(-100%);animation:sweep 2.4s ease-in-out infinite}
+@keyframes sweep{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+.pcard.viewing{outline:2px dashed var(--mint);outline-offset:-4px}
+.pcard.off{opacity:.42}
+.pcard .botb{position:absolute;right:4px;top:5px;width:12px;height:12px;fill:var(--muted)}
+
+/* ================= RESULT ================= */
+.resrow{display:flex;align-items:center;gap:10px;padding:11px;border-radius:15px;margin-top:8px;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  border:1px solid var(--line2);animation:slidein .38s cubic-bezier(.2,1.1,.4,1) backwards}
+@keyframes slidein{from{transform:translateX(-24px);opacity:0}}
+.resrow.win{background:linear-gradient(100deg,rgba(255,194,75,.3),rgba(255,255,255,.04));border-color:var(--gold);
+  box-shadow:0 0 0 1px rgba(255,194,75,.35),0 8px 24px rgba(0,0,0,.4)}
+.resrow .rk{width:34px;flex:0 0 auto;text-align:center;font-size:19px;font-weight:700}
+.resrow .rk svg{width:26px;height:26px}
+.resrow .rn{flex:1;min-width:0;font-size:14.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.resrow .rn small{display:block;font-weight:400;font-size:11px;color:var(--muted);white-space:normal}
+.resrow .rs{flex:0 0 auto;font-size:25px;font-weight:700;color:var(--gold)}
+
+/* ================= MODAL / TOAST / ERROR ================= */
+.modal{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;padding:16px;
+  background:rgba(4,7,22,.78);backdrop-filter:blur(5px)}
+.modal.show{display:flex;animation:fadein .2s}
+@keyframes fadein{from{opacity:0}}
+.modal .panel{max-height:88dvh;overflow-y:auto;animation:popin .28s cubic-bezier(.2,1.2,.4,1)}
+@keyframes popin{from{transform:scale(.9) translateY(14px);opacity:0}}
+#toast{position:fixed;left:50%;top:13%;z-index:80;transform:translate(-50%,-16px);opacity:0;
+  max-width:88vw;padding:11px 18px;border-radius:15px;font-size:13.5px;font-weight:500;text-align:center;pointer-events:none;
+  background:linear-gradient(180deg,rgba(48,40,104,.97),rgba(20,25,64,.97));
+  border:1px solid var(--line);box-shadow:0 12px 32px rgba(0,0,0,.65);
+  transition:opacity .24s,transform .24s}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#errorPanel{position:fixed;left:0;right:0;bottom:0;z-index:99;display:none;padding:11px 13px;max-height:45dvh;overflow:auto;
+  background:linear-gradient(180deg,#9b1616,#5e0808);border-top:2px solid #ff9a9a;color:#fff;font-size:12px}
+#errorPanel.show{display:block}
+#errText{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,monospace;font-size:11px;line-height:1.55}
+#errClose{margin-top:8px;padding:6px 14px;border-radius:10px;border:1px solid #ffbcbc;background:rgba(0,0,0,.3);color:#fff;cursor:pointer}
+
+/* ================= LOBBY ================= */
+.lobbyrow{display:flex;align-items:center;gap:10px;padding:11px;border-radius:14px;margin-top:7px;font-size:13.5px;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid var(--line2)}
+.lobbyrow .dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 10px currentColor}
+.lobbyrow .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lobbyrow .tg{font-size:11px;color:var(--muted)}
+#roomBig{text-align:center;font-size:clamp(32px,11vw,50px);font-weight:700;letter-spacing:10px;padding:8px 0 4px;
+  background:linear-gradient(180deg,#fff6de,var(--gold) 55%,#b7801d);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 14px rgba(255,180,60,.4))}
+.legend{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:12px}
+.legend span{display:flex;align-items:center;gap:5px;font-size:11px;padding:4px 9px;border-radius:10px;
+  background:rgba(255,255,255,.06);border:1px solid var(--line2)}
+.legend i{width:17px;height:17px;border-radius:5px;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.35),inset 0 2px 4px rgba(255,255,255,.28)}
+.legend i svg{width:11px;height:11px;fill:currentColor}
+@media (min-width:768px){
+  #draft{gap:30px}
+  #players{max-width:800px;margin:0 auto;width:100%}
+  #gameTop{padding:9px 16px}
+}
+@media (max-height:640px){
+  #boardOwner{font-size:11px}
+  #handBar{min-height:46px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ICON SPRITE ============ -->
+<svg id="sprite" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i_wheat" viewBox="0 0 24 24">
+    <path d="M11.1 22V9.6h1.8V22z"/>
+    <path d="M12.9 9.4c0-3 1.9-5.2 4.6-5.7.3 3.2-1.6 5.6-4.6 5.7zM11.1 9.4C11.1 6.4 9.2 4.2 6.5 3.7c-.3 3.2 1.6 5.6 4.6 5.7zM12.9 14.4c0-3 1.9-5.2 4.6-5.7.3 3.2-1.6 5.6-4.6 5.7zM11.1 14.4c0-3-1.9-5.2-4.6-5.7-.3 3.2 1.6 5.6 4.6 5.7z"/>
+    <path d="M12 2.2c1.5 1.4 1.9 3.4 1 5.3-1.6-1-2.2-3-1-5.3z"/>
+  </symbol>
+  <symbol id="i_forest" viewBox="0 0 24 24">
+    <path d="M12 1.8 16.6 8h-2.4l3.5 4.7h-2.3l3.6 4.8H5L8.6 12.7H6.3L9.8 8H7.4z"/>
+    <path d="M10.7 16.6h2.6V22h-2.6z"/>
+  </symbol>
+  <symbol id="i_water" viewBox="0 0 24 24">
+    <path d="M2 7.6c1.7-1.9 3.4-1.9 5 0s3.3 1.9 5 0 3.3-1.9 5 0 3.3 1.9 5 0v2.6c-1.7 1.9-3.4 1.9-5 0s-3.3-1.9-5 0-3.3 1.9-5 0-3.3-1.9-5 0z"/>
+    <path d="M2 13.4c1.7-1.9 3.4-1.9 5 0s3.3 1.9 5 0 3.3-1.9 5 0 3.3 1.9 5 0V16c-1.7 1.9-3.4 1.9-5 0s-3.3-1.9-5 0-3.3 1.9-5 0-3.3-1.9-5 0z" opacity=".82"/>
+    <path d="M2 19.2c1.7-1.9 3.4-1.9 5 0s3.3 1.9 5 0 3.3-1.9 5 0 3.3 1.9 5 0v2.2c-1.7 1.9-3.4 1.9-5 0s-3.3-1.9-5 0-3.3 1.9-5 0-3.3-1.9-5 0z" opacity=".6"/>
+  </symbol>
+  <symbol id="i_grass" viewBox="0 0 24 24">
+    <path d="M3.4 21.4c-.2-5 1-8.4 3.6-10.4-.9 3.9-.6 7.3.9 10.4zM9.6 21.4c-.6-6.6 1.1-11 5.2-13.4-1.9 4.7-2.2 9.1-1 13.4zM16.6 21.4c.3-4.6 1.7-7.6 4.2-9-1.2 2.9-1.5 5.9-1 9z"/>
+    <circle cx="18.4" cy="5.1" r="1.9"/>
+    <circle cx="8.2" cy="4.4" r="1.4" opacity=".7"/>
+  </symbol>
+  <symbol id="i_swamp" viewBox="0 0 24 24">
+    <path d="M6.1 21.6V6.4h1.9v15.2zM5 2.6h4.1v5.5a2 2 0 0 1-4.1 0z"/>
+    <path d="M15.4 21.6v-11h1.7v11zM14.4 6.6h3.7v5a1.85 1.85 0 0 1-3.7 0z" opacity=".85"/>
+    <path d="M1.8 19.4c1.8-1.4 3.6-1.4 5.4 0s3.6 1.4 5.4 0 3.6-1.4 5.4 0 2.6 1 4 .2v2.1c-1.8 1.4-3.6 1.4-5.4 0s-3.6-1.4-5.4 0-3.6 1.4-5.4 0-2.6-1-4-.2z" opacity=".55"/>
+  </symbol>
+  <symbol id="i_mine" viewBox="0 0 24 24">
+    <path d="M12 2.4 20 8l-8 13.6L4 8z"/>
+    <path d="M12 2.4 20 8h-8zM12 2.4 4 8h8z" opacity=".3" fill="#fff"/>
+    <path d="M12 21.6 4 8h8z" opacity=".18" fill="#000"/>
+  </symbol>
+  <symbol id="i_castle" viewBox="0 0 24 24">
+    <path d="M1.6 21.8V7.2h2.7V4.1H7v3.1h3.3V4.6h3.4v2.6H17V4.1h2.7v3.1h2.7v14.6z"/>
+    <path d="M9.9 21.8v-5.3a2.1 2.1 0 0 1 4.2 0v5.3z" fill="rgba(0,0,0,.35)"/>
+    <path d="M12 0 13 3h-2z"/>
+  </symbol>
+  <symbol id="i_crown" viewBox="0 0 24 24">
+    <path d="M2.6 8.4 7 12.1l5-8 5 8 4.4-3.7L19.8 20H4.2z"/>
+    <path d="M4.2 20h15.6l-.4 2.2H4.6z" opacity=".55"/>
+  </symbol>
+  <symbol id="i_king" viewBox="0 0 24 24">
+    <path d="M12 1.6a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2z"/>
+    <path d="M4.6 12.2 12 9.4l7.4 2.8-1.2 4.2H5.8z"/>
+    <path d="M5.2 17.6h13.6c.5 2.6-2.5 4.8-6.8 4.8s-7.3-2.2-6.8-4.8z"/>
+  </symbol>
+  <symbol id="i_shield" viewBox="0 0 24 24">
+    <path d="M12 1.4 21.4 5v7.4c0 5-4 8.7-9.4 10.2C6.6 21.1 2.6 17.4 2.6 12.4V5z"/>
+  </symbol>
+  <symbol id="i_music" viewBox="0 0 24 24">
+    <path d="M9.4 18.2a3 3 0 1 1-2-2.8V5.2l11-2.6v11.3a3 3 0 1 1-2-2.8V6.9l-7 1.7z"/>
+  </symbol>
+  <symbol id="i_mute" viewBox="0 0 24 24">
+    <path d="M9.4 18.2a3 3 0 1 1-2-2.8V5.2l11-2.6v11.3a3 3 0 1 1-2-2.8V6.9l-7 1.7z" opacity=".45"/>
+    <path d="M3 3.7 20.3 21 21.7 19.6 4.4 2.3z"/>
+  </symbol>
+  <symbol id="i_sound" viewBox="0 0 24 24">
+    <path d="M3.6 9h3.6L12 4.6v14.8L7.2 15H3.6z"/>
+    <path d="M15.2 8.4a5 5 0 0 1 0 7.2l1.5 1.5a7.1 7.1 0 0 0 0-10.2zM17.9 5.2a9 9 0 0 1 0 13.6l1.5 1.5a11.1 11.1 0 0 0 0-16.6z"/>
+  </symbol>
+  <symbol id="i_soundoff" viewBox="0 0 24 24">
+    <path d="M3.6 9h3.6L12 4.6v14.8L7.2 15H3.6z"/>
+    <path d="M15.3 8.9 16.7 7.5 19.2 10l2.5-2.5 1.4 1.4L20.6 11.4l2.5 2.5-1.4 1.4-2.5-2.5-2.5 2.5-1.4-1.4 2.5-2.5z"/>
+  </symbol>
+  <symbol id="i_menu" viewBox="0 0 24 24">
+    <path d="M3.4 5.4h17.2v2.4H3.4zM3.4 10.8h17.2v2.4H3.4zM3.4 16.2h17.2v2.4H3.4z"/>
+  </symbol>
+  <symbol id="i_rotate" viewBox="0 0 24 24">
+    <path d="M12 4.6V1.4L7.4 5.4 12 9.4V6.4a5.8 5.8 0 1 1-5.8 5.8H4.4A7.6 7.6 0 1 0 12 4.6z"/>
+  </symbol>
+  <symbol id="i_check" viewBox="0 0 24 24"><path d="M9.6 17.6 4 12l1.7-1.7 3.9 3.9L18.3 5.5 20 7.2z"/></symbol>
+  <symbol id="i_trash" viewBox="0 0 24 24">
+    <path d="M6.4 8h11.2l-.9 13H7.3zM9 3.4h6v2h4.6v2H4.4v-2H9z"/>
+  </symbol>
+  <symbol id="i_play" viewBox="0 0 24 24"><path d="M6.6 3.6 19.4 12 6.6 20.4z"/></symbol>
+  <symbol id="i_globe" viewBox="0 0 24 24">
+    <path d="M12 1.8A10.2 10.2 0 1 0 22.2 12 10.2 10.2 0 0 0 12 1.8zm0 2.1c1.3 0 2.7 2 3.3 5.1H8.7C9.3 5.9 10.7 3.9 12 3.9zM4.1 12c0-.7.1-1.4.3-2h3.9a20 20 0 0 0 0 4H4.4a7.9 7.9 0 0 1-.3-2zm4.6 4.1h6.6c-.6 3-2 5-3.3 5s-2.7-2-3.3-5zm7-2.1H8.3a17.6 17.6 0 0 1 0-4h7.4a17.6 17.6 0 0 1 0 4zm1.9 2.1h3.1a8.1 8.1 0 0 1-5 4 13.5 13.5 0 0 0 1.9-4zm.2-2.1a20 20 0 0 0 0-4h3.9a8 8 0 0 1 0 4zM19.8 8h-3.1a13.5 13.5 0 0 0-1.9-4 8.1 8.1 0 0 1 5 4zM9.2 4a13.5 13.5 0 0 0-1.9 4H4.2a8.1 8.1 0 0 1 5-4zM4.2 16.1h3.1a13.5 13.5 0 0 0 1.9 4 8.1 8.1 0 0 1-5-4z"/>
+  </symbol>
+  <symbol id="i_book" viewBox="0 0 24 24">
+    <path d="M3.4 3.6h6.2A3 3 0 0 1 12 5v15a3.6 3.6 0 0 0-2.4-.9H3.4zM20.6 3.6h-6.2A3 3 0 0 0 12 5v15a3.6 3.6 0 0 1 2.4-.9h6.2z"/>
+  </symbol>
+  <symbol id="i_bot" viewBox="0 0 24 24">
+    <path d="M11 1.6h2v2.6h-2zM5.4 6h13.2a2 2 0 0 1 2 2v9.4a2 2 0 0 1-2 2H5.4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm2.4 3.6a1.9 1.9 0 1 0 1.9 1.9 1.9 1.9 0 0 0-1.9-1.9zm8.4 0a1.9 1.9 0 1 0 1.9 1.9 1.9 1.9 0 0 0-1.9-1.9zM8 15.2h8v1.8H8z"/>
+  </symbol>
+  <symbol id="i_medal1" viewBox="0 0 24 24"><path d="M12 1.6 14.9 7.5 21.4 8.5 16.7 13.1 17.8 19.6 12 16.5 6.2 19.6 7.3 13.1 2.6 8.5 9.1 7.5z"/></symbol>
+  <symbol id="i_copy" viewBox="0 0 24 24"><path d="M8 2.6h11.4v14H8zM4.6 6h2v13h10v2H4.6z"/></symbol>
+  <symbol id="i_share" viewBox="0 0 24 24"><path d="M17.6 15.4a3.3 3.3 0 0 0-2.2.9l-5.4-3.2a3.3 3.3 0 0 0 0-2.2l5.4-3.2a3.4 3.4 0 1 0-1.1-2.5 3.6 3.6 0 0 0 .1.8L9 9.2a3.4 3.4 0 1 0 0 5.6l5.4 3.2a3.6 3.6 0 0 0-.1.8 3.4 3.4 0 1 0 3.3-3.4z"/></symbol>
+  <symbol id="i_home" viewBox="0 0 24 24"><path d="M12 2.4 22 11.4h-3v9.8h-5.4v-6H10.4v6H5V11.4H2z"/></symbol>
+  <symbol id="i_refresh" viewBox="0 0 24 24"><path d="M12 4.4A7.6 7.6 0 0 0 4.4 12H1.8l3.6 4.2L9 12H6.4a5.6 5.6 0 1 1 1.7 4l-1.5 1.5A7.6 7.6 0 1 0 12 4.4z"/></symbol>
+  <symbol id="i_eye" viewBox="0 0 24 24"><path d="M12 4.6C6.8 4.6 2.6 8.4 1.2 12c1.4 3.6 5.6 7.4 10.8 7.4S21.4 15.6 22.8 12C21.4 8.4 17.2 4.6 12 4.6zm0 12a4.6 4.6 0 1 1 4.6-4.6 4.6 4.6 0 0 1-4.6 4.6zm0-7a2.4 2.4 0 1 0 2.4 2.4A2.4 2.4 0 0 0 12 9.6z"/></symbol>
+  <symbol id="i_skip" viewBox="0 0 24 24"><path d="M4 4.6 14 12 4 19.4zM16 4.6h4v14.8h-4z"/></symbol>
+  <symbol id="i_plus" viewBox="0 0 24 24"><path d="M10.8 3.6h2.4v7.2h7.2v2.4h-7.2v7.2h-2.4v-7.2H3.6v-2.4h7.2z"/></symbol>
+  <symbol id="i_minus" viewBox="0 0 24 24"><path d="M3.6 10.8h16.8v2.4H3.6z"/></symbol>
+  <symbol id="i_back" viewBox="0 0 24 24"><path d="M11 3.6 12.7 5.3 7.2 10.8H21v2.4H7.2l5.5 5.5L11 20.4 2.6 12z"/></symbol>
+</defs></svg>
+
+<!-- ============ BACKGROUND ============ -->
+<div id="scene" aria-hidden="true">
+<svg id="sceneSvg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#04061a"/>
+      <stop offset="34%" stop-color="#0d1338"/>
+      <stop offset="62%" stop-color="#1d2059"/>
+      <stop offset="86%" stop-color="#3a2a70"/>
+      <stop offset="100%" stop-color="#523471"/>
+    </linearGradient>
+    <linearGradient id="gAur1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2fe3be" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#2fe3be" stop-opacity=".75"/>
+      <stop offset="70%" stop-color="#7c5cff" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#ff5d8f" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gAur2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4cc9ff" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#4cc9ff" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#2fe3be" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="gMoon" cx="35%" cy="32%">
+      <stop offset="0%" stop-color="#fffdf0"/>
+      <stop offset="60%" stop-color="#ffe9ae"/>
+      <stop offset="100%" stop-color="#e0b761"/>
+    </radialGradient>
+    <radialGradient id="gMoonGlow" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#ffe9ae" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#ffe9ae" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gFar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b2e73"/><stop offset="100%" stop-color="#241b52"/>
+    </linearGradient>
+    <linearGradient id="gMid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2060"/><stop offset="100%" stop-color="#181143"/>
+    </linearGradient>
+    <linearGradient id="gLake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4b5fd0" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#1b1b4f" stop-opacity=".95"/>
+    </linearGradient>
+    <linearGradient id="gNear" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#150e33"/><stop offset="100%" stop-color="#0a0722"/>
+    </linearGradient>
+    <filter id="blurBig"><feGaussianBlur stdDeviation="26"/></filter>
+    <filter id="blurSm"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#gSky)"/>
+
+  <!-- aurora -->
+  <g filter="url(#blurBig)" opacity=".55">
+    <path class="aur" d="M-100 190 C 260 60, 470 280, 760 160 S 1260 40, 1540 180 L1540 300 C1240 190 940 360 660 270 S 200 320 -100 330 Z" fill="url(#gAur1)"/>
+    <path class="aur aur2" d="M-100 300 C 300 200, 520 360, 820 260 S 1300 170, 1540 290 L1540 370 C1260 290 960 430 680 350 S 180 400 -100 410 Z" fill="url(#gAur2)"/>
+  </g>
+
+  <!-- stars -->
+  <g fill="#ffffff">
+    <circle class="twk"  cx="120" cy="90"  r="2.1"/><circle class="twk2" cx="300" cy="60"  r="1.6"/>
+    <circle class="twk3" cx="470" cy="130" r="2.3"/><circle class="twk"  cx="640" cy="70"  r="1.5"/>
+    <circle class="twk2" cx="820" cy="120" r="2"/>  <circle class="twk3" cx="980" cy="55"  r="1.7"/>
+    <circle class="twk"  cx="1130" cy="110" r="2.2"/><circle class="twk2" cx="1290" cy="70" r="1.6"/>
+    <circle class="twk3" cx="1390" cy="160" r="1.9"/><circle class="twk"  cx="210" cy="200" r="1.4"/>
+    <circle class="twk2" cx="560" cy="230" r="1.5"/> <circle class="twk3" cx="900" cy="210" r="1.3"/>
+    <circle class="twk"  cx="1230" cy="240" r="1.6"/><circle class="twk2" cx="60"  cy="300" r="1.4"/>
+    <circle class="twk3" cx="740" cy="30"  r="1.8"/> <circle class="twk"  cx="1050" cy="180" r="1.4"/>
+  </g>
+  <g fill="#ffe9ae" opacity=".9">
+    <path class="twk2" d="M390 40 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3z"/>
+    <path class="twk3" d="M1180 45 l2.4 7 7 2.4 -7 2.4 -2.4 7 -2.4 -7 -7 -2.4 7 -2.4z"/>
+  </g>
+
+  <!-- moon -->
+  <g>
+    <circle cx="1185" cy="150" r="170" fill="url(#gMoonGlow)"/>
+    <circle cx="1185" cy="150" r="62" fill="url(#gMoon)"/>
+    <g fill="#d9b25c" opacity=".55">
+      <circle cx="1163" cy="132" r="11"/><circle cx="1203" cy="163" r="8"/><circle cx="1176" cy="178" r="6"/>
+    </g>
+  </g>
+
+  <!-- far mountains -->
+  <path fill="url(#gFar)" d="M-20 520 L130 380 L230 450 L360 300 L470 420 L560 350 L690 470 L820 330 L940 440 L1060 360 L1190 480 L1310 390 L1460 500 L1460 900 L-20 900Z"/>
+  <g fill="#e8e6ff" opacity=".82">
+    <path d="M360 300 L404 348 L380 340 L356 356 L336 342 L318 352z"/>
+    <path d="M820 330 L862 376 L840 368 L818 382 L798 368 L782 378z"/>
+    <path d="M130 380 L166 420 L148 414 L128 426 L112 414 L98 422z"/>
+  </g>
+
+  <!-- mid ridge + pine forest -->
+  <path fill="url(#gMid)" d="M-20 600 L140 540 L300 606 L470 530 L640 610 L810 545 L980 612 L1150 548 L1320 610 L1460 560 L1460 900 L-20 900Z"/>
+  <g fill="#120c33">
+    <path d="M90 600 l16 -46 16 46z"/><path d="M84 616 l22 -54 22 54z"/>
+    <path d="M200 622 l15 -42 15 42z"/><path d="M250 612 l18 -48 18 48z"/>
+    <path d="M400 596 l16 -44 16 44z"/><path d="M440 606 l14 -40 14 40z"/>
+    <path d="M700 616 l17 -46 17 46z"/><path d="M745 606 l15 -42 15 42z"/>
+    <path d="M1010 620 l16 -44 16 44z"/><path d="M1052 610 l14 -40 14 40z"/>
+    <path d="M1240 616 l18 -48 18 48z"/><path d="M1285 606 l15 -42 15 42z"/>
+  </g>
+
+  <!-- CASTLE on the hill -->
+  <g transform="translate(560,372) scale(1.05)">
+    <path fill="#1a123f" d="M-10 200 C 40 150, 120 148, 180 200 Z"/>
+    <g fill="#2b2160" stroke="#3d2f80" stroke-width="2">
+      <rect x="18" y="86" width="26" height="114"/>
+      <rect x="126" y="76" width="30" height="124"/>
+      <rect x="56" y="112" width="62" height="88"/>
+      <rect x="44" y="56" width="20" height="144"/>
+    </g>
+    <g fill="#3d2f80">
+      <polygon points="18,86 31,50 44,86"/>
+      <polygon points="126,76 141,34 156,76"/>
+      <polygon points="44,56 54,26 64,56"/>
+      <polygon points="56,112 87,84 118,112"/>
+    </g>
+    <g fill="#ffc24b">
+      <rect class="win-l"  x="26" y="108" width="9" height="13" rx="4"/>
+      <rect class="win-l2" x="134" y="100" width="10" height="14" rx="5"/>
+      <rect class="win-l3" x="70" y="132" width="10" height="14" rx="5"/>
+      <rect class="win-l"  x="94" y="132" width="10" height="14" rx="5"/>
+      <rect class="win-l2" x="48" y="82" width="8" height="12" rx="4"/>
+      <rect class="win-l3" x="82" y="162" width="14" height="22" rx="7"/>
+    </g>
+    <g stroke="#ff5d8f" stroke-width="2" fill="#ff5d8f">
+      <path d="M31 50 v-16"/><polygon points="31,34 54,40 31,46"/>
+      <path d="M141 34 v-18"/><polygon points="141,16 166,22 141,28"/>
+    </g>
+  </g>
+
+  <!-- lake -->
+  <path fill="url(#gLake)" d="M-20 740 C 220 700, 420 736, 660 716 C 900 696, 1180 740, 1460 712 L1460 900 L-20 900Z"/>
+  <g stroke="#9fb4ff" stroke-width="3" stroke-linecap="round" opacity=".38" fill="none">
+    <path d="M180 770 h90"/><path d="M320 796 h130"/><path d="M120 818 h70"/>
+    <path d="M620 762 h110"/><path d="M780 790 h90"/><path d="M980 770 h130"/>
+    <path d="M1160 806 h80"/><path d="M420 836 h100"/>
+  </g>
+  <g opacity=".5" stroke="#ffe9ae" stroke-width="4" stroke-linecap="round">
+    <path d="M1185 730 h40"/><path d="M1175 752 h62"/><path d="M1190 776 h34"/>
+  </g>
+  <!-- little boat -->
+  <g class="boat" transform="translate(300,742)">
+    <path d="M-26 8 h52 l-9 13 h-34z" fill="#3a2a70"/>
+    <path d="M0 8 V-22" stroke="#3a2a70" stroke-width="3"/>
+    <path d="M2 -22 L22 2 H2z" fill="#ffc24b" opacity=".9"/>
+  </g>
+
+  <!-- fireflies -->
+  <g fill="#ffe9ae">
+    <circle class="ff"  cx="180" cy="700" r="3.4" filter="url(#blurSm)"/>
+    <circle class="ff2" cx="420" cy="740" r="2.8" filter="url(#blurSm)"/>
+    <circle class="ff3" cx="1020" cy="720" r="3.2" filter="url(#blurSm)"/>
+    <circle class="ff4" cx="1280" cy="760" r="2.6" filter="url(#blurSm)"/>
+    <circle class="ff2" cx="760" cy="780" r="3" filter="url(#blurSm)"/>
+  </g>
+
+  <!-- DRAGON -->
+  <g id="dragon" opacity=".92">
+    <g transform="translate(0,220) scale(1.1)">
+      <path class="wing" d="M16 -4 C -6 -40, -46 -36, -62 -12 C -38 -14, -22 -6, -6 8 Z" fill="#7c5cff" opacity=".92"/>
+      <path class="wing wing2" d="M22 -2 C 48 -40, 88 -34, 104 -8 C 78 -12, 58 -4, 40 10 Z" fill="#9b7cff" opacity=".85"/>
+      <path d="M-24 10 C -6 -6, 30 -8, 52 6 C 66 16, 60 30, 44 30 C 28 30, 6 26, -10 22 Z" fill="#5d3fd6"/>
+      <path d="M-24 10 C -42 12, -58 24, -70 40 C -52 36, -38 32, -22 22 Z" fill="#4c33b8"/>
+      <path d="M52 6 C 66 -4, 82 -2, 88 8 C 92 16, 84 22, 72 20 C 64 19, 56 14, 52 6 Z" fill="#6a4ae0"/>
+      <circle cx="76" cy="8" r="3.4" fill="#ffe9ae"/>
+      <path d="M62 -4 L70 -16 L74 -3 Z" fill="#ff5d8f"/>
+      <path d="M8 28 C 16 40, 30 46, 44 44 C 34 38, 24 34, 16 28 Z" fill="#4c33b8" opacity=".8"/>
+    </g>
+  </g>
+</svg>
+<div id="vig"></div>
+</div>
+
+<div id="app">
+
+  <!-- ================= MENU ================= -->
+  <section class="screen active" id="screen-menu">
+    <div class="scroller">
+      <svg class="crest" viewBox="0 0 120 130">
+        <defs>
+          <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffe9a8"/><stop offset="55%" stop-color="#ffc24b"/><stop offset="100%" stop-color="#a9741a"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 4 108 22v46c0 30-22 50-48 58C34 118 12 98 12 68V22z" fill="url(#cg)"/>
+        <path d="M60 12 100 27v41c0 25-18 42-40 49-22-7-40-24-40-49V27z" fill="#241b52"/>
+        <g fill="#ffc24b">
+          <path d="M28 58 38 68 60 34l22 34 10-10-8 40H36z"/>
+          <rect x="34" y="100" width="52" height="7" rx="3"/>
+        </g>
+        <g fill="#2fe3be"><circle cx="46" cy="52" r="3.4"/><circle cx="74" cy="52" r="3.4"/><circle cx="60" cy="46" r="3.8"/></g>
+      </svg>
+      <div class="brand">
+        <h1 class="logo">คิงโดมิโน</h1>
+        <div class="tagline">อาณาจักรเวทมนตร์ · KINGDOMINO</div>
+      </div>
+      <div class="panel">
+        <button class="btn" id="btnGoSolo"><svg class="bic"><use href="#i_shield"></use></svg>เล่นคนเดียว (สู้กับบอท)</button>
+        <button class="btn mint" id="btnGoOnline"><svg class="bic"><use href="#i_globe"></use></svg>เล่นออนไลน์กับเพื่อน</button>
+        <button class="btn sec" id="btnGoRules"><svg class="bic"><use href="#i_book"></use></svg>วิธีเล่น</button>
+        <div class="legend" id="legendBox"></div>
+      </div>
+      <div class="note" style="text-align:center;max-width:520px">
+        อิงกฎต้นฉบับของ Kingdomino (Blue Orange Games) · รองรับ 2–4 ผู้เล่น
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SETUP ================= -->
+  <section class="screen" id="screen-setup">
+    <div class="scroller">
+      <h2><svg style="width:20px;height:20px;fill:var(--gold);vertical-align:-3px"><use href="#i_shield"></use></svg> ตั้งค่าเกมคนเดียว</h2>
+      <div class="panel">
+        <label class="fld">ชื่อของคุณ</label>
+        <input class="txt" id="soloName" maxlength="12" value="ราชา" placeholder="ชื่อผู้เล่น">
+        <label class="fld">จำนวนผู้เล่นทั้งหมด</label>
+        <div class="seg" id="segCount"><button data-v="2">2 คน</button><button data-v="3">3 คน</button><button data-v="4" class="on">4 คน</button></div>
+        <label class="fld">ระดับความยากของบอท</label>
+        <div class="seg" id="segDiff"><button data-v="easy">ง่าย</button><button data-v="normal" class="on">ปกติ</button><button data-v="hard">ยาก</button></div>
+        <label class="fld">กฎเสริม (ทางการ)</label>
+        <label class="chk"><input type="checkbox" id="optHarmony"><span>ความกลมกลืน +5 (อาณาจักรเต็ม 5×5 ไม่มีการทิ้ง)</span></label>
+        <label class="chk"><input type="checkbox" id="optMiddle"><span>อาณาจักรกลาง +10 (ปราสาทอยู่กึ่งกลางพอดี)</span></label>
+        <div class="note" style="margin-top:10px">2 คน = โดมิโน 24 ใบ ราชาคนละ 2 องค์ · 3 คน = 36 ใบ · 4 คน = 48 ใบ</div>
+        <div class="row" style="margin-top:14px">
+          <button class="btn sec" id="btnSetupBack"><svg class="bic"><use href="#i_back"></use></svg>กลับ</button>
+          <button class="btn" id="btnStartSolo"><svg class="bic"><use href="#i_play"></use></svg>เริ่มเกม</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ONLINE ================= -->
+  <section class="screen" id="screen-online">
+    <div class="scroller">
+      <h2><svg style="width:20px;height:20px;fill:var(--mint);vertical-align:-3px"><use href="#i_globe"></use></svg> เล่นออนไลน์ (P2P)</h2>
+      <div class="panel">
+        <label class="fld">ชื่อผู้เล่นของคุณ</label>
+        <input class="txt" id="onName" maxlength="12" placeholder="ใส่ชื่อ">
+        <div class="divider"></div>
+        <div class="hsec"><svg><use href="#i_castle"></use></svg>สร้างห้องใหม่ (คุณเป็นโฮสต์)</div>
+        <label class="fld">จำนวนที่นั่งสูงสุด</label>
+        <div class="seg" id="segMax"><button data-v="2">2</button><button data-v="3">3</button><button data-v="4" class="on">4</button></div>
+        <label class="fld">ระดับบอท (ถ้าเพิ่มบอท)</label>
+        <div class="seg" id="segDiff2"><button data-v="easy">ง่าย</button><button data-v="normal" class="on">ปกติ</button><button data-v="hard">ยาก</button></div>
+        <label class="chk"><input type="checkbox" id="optHarmony2"><span>กฎเสริม: ความกลมกลืน +5</span></label>
+        <label class="chk"><input type="checkbox" id="optMiddle2"><span>กฎเสริม: อาณาจักรกลาง +10</span></label>
+        <button class="btn" id="btnCreateRoom"><svg class="bic"><use href="#i_plus"></use></svg>สร้างห้อง</button>
+        <div class="divider"></div>
+        <div class="hsec"><svg><use href="#i_king"></use></svg>เข้าร่วมห้อง</div>
+        <label class="fld">รหัสห้อง 5 ตัวอักษร</label>
+        <input class="txt" id="onCode" maxlength="5" placeholder="ABC12" style="text-transform:uppercase;font-size:23px;letter-spacing:7px">
+        <button class="btn mint" id="btnJoinRoom"><svg class="bic"><use href="#i_play"></use></svg>เข้าร่วม / กลับเข้าเกม</button>
+        <div class="note" style="margin-top:10px">กลับเข้าเกมเดิม: ใช้ “ชื่อเดิม + รหัสห้องเดิม” ระบบจะคืนที่นั่งและอาณาจักรให้อัตโนมัติ</div>
+        <div id="netStatus" class="note" style="margin-top:8px;text-align:center"></div>
+        <div class="row" style="margin-top:12px"><button class="btn sec" id="btnOnlineBack"><svg class="bic"><use href="#i_back"></use></svg>กลับเมนู</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LOBBY ================= -->
+  <section class="screen" id="screen-lobby">
+    <div class="scroller">
+      <h2>ห้องรอผู้เล่น</h2>
+      <div class="panel">
+        <div class="note" style="text-align:center">รหัสห้อง — บอกเพื่อนให้ใส่รหัสนี้</div>
+        <div id="roomBig">-----</div>
+        <div class="row">
+          <button class="btn sec sm" id="btnCopyCode" style="flex:1"><svg class="bic"><use href="#i_copy"></use></svg>คัดลอกรหัส</button>
+          <button class="btn sec sm" id="btnShareLink" style="flex:1"><svg class="bic"><use href="#i_share"></use></svg>แชร์ลิงก์</button>
+        </div>
+        <div class="divider"></div>
+        <div class="hsec"><svg><use href="#i_king"></use></svg>ผู้เล่นในห้อง (<span id="lobbyCount">0</span>)</div>
+        <div id="lobbyList"></div>
+        <div class="row" id="hostControls" style="margin-top:12px">
+          <button class="btn sec sm" id="btnAddBot" style="flex:1"><svg class="bic"><use href="#i_bot"></use></svg>เพิ่มบอท</button>
+          <button class="btn sec sm" id="btnRemoveBot" style="flex:1"><svg class="bic"><use href="#i_minus"></use></svg>เอาบอทออก</button>
+        </div>
+        <button class="btn" id="btnStartOnline"><svg class="bic"><use href="#i_play"></use></svg>เริ่มเกม</button>
+        <div id="lobbyMsg" class="note" style="text-align:center;margin-top:10px">กำลังรอโฮสต์เริ่มเกม…</div>
+        <div class="row" style="margin-top:10px"><button class="btn sec sm" id="btnLobbyLeave" style="flex:1"><svg class="bic"><use href="#i_back"></use></svg>ออกจากห้อง</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GAME ================= -->
+  <section class="screen" id="screen-game">
+    <header id="gameTop">
+      <button class="icobtn" id="btnMenu" title="เมนู"><svg><use href="#i_menu"></use></svg></button>
+      <div id="hdInfo">
+        <div id="hdRound">รอบ 1/12</div>
+        <div id="hdLeft">โดมิโนในกอง 48 ใบ</div>
+        <div id="hdBar"><div id="hdBarIn"></div></div>
+      </div>
+      <div id="hdRoom" class="hide"><span>ห้อง</span><b id="hdRoomCode">-----</b></div>
+      <button class="icobtn" id="btnMusic" title="เพลง"><svg id="icoMusic"><use href="#i_music"></use></svg></button>
+      <button class="icobtn" id="btnSfx" title="เสียงเอฟเฟกต์"><svg id="icoSfx"><use href="#i_sound"></use></svg></button>
+    </header>
+
+    <section id="draft">
+      <div class="dwrap">
+        <h4 id="lblCur">โดมิโนรอบนี้</h4>
+        <div class="dcol" id="colCur">
+          <div class="chip" id="cc0"></div><div class="chip" id="cc1"></div>
+          <div class="chip" id="cc2"></div><div class="chip" id="cc3"></div>
+          <div class="emptyhint" id="curHint">— เริ่มเกม —</div>
+        </div>
+      </div>
+      <div class="dwrap">
+        <h4 id="lblNxt">เลือกสำหรับรอบหน้า</h4>
+        <div class="dcol" id="colNxt">
+          <div class="chip" id="cn0"></div><div class="chip" id="cn1"></div>
+          <div class="chip" id="cn2"></div><div class="chip" id="cn3"></div>
+          <div class="emptyhint" id="nxtHint">— กองหมด —</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="boardArea">
+      <div id="boardOwner"><svg><use href="#i_crown"></use></svg><span id="ownerTxt">อาณาจักรของคุณ</span></div>
+      <div id="boardWrap"><div id="board"><div id="fxLayer"></div></div></div>
+
+      <div id="handBar">
+        <div id="handChip" class="hide"></div>
+        <button class="btn sm sec" id="btnRotate"><svg class="bic"><use href="#i_rotate"></use></svg>หมุน</button>
+        <button class="btn sm mint" id="btnConfirm" disabled><svg class="bic"><use href="#i_check"></use></svg>ยืนยัน</button>
+        <button class="btn sm sec" id="btnDiscard" disabled><svg class="bic"><use href="#i_trash"></use></svg>ทิ้ง</button>
+      </div>
+      <div id="scoreHud" class="hide">
+        <div id="shName">—</div><div id="shVal">0</div>
+        <button class="btn sm sec" id="btnSkipScore"><svg class="bic"><use href="#i_skip"></use></svg>ข้าม</button>
+      </div>
+      <div id="statusMsg">กำลังเริ่มเกม…</div>
+    </section>
+
+    <section id="players">
+      <div class="pcard" id="pc0"><span class="bar"></span><div class="pn">-</div><div class="ps">0</div><div class="pt">-</div></div>
+      <div class="pcard" id="pc1"><span class="bar"></span><div class="pn">-</div><div class="ps">0</div><div class="pt">-</div></div>
+      <div class="pcard" id="pc2"><span class="bar"></span><div class="pn">-</div><div class="ps">0</div><div class="pt">-</div></div>
+      <div class="pcard" id="pc3"><span class="bar"></span><div class="pn">-</div><div class="ps">0</div><div class="pt">-</div></div>
+    </section>
+  </section>
+
+  <!-- ================= RESULT ================= -->
+  <section class="screen" id="screen-result">
+    <div class="scroller">
+      <svg class="crest" viewBox="0 0 120 120" style="width:min(96px,26vw)">
+        <path d="M18 34 38 54 60 16 82 54 102 34 92 96H28z" fill="#ffc24b"/>
+        <rect x="26" y="100" width="68" height="10" rx="5" fill="#a9741a"/>
+        <circle cx="18" cy="30" r="6" fill="#2fe3be"/><circle cx="102" cy="30" r="6" fill="#ff5d8f"/><circle cx="60" cy="12" r="6" fill="#4cc9ff"/>
+      </svg>
+      <h2 id="resTitle" style="text-align:center">ผลคะแนนสุดท้าย</h2>
+      <div class="panel">
+        <div id="resList"></div>
+        <div class="row" style="margin-top:16px">
+          <button class="btn" id="btnAgain"><svg class="bic"><use href="#i_refresh"></use></svg>เล่นอีกครั้ง</button>
+          <button class="btn sec" id="btnHome"><svg class="bic"><use href="#i_home"></use></svg>เมนูหลัก</button>
+        </div>
+        <div id="resNote" class="note" style="text-align:center;margin-top:10px"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= MODALS ================= -->
+<div class="modal" id="modalRules">
+  <div class="panel">
+    <h2><svg style="width:20px;height:20px;fill:var(--gold);vertical-align:-3px"><use href="#i_book"></use></svg> วิธีเล่นคิงโดมิโน</h2>
+    <div class="note" style="font-size:13px">
+      <p><b>เป้าหมาย:</b> สร้างอาณาจักร <b>5×5 ช่อง</b> (รวมปราสาท) ให้ได้คะแนนสูงสุด</p>
+      <p><b>1) เปิดโดมิโน:</b> แต่ละรอบเปิดโดมิโนตามจำนวนราชา เรียงจากเลขน้อยไปมาก</p>
+      <p><b>2) จอง:</b> วางราชาบนโดมิโนที่ต้องการ (ราชา 1 องค์ต่อ 1 ใบ)</p>
+      <p><b>3) ลำดับเล่น:</b> รอบถัดไป ผู้ที่จองโดมิโน <b>เลขน้อยที่สุด</b> ได้เล่นก่อน</p>
+      <p><b>4) วาง:</b> ในเทิร์นของคุณ วางโดมิโนที่จองไว้ก่อน แล้วจึงจองใบใหม่</p>
+      <p><b>กติกาการวาง:</b> ช่องใดช่องหนึ่งของโดมิโนต้องติด <b>ปราสาท</b> (เข้าได้ทุกภูมิประเทศ) หรือติด <b>ภูมิประเทศชนิดเดียวกัน</b> และอาณาจักรต้องไม่เกินกรอบ 5×5</p>
+      <p><b>วางไม่ได้:</b> ถ้าไม่มีช่องถูกกฎเลย ต้อง <b>ทิ้ง</b> ใบนั้น</p>
+      <p><b>คะแนน:</b> แต่ละอาณาเขตที่เชื่อมติดกัน = <b>จำนวนช่อง × จำนวนมงกุฎ</b> (ไม่มีมงกุฎ = 0)</p>
+      <p><b>เสมอ:</b> ตัดสินด้วยอาณาเขตเดียวที่ใหญ่ที่สุด ถ้ายังเสมอดูจำนวนมงกุฎรวม</p>
+      <p><b>กฎเสริมทางการ:</b> ความกลมกลืน +5 · อาณาจักรกลาง +10</p>
+    </div>
+    <button class="btn" id="btnRulesClose"><svg class="bic"><use href="#i_check"></use></svg>เข้าใจแล้ว</button>
+  </div>
+</div>
+
+<div class="modal" id="modalMenu">
+  <div class="panel" style="max-width:390px">
+    <h2>เมนูเกม</h2>
+    <button class="btn sec" id="btnMenuRules"><svg class="bic"><use href="#i_book"></use></svg>วิธีเล่น</button>
+    <button class="btn sec" id="btnMenuRestart"><svg class="bic"><use href="#i_refresh"></use></svg>เริ่มเกมใหม่</button>
+    <button class="btn sec" id="btnMenuQuit"><svg class="bic"><use href="#i_home"></use></svg>ออกไปเมนูหลัก</button>
+    <button class="btn" id="btnMenuClose"><svg class="bic"><use href="#i_check"></use></svg>ปิด</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div id="errorPanel">
+  <b>พบข้อผิดพลาดในระบบ (เกมอาจยังเล่นต่อได้)</b>
+  <div id="errText"></div>
+  <button id="errClose">ซ่อนข้อความนี้</button>
+</div>
+
+<script>
+/* =======================================================================
+   KINGDOMINO — อาณาจักรเวทมนตร์  v3
+   ======================================================================= */
+(function(){
+'use strict';
+
+/* ---------- error guard ---------- */
+function showError(where, err){
+  try{
+    var p=document.getElementById('errorPanel'), t=document.getElementById('errText');
+    if(!p||!t) return;
+    var msg=(err&&err.stack)?err.stack:String(err);
+    t.textContent=('['+where+'] '+msg+'\n\n'+(t.textContent||'')).slice(0,2600);
+    p.classList.add('show');
+  }catch(e){}
+}
+window.addEventListener('error',function(e){ showError('สคริปต์', e.message+' (บรรทัด '+e.lineno+')'); });
+window.addEventListener('unhandledrejection',function(e){ showError('Promise', e.reason); });
+function guard(n,f){ return function(){ try{ return f.apply(this,arguments); }catch(e){ showError(n,e); } }; }
+function $(id){ return document.getElementById(id); }
+function on(id,ev,fn,nm){ var el=$(id); if(el) el.addEventListener(ev, guard(nm||id,fn)); }
+var SVGNS='http://www.w3.org/2000/svg', XLNS='http://www.w3.org/1999/xlink';
+function icon(id,cls){
+  var s=document.createElementNS(SVGNS,'svg');
+  if(cls) s.setAttribute('class',cls);
+  var u=document.createElementNS(SVGNS,'use');
+  u.setAttribute('href','#'+id); u.setAttributeNS(XLNS,'href','#'+id);
+  s.appendChild(u); return s;
+}
+function setIcon(sv,id){
+  var u=sv&&sv.firstChild; if(!u) return;
+  u.setAttribute('href','#'+id); u.setAttributeNS(XLNS,'href','#'+id);
+}
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, SKIP?0:ms); }); }
+
+/* ---------- data ---------- */
+var T={
+  wheat :{th:'ทุ่งข้าว',  ic:'i_wheat'},
+  forest:{th:'ป่าไม้',    ic:'i_forest'},
+  water :{th:'ทะเลสาบ',   ic:'i_water'},
+  grass :{th:'ทุ่งหญ้า',  ic:'i_grass'},
+  swamp :{th:'หนองบึง',   ic:'i_swamp'},
+  mine  :{th:'เหมืองแร่', ic:'i_mine'},
+  castle:{th:'ปราสาท',    ic:'i_castle'}
+};
+var CH={W:'wheat',F:'forest',S:'water',G:'grass',M:'swamp',N:'mine'};
+var DOM_STR="W0W0 W0W0 F0F0 F0F0 F0F0 F0F0 S0S0 S0S0 S0S0 G0G0 G0G0 M0M0 "+
+            "W0F0 W0S0 W0G0 W0M0 F0S0 F0G0 "+
+            "W1F0 W1S0 W1G0 W1M0 W1N0 F1W0 F1W0 F1W0 F1W0 F1S0 F1G0 "+
+            "S1W0 S1W0 S1F0 S1F0 S1F0 S1F0 W0G1 S0G1 W0M1 G0M1 W0N1 "+
+            "W0G2 S0G2 W0M2 G0M2 W0N2 M0N2 M0N2 W0N3";
+var DOMS=DOM_STR.trim().split(/\s+/).map(function(s,i){
+  return {id:i+1, a:{t:CH[s.charAt(0)],c:+s.charAt(1)}, b:{t:CH[s.charAt(2)],c:+s.charAt(3)}};
+});
+var COLORS=['#FFA martin']; COLORS=['#FFA53D','#4CC9FF','#39E58C','#FF6FA5'];
+var GS=9, CEN=4, DIRS=[[0,1],[1,0],[0,-1],[-1,0]], ARROWS=['→','↓','←','↑'];
+var BOTNAMES=['เซอร์กริฟฟิน','มาดามลูน่า','ลอร์ดเดรค','เลดี้ออโรร่า'];
+
+/* ---------- audio ---------- */
+var AU={
+  ctx:null,master:null,mg:null,sg:null,musicOn:true,sfxOn:true,timer:null,next:0,step:0,ready:false,
+  init:function(){
+    if(this.ctx) return;
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
+      this.ctx=new AC();
+      this.master=this.ctx.createGain(); this.master.gain.value=.9; this.master.connect(this.ctx.destination);
+      this.mg=this.ctx.createGain(); this.mg.gain.value=this.musicOn?.13:0; this.mg.connect(this.master);
+      this.sg=this.ctx.createGain(); this.sg.gain.value=this.sfxOn?.5:0; this.sg.connect(this.master);
+      this.ready=true;
+    }catch(e){ showError('เสียง',e); }
+  },
+  unlock:function(){
+    this.init();
+    if(this.ctx&&this.ctx.state==='suspended'){ try{ this.ctx.resume(); }catch(e){} }
+    if(this.ready&&this.musicOn) this.startMusic();
+  },
+  startMusic:function(){
+    if(!this.ready||this.timer) return;
+    var s=this; this.next=this.ctx.currentTime+.08; this.step=0;
+    this.timer=setInterval(function(){ try{ s.sched(); }catch(e){} },70);
+  },
+  sched:function(){ var t=this.ctx.currentTime;
+    while(this.next<t+.45){ this.tick(this.next,this.step); this.next+=.27; this.step++; } },
+  mtof:function(m){ return 440*Math.pow(2,(m-69)/12); },
+  tone:function(t,f,d,ty,g,dest){
+    if(!this.ready) return;
+    var o=this.ctx.createOscillator(), gn=this.ctx.createGain();
+    o.type=ty||'sine'; o.frequency.setValueAtTime(f,t);
+    gn.gain.setValueAtTime(0,t);
+    gn.gain.linearRampToValueAtTime(g,t+Math.min(.06,d*.3));
+    gn.gain.exponentialRampToValueAtTime(.0008,t+d);
+    o.connect(gn); gn.connect(dest||this.sg); o.start(t); o.stop(t+d+.05);
+  },
+  tick:function(t,s){
+    var prog=[[57,60,64,67],[53,57,60,64],[55,59,62,66],[52,55,59,62]];
+    var ch=prog[Math.floor(s/8)%4];
+    if(s%8===0){
+      for(var i=0;i<4;i++) this.tone(t,this.mtof(ch[i]),2.3,'triangle',.042,this.mg);
+      this.tone(t,this.mtof(ch[0]-24),1.1,'sine',.08,this.mg);
+    }
+    if(s%4===2) this.tone(t,this.mtof(ch[0]-12),.55,'sine',.045,this.mg);
+    var arp=ch[s%4]+12+((Math.floor(s/4)%2)?12:0);
+    this.tone(t,this.mtof(arp),.34,'sine',.036,this.mg);
+    if(s%16===13) this.tone(t,this.mtof(ch[2]+24),.75,'triangle',.028,this.mg);
+  },
+  sfx:function(n){
+    if(!this.ready||!this.sfxOn) return;
+    var t=this.ctx.currentTime,i;
+    try{ switch(n){
+      case 'click': this.tone(t,780,.06,'square',.14); break;
+      case 'claim': this.tone(t,523,.1,'triangle',.2); this.tone(t+.07,784,.16,'triangle',.18); break;
+      case 'place': this.tone(t,176,.13,'sine',.3); this.tone(t+.02,430,.09,'square',.1); break;
+      case 'bad': this.tone(t,150,.16,'sawtooth',.2); this.tone(t+.1,108,.2,'sawtooth',.17); break;
+      case 'turn': this.tone(t,588,.09,'triangle',.14); this.tone(t+.08,880,.13,'triangle',.13); break;
+      case 'round': this.tone(t,660,.12,'sine',.16); this.tone(t+.1,990,.2,'sine',.14); break;
+      case 'score': this.tone(t,784,.09,'triangle',.17); this.tone(t+.07,1175,.13,'triangle',.14); break;
+      case 'bonus': this.tone(t,880,.1,'triangle',.18); this.tone(t+.08,1175,.1,'triangle',.16); this.tone(t+.16,1568,.22,'triangle',.15); break;
+      case 'total': this.tone(t,523,.12,'sine',.2); this.tone(t+.1,784,.12,'sine',.18); this.tone(t+.2,1046,.3,'sine',.17); break;
+      case 'win': var m=[523,659,784,1046,784,1046,1318];
+        for(i=0;i<m.length;i++) this.tone(t+i*.13,m[i],.32,'triangle',.2); break;
+      case 'discard': this.tone(t,300,.1,'sawtooth',.13); this.tone(t+.09,196,.15,'sawtooth',.12); break;
+    } }catch(e){}
+  }
+};
+function sfx(n){ try{ AU.sfx(n); }catch(e){} }
+
+/* ---------- grid & rules ---------- */
+function newGrid(){ var g=new Array(81); for(var i=0;i<81;i++) g[i]=null; g[CEN*GS+CEN]={t:'castle',c:0}; return g; }
+function at(g,r,c){ if(r<0||c<0||r>=GS||c>=GS) return undefined; return g[r*GS+c]; }
+function occBounds(g){
+  var r0=99,r1=-1,c0=99,c1=-1,r,c;
+  for(r=0;r<9;r++) for(c=0;c<9;c++) if(g[r*9+c]){
+    if(r<r0)r0=r; if(r>r1)r1=r; if(c<c0)c0=c; if(c>c1)c1=c;
+  }
+  if(r1<0){ r0=r1=c0=c1=CEN; }
+  return {r0:r0,r1:r1,c0:c0,c1:c1};
+}
+function viewWindow(g){
+  var b=occBounds(g);
+  return {r0:Math.max(0,b.r1-4),r1:Math.min(8,b.r0+4),c0:Math.max(0,b.c1-4),c1:Math.min(8,b.c0+4)};
+}
+function touches(g,r,c,t,er,ec){
+  for(var i=0;i<4;i++){
+    var nr=r+DIRS[i][0], nc=c+DIRS[i][1];
+    if(nr===er&&nc===ec) continue;
+    var cell=at(g,nr,nc);
+    if(cell&&(cell.t==='castle'||cell.t===t)) return true;
+  }
+  return false;
+}
+function canPlace(g,dom,r,c,dir){
+  var d=DIRS[dir], r2=r+d[0], c2=c+d[1];
+  if(r<0||c<0||r>8||c>8||r2<0||c2<0||r2>8||c2>8) return false;
+  if(g[r*9+c]||g[r2*9+c2]) return false;
+  var b=occBounds(g);
+  if(Math.max(b.r1,r,r2)-Math.min(b.r0,r,r2)>4) return false;
+  if(Math.max(b.c1,c,c2)-Math.min(b.c0,c,c2)>4) return false;
+  return touches(g,r,c,dom.a.t,r2,c2)||touches(g,r2,c2,dom.b.t,r,c);
+}
+function allPlacements(g,dom){
+  var out=[],r,c,d;
+  for(r=0;r<9;r++) for(c=0;c<9;c++) for(d=0;d<4;d++) if(canPlace(g,dom,r,c,d)) out.push({r:r,c:c,dir:d});
+  return out;
+}
+function applyToGrid(g,dom,r,c,dir){
+  var d=DIRS[dir];
+  g[r*9+c]={t:dom.a.t,c:dom.a.c};
+  g[(r+d[0])*9+(c+d[1])]={t:dom.b.t,c:dom.b.c};
+  return [r*9+c,(r+d[0])*9+(c+d[1])];
+}
+function scoreRegions(g){
+  var seen=new Array(81),i;
+  for(i=0;i<81;i++) seen[i]=false;
+  var total=0,best=0,crowns=0,regions=[],occ=0;
+  for(i=0;i<81;i++) if(g[i]) occ++;
+  for(i=0;i<81;i++){
+    var cell=g[i];
+    if(!cell||cell.t==='castle'||seen[i]) continue;
+    var t=cell.t,stack=[i],size=0,cr=0,cells=[];
+    seen[i]=true;
+    while(stack.length){
+      var j=stack.pop(); size++; cr+=g[j].c; cells.push(j);
+      var r=Math.floor(j/9),c=j%9;
+      for(var k=0;k<4;k++){
+        var nr=r+DIRS[k][0],nc=c+DIRS[k][1];
+        if(nr<0||nc<0||nr>8||nc>8) continue;
+        var m=nr*9+nc;
+        if(!seen[m]&&g[m]&&g[m].t===t){ seen[m]=true; stack.push(m); }
+      }
+    }
+    var openSet={},openN=0;
+    for(var q=0;q<cells.length;q++){
+      var rr=Math.floor(cells[q]/9),cc=cells[q]%9;
+      for(var z=0;z<4;z++){
+        var ar=rr+DIRS[z][0],ac=cc+DIRS[z][1];
+        if(ar<0||ac<0||ar>8||ac>8) continue;
+        var ix=ar*9+ac;
+        if(!g[ix]&&!openSet[ix]){ openSet[ix]=1; openN++; }
+      }
+    }
+    total+=size*cr; crowns+=cr; if(size>best) best=size;
+    regions.push({t:t,size:size,cr:cr,open:openN,cells:cells});
+  }
+  return {total:total,best:best,crowns:crowns,regions:regions,occ:occ};
+}
+function analyze(p,opts){
+  var s=scoreRegions(p.grid||newGrid());
+  var harmony=(opts&&opts.harmony&&s.occ===25&&(p.discarded||0)===0)?5:0;
+  var middle=0;
+  if(opts&&opts.middle){
+    var b=occBounds(p.grid||newGrid());
+    if(b.r1-b.r0===4&&b.c1-b.c0===4&&b.r0+2===CEN&&b.c0+2===CEN) middle=10;
+  }
+  return {base:s.total,harmony:harmony,middle:middle,total:s.total+harmony+middle,
+          best:s.best,crowns:s.crowns,occ:s.occ,regions:s.regions};
+}
+
+/* ---------- state ---------- */
+var ST=null, LOCAL_INDEX=0, viewIdx=0, handDir=0, selAnchor=null, PCTX=null;
+var botTimer=null, CELLS=[], CHIPS={}, HAND=null, currentScreen='menu';
+var SCORING=false, SKIP=false, scoreToken=0, resultShown=false, lastTurnKey='';
+
+function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)),t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function tokenPlayer(tk){ return parseInt(tk.substring(1).split('_')[0],10); }
+function isHost(){ return NET.mode!=='client'; }
+function myIndex(){ return (NET.mode==='client')?NET.myIndex:LOCAL_INDEX; }
+function turnInfo(){
+  if(!ST||ST.phase!=='play') return null;
+  var tk=ST.order[ST.ti]; if(!tk) return null;
+  return {tk:tk,pi:tokenPlayer(tk),step:ST.step};
+}
+function curEntryOf(tk){
+  for(var i=0;i<ST.cur.length;i++) if(ST.cur[i].owner===tk&&!ST.cur[i].done) return ST.cur[i];
+  return null;
+}
+
+/* ---------- flow ---------- */
+function drawColumn(){
+  var n=Math.min(ST.colSize,ST.deck.length);
+  var a=ST.deck.splice(0,n).map(function(id){ return {id:id,owner:null,done:false}; });
+  a.sort(function(x,y){ return x.id-y.id; });
+  return a;
+}
+function startGame(){
+  scoreToken++; SCORING=false; SKIP=false; resultShown=false; lastTurnKey='';
+  if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+  var n=ST.players.length;
+  var total=(n===2)?24:((n===3)?36:48);
+  ST.colSize=(n===3)?3:4;
+  ST.totalRounds=total/ST.colSize;
+  var deck=DOMS.map(function(d){ return d.id; });
+  shuffle(deck);
+  ST.deck=deck.slice(0,total);
+  ST.players.forEach(function(p,i){
+    p.grid=newGrid(); p.discarded=0; p.color=COLORS[i]; if(typeof p.online==='undefined') p.online=true;
+  });
+  var kings=(n===2)?2:1, toks=[],i,k;
+  for(i=0;i<n;i++) for(k=0;k<kings;k++) toks.push('p'+i+'_'+k);
+  ST.tokens=toks; ST.cur=[]; ST.nxt=drawColumn();
+  ST.order=shuffle(toks.slice()); ST.ti=0; ST.step='claim'; ST.round=0;
+  ST.lastPlaced=null; ST.dealAnim=Date.now(); ST.phase='play'; ST.results=null;
+  viewIdx=myIndex(); handDir=0; selAnchor=null;
+  $('handBar').classList.remove('hide'); $('scoreHud').classList.add('hide');
+  go('game'); sfx('round');
+  toast('เลือกโดมิโนเพื่อกำหนดลำดับเริ่มต้น');
+}
+function beginRound(){
+  if(!ST.nxt.length){ endGame(); return; }
+  ST.cur=ST.nxt.slice().sort(function(a,b){ return a.id-b.id; });
+  ST.order=ST.cur.map(function(e){ return e.owner; });
+  ST.nxt=drawColumn();
+  ST.ti=0; ST.step='place'; ST.round++;
+  ST.dealAnim=Date.now();
+  sfx('round');
+}
+function afterClaim(){
+  ST.ti++;
+  if(ST.ti>=ST.order.length) beginRound();
+  else ST.step=ST.cur.length?'place':'claim';
+}
+function afterPlace(){
+  var free=false,i;
+  for(i=0;i<ST.nxt.length;i++) if(!ST.nxt[i].owner) free=true;
+  if(free) ST.step='claim';
+  else{
+    ST.ti++;
+    if(ST.ti>=ST.order.length) beginRound();
+    else ST.step='place';
+  }
+}
+function endGame(){
+  ST.phase='result';
+  ST.results=ST.players.map(function(p,i){
+    var a=analyze(p,ST.opts);
+    return {idx:i,name:p.name,bot:!!p.bot,color:p.color,base:a.base,harmony:a.harmony,
+            middle:a.middle,total:a.total,best:a.best,crowns:a.crowns,occ:a.occ,disc:p.discarded||0};
+  });
+  ST.results.sort(function(a,b){
+    if(b.total!==a.total) return b.total-a.total;
+    if(b.best!==a.best) return b.best-a.best;
+    return b.crowns-a.crowns;
+  });
+}
+function applyAction(pi,act){
+  if(!ST||ST.phase!=='play') return false;
+  var t=turnInfo(); if(!t||t.pi!==pi) return false;
+  if(act.t==='claim'){
+    if(t.step!=='claim') return false;
+    var e=null,i;
+    for(i=0;i<ST.nxt.length;i++) if(ST.nxt[i].id===act.id) e=ST.nxt[i];
+    if(!e||e.owner) return false;
+    e.owner=t.tk; sfx('claim'); afterClaim(); return true;
+  }
+  if(act.t==='place'){
+    if(t.step!=='place') return false;
+    var en=curEntryOf(t.tk); if(!en) return false;
+    var dom=DOMS[en.id-1], p=ST.players[pi];
+    if(!canPlace(p.grid,dom,act.r,act.c,act.dir)) return false;
+    var cells=applyToGrid(p.grid,dom,act.r,act.c,act.dir);
+    en.done=true; ST.lastPlaced={pi:pi,cells:cells,ts:Date.now()};
+    sfx('place'); afterPlace(); return true;
+  }
+  if(act.t==='discard'){
+    if(t.step!=='place') return false;
+    var en2=curEntryOf(t.tk); if(!en2) return false;
+    var p2=ST.players[pi];
+    if(allPlacements(p2.grid,DOMS[en2.id-1]).length>0) return false;
+    en2.done=true; p2.discarded=(p2.discarded||0)+1;
+    sfx('discard'); afterPlace(); return true;
+  }
+  return false;
+}
+function act(a){
+  if(SCORING) return;
+  if(isHost()){
+    if(!applyAction(myIndex(),a)){ sfx('bad'); toast('ทำรายการนั้นไม่ได้'); }
+    sync();
+  }else{
+    if(NET.conn&&NET.conn.open) NET.conn.send({t:'act',a:a});
+    else toast('ขาดการเชื่อมต่อกับโฮสต์');
+  }
+}
+function sync(){
+  selAnchor=null;
+  if(isHost()) NET.broadcast();
+  render();
+  if(isHost()){
+    scheduleBot();
+    if(ST&&ST.phase==='result') enterResult();
+  }
+}
+
+/* ---------- BOT ---------- */
+function evalPlace(grid,dom,pl,lv){
+  var g=grid.slice();
+  applyToGrid(g,dom,pl.r,pl.c,pl.dir);
+  var s=scoreRegions(g),v=s.total,i,rg;
+  if(lv==='easy') return v+Math.random()*2;
+  var pot=0;
+  for(i=0;i<s.regions.length;i++){
+    rg=s.regions[i];
+    if(rg.cr>0) pot+=rg.cr*Math.min(rg.open,4)*.45;
+    else pot+=Math.min(rg.open,3)*Math.min(rg.size,4)*.09;
+  }
+  v+=pot;
+  if(lv==='hard'){
+    var w=viewWindow(g),holes=0,r,c,d;
+    for(r=w.r0;r<=w.r1;r++) for(c=w.c0;c<=w.c1;c++){
+      var k=r*9+c; if(g[k]) continue;
+      var free=0;
+      for(d=0;d<4;d++){
+        var nr=r+DIRS[d][0],nc=c+DIRS[d][1];
+        if(nr<w.r0||nr>w.r1||nc<w.c0||nc>w.c1) continue;
+        if(!g[nr*9+nc]) free++;
+      }
+      if(free===0) holes++;
+    }
+    v-=holes*1.3;
+    var b=occBounds(g);
+    v-=((b.r1-b.r0)+(b.c1-b.c0))*.12;
+    v+=Math.random()*.35;
+  }else v+=Math.random()*1.1;
+  return v;
+}
+function botChoosePlacement(p,dom,pls){
+  if(p.botLevel==='easy') return pls[Math.floor(Math.random()*pls.length)];
+  var best=pls[0],bv=-1e9,i;
+  for(i=0;i<pls.length;i++){ var v=evalPlace(p.grid,dom,pls[i],p.botLevel); if(v>bv){ bv=v; best=pls[i]; } }
+  return best;
+}
+function botChooseClaim(p){
+  var av=[],i;
+  for(i=0;i<ST.nxt.length;i++) if(!ST.nxt[i].owner) av.push({e:ST.nxt[i],idx:i});
+  if(!av.length) return null;
+  if(p.botLevel==='easy') return av[Math.floor(Math.random()*av.length)].e.id;
+  var best=av[0].e,bv=-1e9,j,k;
+  for(j=0;j<av.length;j++){
+    var dom=DOMS[av[j].e.id-1], pls=allPlacements(p.grid,dom), v;
+    if(!pls.length) v=-60;
+    else{ var bp=-1e9;
+      for(k=0;k<pls.length;k++){ var x=evalPlace(p.grid,dom,pls[k],p.botLevel); if(x>bp) bp=x; }
+      v=bp; }
+    v+=(dom.a.c+dom.b.c)*1.3;
+    v-=av[j].idx*(p.botLevel==='hard'?1.5:.85);
+    v+=Math.random()*(p.botLevel==='hard'?.4:1.4);
+    if(v>bv){ bv=v; best=av[j].e; }
+  }
+  return best.id;
+}
+function scheduleBot(){
+  if(!isHost()||SCORING) return;
+  if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+  var t=turnInfo(); if(!t) return;
+  var p=ST.players[t.pi]; if(!p) return;
+  var need=p.bot||(p.online===false&&NET.mode==='host');
+  if(!need) return;
+  botTimer=setTimeout(guard('บอท',botAct), p.bot?720:3000);
+}
+function botAct(){
+  botTimer=null;
+  var t=turnInfo(); if(!t) return;
+  var p=ST.players[t.pi];
+  if(!p||(!p.bot&&p.online!==false)) return;
+  if(!p.botLevel) p.botLevel=(ST.opts&&ST.opts.botLevel)||'normal';
+  if(t.step==='claim'){
+    var id=botChooseClaim(p);
+    if(id!=null) applyAction(t.pi,{t:'claim',id:id});
+  }else{
+    var en=curEntryOf(t.tk); if(!en) return;
+    var dom=DOMS[en.id-1], pls=allPlacements(p.grid,dom);
+    if(!pls.length) applyAction(t.pi,{t:'discard'});
+    else{ var pl=botChoosePlacement(p,dom,pls); applyAction(t.pi,{t:'place',r:pl.r,c:pl.c,dir:pl.dir}); }
+  }
+  sync();
+}
+
+/* ---------- NETWORK ---------- */
+var NET={
+  mode:'off',peer:null,conns:[],conn:null,code:'',myName:'',myIndex:0,libLoading:false,
+  broadcast:function(){
+    if(this.mode!=='host'||!ST) return;
+    var s; try{ s=JSON.stringify(ST); }catch(e){ showError('เครือข่าย',e); return; }
+    for(var i=0;i<this.conns.length;i++){
+      var c=this.conns[i];
+      try{ if(c&&c.open) c.send({t:'state',s:s,seat:c.__pidx}); }catch(e){}
+    }
+  },
+  reset:function(){
+    try{ if(this.peer&&!this.peer.destroyed) this.peer.destroy(); }catch(e){}
+    this.peer=null; this.conns=[]; this.conn=null; this.mode='off'; this.code='';
+  }
+};
+function loadPeer(cb){
+  if(window.Peer){ cb(true); return; }
+  if(NET.libLoading){ setTimeout(function(){ loadPeer(cb); },400); return; }
+  NET.libLoading=true;
+  var urls=['https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js',
+            'https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js'],i=0;
+  (function next(){
+    if(i>=urls.length){ NET.libLoading=false; cb(false); return; }
+    var s=document.createElement('script');
+    s.src=urls[i++];
+    s.onload=function(){ NET.libLoading=false; cb(!!window.Peer); };
+    s.onerror=next;
+    document.head.appendChild(s);
+  })();
+}
+function randCode(){
+  var A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',s='';
+  for(var i=0;i<5;i++) s+=A.charAt(Math.floor(Math.random()*A.length));
+  return s;
+}
+function peerOpts(){
+  return {debug:0,config:{iceServers:[
+    {urls:'stun:stun.l.google.com:19302'},
+    {urls:'stun:global.stun.twilio.com:3478'}
+  ]}};
+}
+function netStatus(m){ var e=$('netStatus'); if(e) e.textContent=m||''; }
+
+function hostCreate(name,maxP,lvl,harmony,middle){
+  netStatus('กำลังสร้างห้อง…');
+  loadPeer(function(ok){
+    if(!ok){ netStatus('โหลดระบบออนไลน์ไม่สำเร็จ — ตรวจสอบอินเทอร์เน็ต'); return; }
+    var tries=0;
+    (function mk(){
+      var code=randCode(),p;
+      try{ p=new Peer('kdmn3-'+code,peerOpts()); }
+      catch(e){ showError('เครือข่าย',e); netStatus('สร้างห้องไม่สำเร็จ'); return; }
+      NET.peer=p;
+      p.on('open',guard('โฮสต์',function(){
+        NET.mode='host'; NET.code=code; NET.myIndex=0; NET.myName=name; NET.conns=[]; LOCAL_INDEX=0;
+        ST={phase:'lobby',code:code,
+            opts:{maxPlayers:maxP,botLevel:lvl,harmony:harmony,middle:middle},
+            players:[{name:name,bot:false,online:true,color:COLORS[0],discarded:0}],
+            deck:[],cur:[],nxt:[],order:[],ti:0,step:'claim',round:0,totalRounds:12,colSize:4,tokens:[]};
+        try{ localStorage.setItem('kdm_last',JSON.stringify({code:code,name:name,host:true})); }catch(e){}
+        netStatus(''); go('lobby'); renderLobby(); toast('สร้างห้องสำเร็จ: '+code);
+      }));
+      p.on('connection',guard('การเชื่อมต่อ',function(c){
+        NET.conns.push(c);
+        c.on('data',guard('ข้อมูลผู้เล่น',function(d){ onHostData(c,d); }));
+        c.on('close',guard('ตัดการเชื่อมต่อ',function(){ hostDrop(c); }));
+        c.on('error',function(){ hostDrop(c); });
+      }));
+      p.on('error',guard('เครือข่าย',function(err){
+        var ty=err&&err.type?err.type:'';
+        if(ty==='unavailable-id'&&tries<4){ tries++; try{p.destroy();}catch(e){} mk(); return; }
+        if(ty==='peer-unavailable') return;
+        netStatus('ปัญหาเครือข่าย: '+(ty||'ไม่ทราบสาเหตุ'));
+      }));
+      p.on('disconnected',function(){ try{ p.reconnect(); }catch(e){} });
+    })();
+  });
+}
+function hostDrop(conn){
+  if(!ST) return;
+  var idx=(typeof conn.__pidx==='number')?conn.__pidx:-1;
+  NET.conns=NET.conns.filter(function(c){ return c!==conn; });
+  if(idx>=0&&ST.players[idx]){
+    ST.players[idx].online=false;
+    toast(ST.players[idx].name+' หลุดการเชื่อมต่อ');
+  }
+  if(ST.phase==='lobby'&&idx>0&&ST.players[idx]&&!ST.players[idx].bot){
+    ST.players.splice(idx,1);
+    ST.players.forEach(function(p,i){ p.color=COLORS[i]; });
+    NET.conns.forEach(function(c){ if(typeof c.__pidx==='number'&&c.__pidx>idx) c.__pidx--; });
+  }
+  renderLobby(); sync();
+}
+function onHostData(conn,d){
+  if(!d||!ST) return;
+  if(d.t==='join'){
+    var name=(d.name||'ผู้เล่น').toString().slice(0,12).trim()||'ผู้เล่น';
+    var found=-1,i;
+    for(i=0;i<ST.players.length;i++)
+      if(!ST.players[i].bot&&ST.players[i].name.toLowerCase()===name.toLowerCase()){ found=i; break; }
+    if(found===0){ try{ conn.send({t:'reject',msg:'ชื่อนี้เป็นของโฮสต์'}); }catch(e){} return; }
+    if(found>0){
+      var live=false;
+      NET.conns.forEach(function(c){ if(c!==conn&&c.__pidx===found&&c.open) live=true; });
+      if(live){ try{ conn.send({t:'reject',msg:'ชื่อนี้ถูกใช้อยู่ในห้องแล้ว'}); }catch(e){} return; }
+      conn.__pidx=found; ST.players[found].online=true;
+      if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+      try{ conn.send({t:'welcome',idx:found,code:ST.code}); }catch(e){}
+      toast(name+' กลับเข้าเกมแล้ว');
+    }else{
+      if(ST.phase!=='lobby'){ try{ conn.send({t:'reject',msg:'เกมเริ่มไปแล้ว — ใช้ชื่อเดิมเพื่อกลับเข้าเกม'}); }catch(e){} return; }
+      if(ST.players.length>=ST.opts.maxPlayers){ try{ conn.send({t:'reject',msg:'ห้องเต็มแล้ว'}); }catch(e){} return; }
+      var ix=ST.players.length;
+      ST.players.push({name:name,bot:false,online:true,color:COLORS[ix],discarded:0});
+      conn.__pidx=ix;
+      try{ conn.send({t:'welcome',idx:ix,code:ST.code}); }catch(e){}
+      toast(name+' เข้าร่วมห้อง');
+    }
+    renderLobby(); sync(); return;
+  }
+  if(d.t==='act'){
+    if(typeof conn.__pidx!=='number') return;
+    if(!applyAction(conn.__pidx,d.a)){ try{ conn.send({t:'nope'}); }catch(e){} }
+    sync(); return;
+  }
+}
+function clientJoin(code,name){
+  netStatus('กำลังเชื่อมต่อ…');
+  loadPeer(function(ok){
+    if(!ok){ netStatus('โหลดระบบออนไลน์ไม่สำเร็จ'); return; }
+    var p;
+    try{ p=new Peer(null,peerOpts()); }catch(e){ showError('เครือข่าย',e); netStatus('เชื่อมต่อไม่สำเร็จ'); return; }
+    NET.peer=p; NET.mode='client'; NET.code=code; NET.myName=name;
+    p.on('open',guard('ผู้เล่น',function(){
+      var c=p.connect('kdmn3-'+code,{reliable:true});
+      NET.conn=c;
+      var to=setTimeout(function(){ if(!c.open) netStatus('หาห้องไม่พบ — ตรวจสอบรหัสห้องอีกครั้ง'); },12000);
+      c.on('open',guard('เชื่อมต่อ',function(){
+        clearTimeout(to); netStatus('เชื่อมต่อแล้ว — กำลังเข้าห้อง…'); c.send({t:'join',name:name});
+      }));
+      c.on('data',guard('รับข้อมูล',function(d){ onClientData(d); }));
+      c.on('close',function(){ toast('ขาดการเชื่อมต่อกับโฮสต์'); netStatus('ขาดการเชื่อมต่อ — กด “เข้าร่วม” อีกครั้งเพื่อกลับเข้าเกม'); });
+      c.on('error',function(){ netStatus('การเชื่อมต่อมีปัญหา'); });
+    }));
+    p.on('error',guard('เครือข่าย',function(err){
+      var ty=err&&err.type?err.type:'';
+      netStatus(ty==='peer-unavailable'?('ไม่พบห้อง '+code):('ปัญหาเครือข่าย: '+ty));
+    }));
+  });
+}
+function onClientData(d){
+  if(!d) return;
+  if(d.t==='welcome'){
+    NET.myIndex=d.idx; LOCAL_INDEX=d.idx; viewIdx=d.idx;
+    try{ localStorage.setItem('kdm_last',JSON.stringify({code:NET.code,name:NET.myName,host:false})); }catch(e){}
+    netStatus(''); toast('เข้าห้องสำเร็จ'); return;
+  }
+  if(d.t==='reject'){ netStatus(d.msg); toast(d.msg); return; }
+  if(d.t==='nope'){ sfx('bad'); toast('ทำรายการนั้นไม่ได้'); return; }
+  if(d.t==='state'){
+    var prev=ST?ST.phase:'';
+    try{ ST=JSON.parse(d.s); }catch(e){ showError('ข้อมูลเกม',e); return; }
+    if(typeof d.seat==='number'){ NET.myIndex=d.seat; LOCAL_INDEX=d.seat; }
+    if(viewIdx>=ST.players.length) viewIdx=myIndex();
+    if(ST.phase==='lobby'){ go('lobby'); renderLobby(); }
+    else if(ST.phase==='play'){
+      if(prev!=='play'){ resultShown=false; viewIdx=myIndex(); $('handBar').classList.remove('hide'); $('scoreHud').classList.add('hide'); }
+      if(currentScreen!=='game') go('game');
+      render();
+    }
+    else if(ST.phase==='result') enterResult();
+  }
+}
+
+/* ---------- screens ---------- */
+function go(name){
+  currentScreen=name;
+  ['menu','setup','online','lobby','game','result'].forEach(function(s){
+    var el=$('screen-'+s); if(el) el.classList.toggle('active',s===name);
+  });
+  if(name==='game') requestAnimationFrame(function(){ if(!SCORING) render(); });
+}
+var toastT=null;
+function toast(m){
+  var el=$('toast'); if(!el) return;
+  el.textContent=m; el.classList.add('show');
+  if(toastT) clearTimeout(toastT);
+  toastT=setTimeout(function(){ el.classList.remove('show'); },2200);
+}
+
+/* ---------- build DOM ---------- */
+function buildHalf(side){
+  var h=document.createElement('span');
+  h.className='half '+side; h.dataset.side=side;
+  var ic=icon('i_wheat','tic');
+  var cr=document.createElement('span'); cr.className='crw';
+  for(var i=0;i<3;i++) cr.appendChild(icon('i_crown','cri'));
+  h.appendChild(ic); h.appendChild(cr);
+  h._ic=ic; h._cr=cr;
+  return h;
+}
+function paintHalf(h,half){
+  h.className='half '+h.dataset.side+' t-'+half.t;
+  setIcon(h._ic,T[half.t].ic);
+  for(var i=0;i<3;i++) h._cr.children[i].style.display=(i<half.c)?'':'none';
+}
+function buildChip(el){
+  var num=document.createElement('span'); num.className='num';
+  var a=buildHalf('a'), b=buildHalf('b');
+  var kg=icon('i_king','kg');
+  el.appendChild(num); el.appendChild(a); el.appendChild(b); el.appendChild(kg);
+  el._num=num; el._a=a; el._b=b; el._kg=kg;
+}
+function buildCells(){
+  var b=$('board'); if(!b) return;
+  CELLS=[];
+  var frag=document.createDocumentFragment();
+  for(var r=0;r<9;r++) for(var c=0;c<9;c++){
+    var d=document.createElement('div');
+    d.className='cell'; d.dataset.r=r; d.dataset.c=c;
+    var ic=icon('i_wheat','tic');
+    var cr=document.createElement('span'); cr.className='crw';
+    for(var i=0;i<3;i++) cr.appendChild(icon('i_crown','cri'));
+    var gh=document.createElement('span'); gh.className='gh';
+    d.appendChild(ic); d.appendChild(cr); d.appendChild(gh);
+    d._ic=ic; d._cr=cr; d._gh=gh;
+    CELLS.push(d); frag.appendChild(d);
+  }
+  b.appendChild(frag);
+}
+function buildLegend(){
+  var box=$('legendBox'); if(!box) return;
+  ['wheat','forest','water','grass','swamp','mine'].forEach(function(k){
+    var s=document.createElement('span');
+    var i=document.createElement('i'); i.className='t-'+k;
+    i.appendChild(icon(T[k].ic,''));
+    var t=document.createElement('span'); t.textContent=T[k].th;
+    s.appendChild(i); s.appendChild(t); box.appendChild(s);
+  });
+}
+
+/* ---------- render ---------- */
+function fillChip(el,entry,kind){
+  if(!el) return;
+  if(!entry){ el.style.display='none'; return; }
+  el.style.display='';
+  var d=DOMS[entry.id-1], cls='chip';
+  el._num.textContent=d.id;
+  paintHalf(el._a,d.a); paintHalf(el._b,d.b);
+  if(entry.owner){
+    var pi=tokenPlayer(entry.owner);
+    el._kg.style.display='';
+    el._kg.style.fill=(ST.players[pi]&&ST.players[pi].color)||'#fff';
+  }else el._kg.style.display='none';
+  if(entry.done) cls+=' done';
+  var t=turnInfo();
+  if(kind==='nxt'&&!entry.owner&&t&&t.step==='claim'&&t.pi===myIndex()&&!ST.players[t.pi].bot) cls+=' selectable';
+  if(kind==='cur'&&!entry.done&&t&&entry.owner===t.tk) cls+=' active';
+  if(kind==='nxt'&&ST.dealAnim&&(Date.now()-ST.dealAnim)<600) cls+=' deal';
+  el.className=cls;
+  el.dataset.id=entry.id;
+}
+function renderCols(){
+  for(var i=0;i<4;i++){ fillChip(CHIPS['cc'+i],ST.cur[i],'cur'); fillChip(CHIPS['cn'+i],ST.nxt[i],'nxt'); }
+  $('curHint').style.display=ST.cur.length?'none':'';
+  $('nxtHint').style.display=ST.nxt.length?'none':'';
+  $('lblNxt').textContent=ST.cur.length?'เลือกสำหรับรอบหน้า':'เลือกลำดับเริ่มต้น';
+}
+function computePCTX(){
+  PCTX=null;
+  if(SCORING) return;
+  var t=turnInfo();
+  if(!t||t.step!=='place'||t.pi!==myIndex()) return;
+  if(ST.players[t.pi].bot) return;
+  var en=curEntryOf(t.tk); if(!en) return;
+  var dom=DOMS[en.id-1];
+  var pls=allPlacements(ST.players[t.pi].grid,dom);
+  PCTX={dom:dom,pls:pls,entry:en};
+  var has=false,i;
+  for(i=0;i<pls.length;i++) if(pls[i].dir===handDir) has=true;
+  if(!has&&pls.length){ handDir=pls[0].dir; selAnchor=null; }
+}
+function layoutBoard(g){
+  var w=viewWindow(g);
+  var rows=w.r1-w.r0+1, cols=w.c1-w.c0+1;
+  var wrap=$('boardWrap'), board=$('board');
+  var aw=Math.max(60,wrap.clientWidth-6), ah=Math.max(60,wrap.clientHeight-6);
+  var gap=3, pad=16;
+  var cs=Math.floor(Math.min((aw-pad-(cols-1)*gap)/cols,(ah-pad-(rows-1)*gap)/rows));
+  cs=Math.max(15,Math.min(cs,84));
+  board.style.setProperty('--cs',cs+'px');
+  board.style.gridTemplateColumns='repeat('+cols+', '+cs+'px)';
+  return w;
+}
+function paintCell(el,cell){
+  if(cell){
+    el._ic.style.display='';
+    setIcon(el._ic,T[cell.t].ic);
+    for(var i=0;i<3;i++) el._cr.children[i].style.display=(i<cell.c)?'':'none';
+  }else{
+    el._ic.style.display='none';
+    for(var j=0;j<3;j++) el._cr.children[j].style.display='none';
+  }
+}
+function renderBoard(){
+  if(!CELLS.length||!ST||!ST.players[viewIdx]) return;
+  var p=ST.players[viewIdx], g=p.grid||newGrid();
+  var w=layoutBoard(g);
+  var vmap={},i;
+  if(PCTX&&viewIdx===myIndex())
+    for(i=0;i<PCTX.pls.length;i++) if(PCTX.pls[i].dir===handDir) vmap[PCTX.pls[i].r*9+PCTX.pls[i].c]=1;
+  var pa=-1,pb=-1;
+  if(selAnchor&&PCTX){
+    pa=selAnchor.r*9+selAnchor.c;
+    pb=(selAnchor.r+DIRS[selAnchor.dir][0])*9+(selAnchor.c+DIRS[selAnchor.dir][1]);
+  }
+  var lp=(ST.lastPlaced&&ST.lastPlaced.pi===viewIdx&&(Date.now()-ST.lastPlaced.ts)<800)?ST.lastPlaced.cells:null;
+  for(var r=0;r<9;r++) for(var c=0;c<9;c++){
+    var k=r*9+c, el=CELLS[k];
+    if(r<w.r0||r>w.r1||c<w.c0||c>w.c1){ el.style.display='none'; continue; }
+    el.style.display='';
+    var cell=g[k], cls='cell';
+    el._gh.textContent='';
+    if(cell){
+      cls+=' has t-'+cell.t;
+      if(cell.t==='castle') cls+=' castle';
+      paintCell(el,cell);
+      if(lp&&(lp[0]===k||lp[1]===k)) cls+=' pop';
+    }else if(k===pa){ cls+=' prev has t-'+PCTX.dom.a.t; paintCell(el,{t:PCTX.dom.a.t,c:PCTX.dom.a.c}); }
+    else if(k===pb){ cls+=' prev has t-'+PCTX.dom.b.t; paintCell(el,{t:PCTX.dom.b.t,c:PCTX.dom.b.c}); }
+    else{
+      paintCell(el,null);
+      if(vmap[k]){ cls+=' valid'; el._gh.textContent=ARROWS[handDir]; }
+    }
+    el.className=cls;
+  }
+  var ow=$('boardOwner'), tx=$('ownerTxt');
+  if(!SCORING){
+    tx.textContent=(viewIdx===myIndex()?'อาณาจักรของคุณ':'อาณาจักรของ '+p.name);
+    ow.style.color=p.color||'var(--gold)';
+    setIcon(ow.firstChild, viewIdx===myIndex()?'i_crown':'i_eye');
+  }
+}
+function renderHand(){
+  var br=$('btnRotate'), bc=$('btnConfirm'), bd=$('btnDiscard');
+  if(!PCTX){
+    HAND.classList.add('hide');
+    br.disabled=true; bc.disabled=true; bd.disabled=true; return;
+  }
+  HAND.classList.remove('hide');
+  paintHalf(HAND._a,PCTX.dom.a); paintHalf(HAND._b,PCTX.dom.b);
+  HAND._a.classList.add('anchor');
+  HAND.style.flexDirection=(handDir===0?'row':handDir===1?'column':handDir===2?'row-reverse':'column-reverse');
+  br.disabled=PCTX.pls.length<=1;
+  bc.disabled=!selAnchor;
+  bd.disabled=PCTX.pls.length>0;
+}
+function renderPlayers(){
+  var box=$('players');
+  box.style.setProperty('--np',Math.min(4,ST.players.length));
+  var t=turnInfo();
+  for(var i=0;i<4;i++){
+    var el=$('pc'+i);
+    if(i>=ST.players.length){ el.style.display='none'; continue; }
+    el.style.display='';
+    var p=ST.players[i], s=scoreRegions(p.grid||newGrid());
+    el.style.color=p.color;
+    el.querySelector('.pn').textContent=(i===myIndex()?'★ ':'')+p.name;
+    el.querySelector('.ps').textContent=s.total;
+    el.querySelector('.pt').textContent='มงกุฎ '+s.crowns+' · '+s.occ+'/25'+((p.discarded>0)?' · ทิ้ง '+p.discarded:'');
+    if(p.bot&&!el._bot){
+      el._bot=icon('i_bot','botb'); el.appendChild(el._bot);
+    }
+    var cls='pcard';
+    if(t&&t.pi===i) cls+=' turn';
+    if(viewIdx===i) cls+=' viewing';
+    if(p.online===false&&!p.bot) cls+=' off';
+    el.className=cls;
+  }
+}
+function renderStatus(){
+  var el=$('statusMsg'); if(!el) return;
+  el.classList.remove('warn');
+  var t=turnInfo();
+  if(!t){ el.textContent='—'; return; }
+  var p=ST.players[t.pi], mine=(t.pi===myIndex()&&!p.bot);
+  if(t.step==='claim'){
+    el.textContent=mine?'ตาคุณ: แตะโดมิโนคอลัมน์ขวาเพื่อจอง':'รอ '+p.name+' เลือกโดมิโน…';
+  }else{
+    if(mine){
+      if(PCTX&&PCTX.pls.length===0){ el.classList.add('warn'); el.textContent='วางไม่ได้ตามกฎ — ต้องทิ้งโดมิโนใบนี้'; }
+      else if(selAnchor) el.textContent='กด “ยืนยัน” หรือแตะช่องเดิมอีกครั้งเพื่อวาง';
+      else el.textContent='ตาคุณ: แตะช่องเรืองแสงเพื่อเลือกตำแหน่ง';
+    }else el.textContent='รอ '+p.name+' วางโดมิโน…';
+  }
+}
+function render(){
+  try{
+    if(!ST||ST.phase!=='play'||SCORING) return;
+    var t=turnInfo();
+    var key=ST.round+'|'+ST.ti+'|'+ST.step;
+    if(key!==lastTurnKey){
+      if(lastTurnKey) sfx('turn');
+      if(t&&t.pi===myIndex()&&!ST.players[t.pi].bot) viewIdx=myIndex();
+      lastTurnKey=key;
+    }
+    if(viewIdx>=ST.players.length) viewIdx=myIndex();
+    computePCTX();
+    $('hdRound').textContent='รอบ '+Math.max(1,ST.round)+'/'+ST.totalRounds;
+    $('hdLeft').textContent='ในกอง '+ST.deck.length+' ใบ · ผู้เล่น '+ST.players.length+' คน';
+    var done=Math.max(0,ST.round-1);
+    $('hdBarIn').style.width=Math.round(done/ST.totalRounds*100)+'%';
+    var hr=$('hdRoom');
+    if(NET.mode==='off'||!ST.code) hr.classList.add('hide');
+    else{ hr.classList.remove('hide'); $('hdRoomCode').textContent=ST.code; }
+    renderCols(); renderBoard(); renderHand(); renderPlayers(); renderStatus();
+  }catch(e){ showError('การแสดงผล',e); }
+}
+
+/* ---------- SCORE SHOW ---------- */
+function clearFx(){ var f=$('fxLayer'); while(f.firstChild) f.removeChild(f.firstChild); }
+function setAllDim(on){
+  for(var i=0;i<CELLS.length;i++){
+    var el=CELLS[i];
+    if(el.style.display==='none') continue;
+    el.classList.toggle('sdim',!!on);
+    if(on){ el.classList.remove('slit'); el.classList.remove('sdone'); }
+  }
+}
+function lightCells(cells){
+  for(var i=0;i<cells.length;i++){
+    var el=CELLS[cells[i]]; if(!el) continue;
+    el.classList.remove('sdim'); el.classList.add('slit');
+  }
+}
+function doneCells(cells){
+  for(var i=0;i<cells.length;i++){
+    var el=CELLS[cells[i]]; if(!el) continue;
+    el.classList.remove('slit'); el.classList.add('sdone');
+  }
+}
+function centerOf(cells){
+  var sx=0,sy=0,n=0;
+  for(var i=0;i<cells.length;i++){
+    var el=CELLS[cells[i]];
+    if(!el||el.style.display==='none') continue;
+    sx+=el.offsetLeft+el.offsetWidth/2; sy+=el.offsetTop+el.offsetHeight/2; n++;
+  }
+  return n?{x:sx/n,y:sy/n}:{x:0,y:0};
+}
+function badge(pos,title,big,cls){
+  var d=document.createElement('div');
+  d.className='sbadge'+(cls?' '+cls:'');
+  var a=document.createElement('div'); a.className='sb-t'; a.textContent=title;
+  var b=document.createElement('div'); b.className='sb-b'; b.textContent=big;
+  d.appendChild(a); d.appendChild(b);
+  d.style.left=pos.x+'px'; d.style.top=pos.y+'px';
+  $('fxLayer').appendChild(d);
+  return d;
+}
+function setHud(name,val){ $('shName').textContent=name; $('shVal').textContent=val; }
+function tickTo(from,to,dur,tok){
+  return new Promise(function(res){
+    if(SKIP||from===to){ $('shVal').textContent=to; res(); return; }
+    var t0=performance.now();
+    (function step(){
+      if(tok!==scoreToken){ res(); return; }
+      var k=Math.min(1,(performance.now()-t0)/dur);
+      $('shVal').textContent=Math.round(from+(to-from)*k);
+      if(k<1&&!SKIP) requestAnimationFrame(step);
+      else{ $('shVal').textContent=to; res(); }
+    })();
+  });
+}
+function occupiedCells(g){ var a=[],i; for(i=0;i<81;i++) if(g[i]) a.push(i); return a; }
+
+function runScoreShow(){
+  var tok=++scoreToken;
+  SCORING=true; SKIP=false; PCTX=null; selAnchor=null;
+  if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+  $('handBar').classList.add('hide');
+  $('scoreHud').classList.remove('hide');
+  go('game');
+  renderCols(); renderPlayers();
+  return (async function(){
+    for(var i=0;i<ST.players.length;i++){
+      if(tok!==scoreToken) return;
+      var p=ST.players[i];
+      viewIdx=i; clearFx(); renderBoard(); renderPlayers();
+      $('ownerTxt').textContent='กำลังนับคะแนน: '+p.name;
+      $('boardOwner').style.color=p.color||'var(--gold)';
+      setIcon($('boardOwner').firstChild,'i_crown');
+      setHud(p.name,0);
+      $('statusMsg').textContent='อาณาเขต × มงกุฎ = คะแนน';
+      await sleep(620);
+      if(tok!==scoreToken) return;
+      var A=analyze(p,ST.opts), run=0, k;
+      setAllDim(true);
+      var regs=A.regions.slice().sort(function(a,b){ return (b.size*b.cr)-(a.size*a.cr); });
+      for(k=0;k<regs.length;k++){
+        if(tok!==scoreToken) return;
+        var rg=regs[k], pts=rg.size*rg.cr;
+        lightCells(rg.cells);
+        var pos=centerOf(rg.cells);
+        if(rg.cr>0){
+          badge(pos, T[rg.t].th+' '+rg.size+' × '+rg.cr, '+'+pts);
+          sfx('score');
+          await tickTo(run,run+pts,430,tok);
+          run+=pts;
+          await sleep(170);
+        }else{
+          badge(pos, T[rg.t].th+' '+rg.size+' × 0', '0','zero');
+          await sleep(150);
+        }
+        doneCells(rg.cells);
+      }
+      if(tok!==scoreToken) return;
+      var occ=occupiedCells(p.grid);
+      var cpos=centerOf(occ);
+      if(A.harmony){
+        badge({x:cpos.x,y:cpos.y-34},'ความกลมกลืน','+5','bonus'); sfx('bonus');
+        await tickTo(run,run+A.harmony,340,tok); run+=A.harmony; await sleep(180);
+      }
+      if(A.middle){
+        badge({x:cpos.x,y:cpos.y-68},'อาณาจักรกลาง','+10','bonus'); sfx('bonus');
+        await tickTo(run,run+A.middle,340,tok); run+=A.middle; await sleep(180);
+      }
+      if(tok!==scoreToken) return;
+      for(var z=0;z<CELLS.length;z++){ CELLS[z].classList.remove('sdim'); CELLS[z].classList.remove('sdone'); }
+      badge(cpos, p.name, 'รวม '+A.total,'total');
+      sfx('total');
+      await sleep(1150);
+    }
+    if(tok!==scoreToken) return;
+    clearFx();
+    for(var y=0;y<CELLS.length;y++) CELLS[y].classList.remove('sdim','slit','sdone');
+    SCORING=false;
+    $('scoreHud').classList.add('hide');
+    showResult();
+  })();
+}
+function enterResult(){
+  if(resultShown) return;
+  resultShown=true;
+  try{
+    runScoreShow().catch(function(e){
+      showError('นับคะแนน',e); SCORING=false; $('scoreHud').classList.add('hide'); showResult();
+    });
+  }catch(e){ showError('นับคะแนน',e); SCORING=false; showResult(); }
+}
+function showResult(){
+  try{
+    if(!ST||ST.phase!=='result') return;
+    go('result');
+    var list=$('resList');
+    while(list.firstChild) list.removeChild(list.firstChild);
+    var res=ST.results||[];
+    $('resTitle').textContent=res.length?('ผู้ชนะ: '+res[0].name):'ผลคะแนน';
+    $('resNote').textContent='เสมอตัดสินด้วยอาณาเขตใหญ่สุด แล้วจึงดูจำนวนมงกุฎรวม';
+    res.forEach(function(r,i){
+      var row=document.createElement('div');
+      row.className='resrow'+(i===0?' win':'');
+      row.style.animationDelay=(i*.14)+'s';
+      var rk=document.createElement('div'); rk.className='rk';
+      if(i===0){ var m=icon('i_medal1',''); m.style.fill='#FFC24B'; rk.appendChild(m); }
+      else rk.textContent=(i+1);
+      var nm=document.createElement('div'); nm.className='rn';
+      nm.textContent=r.name+(r.bot?' (บอท)':'');
+      nm.style.color=r.color||'';
+      var sm=document.createElement('small');
+      var ex=[];
+      if(r.harmony) ex.push('กลมกลืน +5');
+      if(r.middle) ex.push('อาณาจักรกลาง +10');
+      if(r.disc) ex.push('ทิ้ง '+r.disc+' ใบ');
+      sm.textContent='ฐาน '+r.base+' · มงกุฎ '+r.crowns+' · อาณาเขตใหญ่สุด '+r.best+' ช่อง'+(ex.length?' · '+ex.join(' · '):'');
+      nm.appendChild(sm);
+      var sc=document.createElement('div'); sc.className='rs'; sc.textContent=r.total;
+      row.appendChild(rk); row.appendChild(nm); row.appendChild(sc);
+      list.appendChild(row);
+    });
+    setTimeout(function(){ sfx('win'); },320);
+    $('btnAgain').style.display=(NET.mode==='client')?'none':'';
+  }catch(e){ showError('หน้าผลคะแนน',e); }
+}
+
+/* ---------- lobby ---------- */
+function renderLobby(){
+  try{
+    if(!ST) return;
+    $('roomBig').textContent=ST.code||'-----';
+    var list=$('lobbyList');
+    while(list.firstChild) list.removeChild(list.firstChild);
+    (ST.players||[]).forEach(function(p,i){
+      var row=document.createElement('div'); row.className='lobbyrow';
+      var dot=document.createElement('span'); dot.className='dot';
+      dot.style.background=COLORS[i]; dot.style.color=COLORS[i];
+      var nm=document.createElement('span'); nm.className='nm';
+      nm.textContent=p.name+(i===myIndex()?' (คุณ)':'')+(p.bot?' [บอท]':'');
+      var tg=document.createElement('span'); tg.className='tg';
+      var lvmap={easy:'ง่าย',normal:'ปกติ',hard:'ยาก'};
+      tg.textContent=p.bot?('ระดับ '+(lvmap[p.botLevel||ST.opts.botLevel]||'ปกติ'))
+                          :(i===0?'โฮสต์':(p.online===false?'หลุด':'ออนไลน์'));
+      row.appendChild(dot); row.appendChild(nm); row.appendChild(tg);
+      list.appendChild(row);
+    });
+    $('lobbyCount').textContent=(ST.players||[]).length+'/'+((ST.opts&&ST.opts.maxPlayers)||4);
+    var host=(NET.mode==='host');
+    $('hostControls').style.display=host?'':'none';
+    $('btnStartOnline').style.display=host?'':'none';
+    $('lobbyMsg').textContent=host
+      ? (ST.players.length>=2?'พร้อมเริ่มเกมได้แล้ว':'ต้องมีอย่างน้อย 2 ผู้เล่น (เพิ่มบอทได้)')
+      : 'กำลังรอโฮสต์เริ่มเกม…';
+  }catch(e){ showError('ห้องรอ',e); }
+}
+
+/* ---------- segments ---------- */
+function setSeg(id,v){
+  var s=$(id); if(!s) return;
+  Array.prototype.forEach.call(s.children,function(b){ b.classList.toggle('on',b.dataset.v===String(v)); });
+}
+function getSeg(id,def){
+  var s=$(id); if(!s) return def;
+  var o=s.querySelector('.on'); return o?o.dataset.v:def;
+}
+function bindSeg(id){
+  var s=$(id); if(!s) return;
+  s.addEventListener('click',guard(id,function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    setSeg(id,b.dataset.v); sfx('click');
+  }));
+}
+
+/* ---------- init ---------- */
+function init(){
+  buildCells(); buildLegend();
+  ['cc0','cc1','cc2','cc3','cn0','cn1','cn2','cn3'].forEach(function(id){
+    var el=$(id); if(el){ buildChip(el); CHIPS[id]=el; }
+  });
+  HAND=$('handChip');
+  HAND._a=buildHalf('a'); HAND._b=buildHalf('b');
+  HAND.appendChild(HAND._a); HAND.appendChild(HAND._b);
+
+  var unlocked=false;
+  function unlock(){ if(unlocked) return; unlocked=true; AU.unlock(); }
+  document.addEventListener('pointerdown',unlock);
+  document.addEventListener('keydown',unlock);
+
+  bindSeg('segCount'); bindSeg('segDiff'); bindSeg('segMax'); bindSeg('segDiff2');
+
+  on('btnGoSolo','click',function(){ sfx('click'); go('setup'); });
+  on('btnGoOnline','click',function(){ sfx('click'); go('online'); });
+  on('btnGoRules','click',function(){ sfx('click'); $('modalRules').classList.add('show'); });
+  on('btnRulesClose','click',function(){ sfx('click'); $('modalRules').classList.remove('show'); });
+  on('btnSetupBack','click',function(){ sfx('click'); go('menu'); });
+  on('btnOnlineBack','click',function(){ sfx('click'); NET.reset(); go('menu'); });
+
+  on('btnStartSolo','click',function(){
+    sfx('click'); AU.unlock();
+    var n=parseInt(getSeg('segCount','4'),10), lv=getSeg('segDiff','normal');
+    var nm=($('soloName').value||'ราชา').trim().slice(0,12)||'ราชา';
+    NET.reset(); NET.mode='off'; LOCAL_INDEX=0;
+    var ps=[{name:nm,bot:false,online:true,discarded:0}];
+    for(var i=1;i<n;i++) ps.push({name:BOTNAMES[i-1],bot:true,botLevel:lv,online:true,discarded:0});
+    ST={phase:'lobby',code:'',opts:{maxPlayers:n,botLevel:lv,harmony:$('optHarmony').checked,middle:$('optMiddle').checked},
+        players:ps,deck:[],cur:[],nxt:[],order:[],ti:0,step:'claim',round:0,totalRounds:12,colSize:4,tokens:[]};
+    startGame(); sync();
+  });
+
+  on('btnCreateRoom','click',function(){
+    sfx('click'); AU.unlock();
+    var nm=($('onName').value||'').trim().slice(0,12);
+    if(!nm){ toast('กรุณาใส่ชื่อผู้เล่นก่อน'); return; }
+    hostCreate(nm,parseInt(getSeg('segMax','4'),10),getSeg('segDiff2','normal'),
+               $('optHarmony2').checked,$('optMiddle2').checked);
+  });
+  on('btnJoinRoom','click',function(){
+    sfx('click'); AU.unlock();
+    var nm=($('onName').value||'').trim().slice(0,12);
+    var cd=($('onCode').value||'').trim().toUpperCase();
+    if(!nm){ toast('กรุณาใส่ชื่อผู้เล่น'); return; }
+    if(cd.length!==5){ toast('รหัสห้องต้องมี 5 ตัวอักษร'); return; }
+    NET.reset(); resultShown=false; scoreToken++; SCORING=false;
+    clientJoin(cd,nm);
+    go('lobby'); $('roomBig').textContent=cd;
+    $('lobbyMsg').textContent='กำลังเชื่อมต่อห้อง '+cd+'…';
+    $('hostControls').style.display='none'; $('btnStartOnline').style.display='none';
+  });
+  on('btnCopyCode','click',function(){
+    sfx('click');
+    var c=(ST&&ST.code)||''; if(!c) return;
+    if(navigator.clipboard) navigator.clipboard.writeText(c).then(function(){ toast('คัดลอกรหัสแล้ว: '+c); },function(){ toast('รหัสห้อง: '+c); });
+    else toast('รหัสห้อง: '+c);
+  });
+  on('btnShareLink','click',function(){
+    sfx('click');
+    var c=(ST&&ST.code)||''; if(!c) return;
+    var link=location.origin+location.pathname+'?room='+c;
+    if(navigator.share) navigator.share({title:'คิงโดมิโน',text:'มาเล่นคิงโดมิโนกัน! รหัสห้อง '+c,url:link}).catch(function(){});
+    else if(navigator.clipboard) navigator.clipboard.writeText(link).then(function(){ toast('คัดลอกลิงก์แล้ว'); },function(){ toast(link); });
+    else toast(link);
+  });
+  on('btnAddBot','click',function(){
+    sfx('click');
+    if(NET.mode!=='host'||!ST||ST.phase!=='lobby') return;
+    if(ST.players.length>=ST.opts.maxPlayers){ toast('ที่นั่งเต็มแล้ว'); return; }
+    var ix=ST.players.length;
+    ST.players.push({name:BOTNAMES[ix%4],bot:true,botLevel:ST.opts.botLevel,online:true,color:COLORS[ix],discarded:0});
+    renderLobby(); NET.broadcast();
+  });
+  on('btnRemoveBot','click',function(){
+    sfx('click');
+    if(NET.mode!=='host'||!ST||ST.phase!=='lobby') return;
+    for(var i=ST.players.length-1;i>0;i--) if(ST.players[i].bot){ ST.players.splice(i,1); break; }
+    ST.players.forEach(function(p,i){ p.color=COLORS[i]; });
+    renderLobby(); NET.broadcast();
+  });
+  on('btnStartOnline','click',function(){
+    sfx('click'); AU.unlock();
+    if(NET.mode!=='host'||!ST) return;
+    if(ST.players.length<2){ toast('ต้องมีอย่างน้อย 2 ผู้เล่น'); return; }
+    startGame(); sync();
+  });
+  on('btnLobbyLeave','click',function(){ sfx('click'); NET.reset(); ST=null; go('menu'); });
+
+  $('draft').addEventListener('click',guard('เลือกโดมิโน',function(e){
+    var chip=e.target.closest('.chip'); if(!chip||SCORING) return;
+    if(!chip.classList.contains('selectable')){ sfx('bad'); return; }
+    chip.style.transform='scale(1.16)';
+    setTimeout(function(){ chip.style.transform=''; },180);
+    act({t:'claim',id:parseInt(chip.dataset.id,10)});
+  }));
+
+  $('board').addEventListener('click',guard('วางโดมิโน',function(e){
+    var cell=e.target.closest('.cell'); if(!cell||SCORING) return;
+    if(!PCTX||viewIdx!==myIndex()) return;
+    var r=+cell.dataset.r, c=+cell.dataset.c, i, ok=false, other=-1;
+    for(i=0;i<PCTX.pls.length;i++){
+      if(PCTX.pls[i].r===r&&PCTX.pls[i].c===c){
+        if(PCTX.pls[i].dir===handDir) ok=true;
+        else if(other<0) other=PCTX.pls[i].dir;
+      }
+    }
+    if(ok){
+      if(selAnchor&&selAnchor.r===r&&selAnchor.c===c&&selAnchor.dir===handDir) act({t:'place',r:r,c:c,dir:handDir});
+      else{ selAnchor={r:r,c:c,dir:handDir}; sfx('click'); render(); }
+    }else if(other>=0){ handDir=other; selAnchor={r:r,c:c,dir:handDir}; sfx('click'); render(); }
+    else sfx('bad');
+  }));
+
+  on('btnRotate','click',function(){
+    if(!PCTX||!PCTX.pls.length) return;
+    var dirs={},i;
+    for(i=0;i<PCTX.pls.length;i++) dirs[PCTX.pls[i].dir]=1;
+    for(i=1;i<=4;i++){ var d=(handDir+i)%4; if(dirs[d]){ handDir=d; break; } }
+    if(selAnchor){
+      var ok=false;
+      for(i=0;i<PCTX.pls.length;i++)
+        if(PCTX.pls[i].r===selAnchor.r&&PCTX.pls[i].c===selAnchor.c&&PCTX.pls[i].dir===handDir) ok=true;
+      selAnchor=ok?{r:selAnchor.r,c:selAnchor.c,dir:handDir}:null;
+    }
+    sfx('click'); render();
+  });
+  on('btnConfirm','click',function(){ if(selAnchor&&PCTX) act({t:'place',r:selAnchor.r,c:selAnchor.c,dir:selAnchor.dir}); });
+  on('btnDiscard','click',function(){
+    if(!PCTX||PCTX.pls.length>0){ sfx('bad'); toast('ยังมีช่องที่วางได้ตามกฎ'); return; }
+    act({t:'discard'});
+  });
+  on('btnSkipScore','click',function(){ SKIP=true; sfx('click'); });
+
+  $('players').addEventListener('click',guard('ดูอาณาจักร',function(e){
+    var card=e.target.closest('.pcard'); if(!card||SCORING) return;
+    var ix=parseInt(card.id.replace('pc',''),10);
+    if(!ST||!ST.players[ix]) return;
+    viewIdx=ix; sfx('click'); render();
+  }));
+
+  on('btnMusic','click',function(){
+    AU.unlock(); AU.musicOn=!AU.musicOn;
+    if(AU.mg) AU.mg.gain.value=AU.musicOn?.13:0;
+    if(AU.musicOn) AU.startMusic();
+    $('btnMusic').classList.toggle('off',!AU.musicOn);
+    setIcon($('icoMusic'),AU.musicOn?'i_music':'i_mute');
+    toast(AU.musicOn?'เปิดเพลงประกอบ':'ปิดเพลงประกอบ');
+  });
+  on('btnSfx','click',function(){
+    AU.unlock(); AU.sfxOn=!AU.sfxOn;
+    if(AU.sg) AU.sg.gain.value=AU.sfxOn?.5:0;
+    $('btnSfx').classList.toggle('off',!AU.sfxOn);
+    setIcon($('icoSfx'),AU.sfxOn?'i_sound':'i_soundoff');
+    if(AU.sfxOn) sfx('click');
+    toast(AU.sfxOn?'เปิดเสียงเอฟเฟกต์':'ปิดเสียงเอฟเฟกต์');
+  });
+
+  on('btnMenu','click',function(){ sfx('click'); $('modalMenu').classList.add('show'); });
+  on('btnMenuClose','click',function(){ sfx('click'); $('modalMenu').classList.remove('show'); });
+  on('btnMenuRules','click',function(){ sfx('click'); $('modalMenu').classList.remove('show'); $('modalRules').classList.add('show'); });
+  on('btnMenuRestart','click',function(){
+    sfx('click'); $('modalMenu').classList.remove('show');
+    if(NET.mode==='client'){ toast('เฉพาะโฮสต์เท่านั้นที่เริ่มเกมใหม่ได้'); return; }
+    if(!ST) return;
+    scoreToken++; SCORING=false; clearFx();
+    for(var i=0;i<CELLS.length;i++) CELLS[i].classList.remove('sdim','slit','sdone');
+    startGame(); sync();
+  });
+  on('btnMenuQuit','click',function(){
+    sfx('click'); $('modalMenu').classList.remove('show');
+    scoreToken++; SCORING=false; clearFx();
+    if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+    NET.reset(); ST=null; go('menu');
+  });
+  on('btnAgain','click',function(){
+    sfx('click');
+    if(NET.mode==='client'){ toast('รอโฮสต์เริ่มเกมใหม่'); return; }
+    if(!ST){ go('menu'); return; }
+    scoreToken++; SCORING=false; clearFx();
+    for(var i=0;i<CELLS.length;i++) CELLS[i].classList.remove('sdim','slit','sdone');
+    startGame(); sync();
+  });
+  on('btnHome','click',function(){
+    sfx('click'); scoreToken++; SCORING=false; clearFx();
+    if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+    NET.reset(); ST=null; go('menu');
+  });
+  on('errClose','click',function(){ $('errorPanel').classList.remove('show'); });
+
+  var rz=null;
+  window.addEventListener('resize',function(){
+    if(rz) clearTimeout(rz);
+    rz=setTimeout(function(){
+      try{
+        if(SCORING){ clearFx(); if(ST&&ST.players[viewIdx]) renderBoard(); }
+        else render();
+      }catch(e){}
+    },110);
+  });
+
+  /* share link / last session */
+  try{
+    var qs=new URLSearchParams(location.search);
+    var rc=(qs.get('room')||'').toUpperCase();
+    var last=null;
+    try{ last=JSON.parse(localStorage.getItem('kdm_last')||'null'); }catch(e){}
+    if(last&&last.name){ $('onName').value=last.name; $('soloName').value=last.name; }
+    if(rc.length===5){
+      $('onCode').value=rc; go('online');
+      netStatus('พบรหัสห้อง '+rc+' จากลิงก์ — ใส่ชื่อแล้วกด “เข้าร่วม”');
+    }else if(last&&last.code&&!last.host) $('onCode').value=last.code;
+  }catch(e){ showError('ลิงก์เชิญ',e); }
+
+  /* self test */
+  try{
+    if(DOMS.length!==48) throw new Error('จำนวนโดมิโนไม่ถูกต้อง: '+DOMS.length);
+    var g=newGrid();
+    if(allPlacements(g,DOMS[0]).length===0) throw new Error('ระบบตรวจการวางผิดพลาด');
+    if(canPlace(g,DOMS[0],4,4,0)) throw new Error('อนุญาตให้วางทับปราสาท');
+    applyToGrid(g,DOMS[46],4,5,0);
+    if(scoreRegions(g).total!==4) throw new Error('การคำนวณคะแนนผิดพลาด');
+    if(CELLS.length!==81) throw new Error('สร้างกระดานไม่ครบ');
+  }catch(e){ showError('ตรวจสอบระบบ',e); }
+}
+
+try{ init(); }catch(e){ showError('เริ่มต้นระบบ',e); }
+})();
+</script>
+</body>
+</html>
