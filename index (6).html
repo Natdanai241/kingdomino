@@ -1,0 +1,3303 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#101D1E">
+<title>สยามรมณีย์ — SIAM HERITAGE · มรดกแผ่นดินไทย</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   สยามรมณีย์ · SIAM HERITAGE
+   Royal Benjarong Porcelain, Carved Golden Teakwood & Celadon Jade
+   ===================================================================== */
+:root{
+  --cacao-0:#0E191B;
+  --cacao-1:#162629;
+  --cacao-2:#1F3539;
+  --cacao-3:#2B484D;
+  --cream:#FFF9EE;
+  --cream-2:#F6E8CE;
+  --cream-3:#E5CE9F;
+  --ink:#FFF9EF;
+  --ink-dark:#1E150B;
+  --muted:#C8D3CD;
+  --dim:#879B95;
+  --brass:#E6B44C;
+  --brass-l:#FDE6AA;
+  --brass-d:#9B6D16;
+  --berry:#D94B62;
+  --berry-l:#FF96A6;
+  --berry-d:#8E2235;
+  --pistachio:#3DC496;
+  --pistachio-l:#B8FCE2;
+  --pistachio-d:#17694D;
+  --blueberry:#4DA3E8;
+  --surface:rgba(21,38,41,.88);
+  --surface-2:rgba(31,55,59,.84);
+  --porcelain:linear-gradient(165deg,#FFFDF8 0%,#F7EAD2 60%,#E7CFAB 100%);
+  --border-brass:rgba(230,180,76,.40);
+  --border-soft:rgba(255,248,232,.13);
+  --r-lg:20px;
+  --r-md:14px;
+  --r-sm:10px;
+  --cs:36px;
+  --chs:28px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;padding:0}
+body{
+  font-family:'Kanit',system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:var(--cacao-0);
+  color:var(--ink);
+  overflow:hidden;
+  user-select:none;
+  -webkit-user-select:none;
+}
+button{font-family:inherit;border:0;background:none;color:inherit}
+svg{display:block}
+.hide{display:none !important}
+
+/* ================= AMBIENT THAI LANDSCAPE SCENE ================= */
+#bgCanvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;display:block}
+#vig{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(110% 75% at 50% 0%,rgba(255,214,132,.11) 0%,transparent 54%),
+    radial-gradient(130% 95% at 50% 50%,transparent 48%,rgba(6,13,15,.74) 100%);
+}
+
+/* ================= APP SHELL ================= */
+#app{position:relative;z-index:2;height:100dvh;display:flex;flex-direction:column}
+.screen{display:none;flex:1;min-height:0;flex-direction:column}
+.screen.active{display:flex}
+.scroller{
+  flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;
+  padding:20px 16px 32px;
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+}
+
+/* ================= BENJARONG & TEAKWOOD PANELS ================= */
+.panel{
+  position:relative;
+  width:100%;max-width:560px;
+  border-radius:var(--r-lg);
+  padding:22px 20px;
+  background:linear-gradient(160deg,rgba(26,47,51,.93) 0%,rgba(14,27,30,.96) 100%);
+  border:1.5px solid var(--border-brass);
+  box-shadow:
+    0 24px 56px rgba(3,9,11,.72),
+    0 0 0 4px rgba(230,180,76,.07),
+    inset 0 1px 0 rgba(255,246,220,.22),
+    inset 0 -1px 0 rgba(0,0,0,.5);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.panel::before{
+  content:'';position:absolute;inset:6px;border-radius:15px;pointer-events:none;
+  border:1px solid rgba(230,180,76,.18);
+}
+h1,h2,h3,h4{margin:0 0 8px;font-weight:600}
+h2{
+  font-size:21px;text-align:center;letter-spacing:.4px;color:var(--brass-l);
+  text-shadow:0 2px 10px rgba(0,0,0,.55);
+}
+
+/* Brand Identity */
+.brand{display:flex;flex-direction:column;align-items:center;gap:3px;margin-bottom:2px}
+.sub-en{
+  font-size:clamp(11.5px,2.9vw,14px);
+  font-weight:600;
+  letter-spacing:4.2px;
+  text-transform:uppercase;
+  color:var(--brass);
+}
+.logo{
+  font-family:'Charm','Kanit',serif;
+  font-size:clamp(36px,10vw,58px);
+  font-weight:700;
+  letter-spacing:1.8px;
+  line-height:1.1;
+  text-align:center;
+  margin:0;
+  background:linear-gradient(175deg,#FFFDF7 8%,var(--brass-l) 36%,var(--brass) 68%,#B57D1E 96%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 14px rgba(0,0,0,.6));
+}
+.tagline{
+  font-size:12.5px;color:var(--muted);letter-spacing:1.4px;text-align:center;
+  display:flex;align-items:center;gap:8px;
+}
+.tagline::before,.tagline::after{
+  content:'';width:24px;height:1.5px;background:linear-gradient(90deg,transparent,var(--brass),transparent);
+}
+#crestCv{
+  width:min(142px,33vw);height:auto;
+  filter:drop-shadow(0 16px 28px rgba(4,10,12,.76));
+  animation:domeFloat 5.6s ease-in-out infinite;
+}
+@keyframes domeFloat{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-7px) scale(1.02)}
+}
+.vchip{
+  font-size:11px;letter-spacing:1.1px;color:var(--muted);
+  padding:5px 15px;border-radius:999px;
+  border:1px solid var(--border-brass);
+  background:rgba(15,28,31,.74);
+  box-shadow:0 6px 16px rgba(0,0,0,.38);
+}
+
+/* ================= 3D TACTILE GILDED THAI BUTTONS ================= */
+.btn{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;padding:13.5px 18px;margin-top:10px;
+  cursor:pointer;font-size:15.5px;font-weight:600;letter-spacing:.3px;
+  color:var(--ink-dark);
+  border-radius:13px;
+  background:linear-gradient(175deg,#FFF0BE 0%,#EDC05E 48%,#C68B24 100%);
+  border:1px solid rgba(255,250,230,.65);
+  box-shadow:
+    0 4px 0 #7C520C,
+    0 10px 22px rgba(0,0,0,.48),
+    inset 0 1px 0 rgba(255,255,255,.85);
+  transition:transform .1s ease,box-shadow .1s ease,filter .16s ease;
+}
+.btn:hover{filter:brightness(1.05)}
+.btn:active{
+  transform:translateY(3px);
+  box-shadow:0 1px 0 #7C520C,0 4px 10px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.7);
+}
+.btn.sec{
+  color:#F5FAF8;
+  background:linear-gradient(175deg,#2B4A4F 0%,#1D3438 55%,#132326 100%);
+  border-color:rgba(230,180,76,.32);
+  box-shadow:
+    0 4px 0 #0A1517,
+    0 10px 20px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,248,225,.16);
+}
+.btn.sec:active{
+  box-shadow:0 1px 0 #0A1517,0 4px 10px rgba(0,0,0,.42);
+}
+.btn.mint{
+  color:#06291D;
+  background:linear-gradient(175deg,#C4FCE4 0%,#52D1A2 50%,#299E74 100%);
+  border-color:rgba(230,255,244,.7);
+  box-shadow:
+    0 4px 0 #146145,
+    0 10px 22px rgba(0,0,0,.46),
+    inset 0 1px 0 rgba(255,255,255,.82);
+}
+.btn.mint:active{
+  box-shadow:0 1px 0 #146145,0 4px 10px rgba(0,0,0,.42);
+}
+.btn.berry{
+  color:#FFF7F8;
+  background:linear-gradient(175deg,#F06E82 0%,#D43F57 52%,#A32338 100%);
+  border-color:rgba(255,210,218,.45);
+  box-shadow:
+    0 4px 0 #631220,
+    0 10px 22px rgba(0,0,0,.46),
+    inset 0 1px 0 rgba(255,255,255,.4);
+}
+.btn.sm{
+  width:auto;padding:9px 14px;font-size:13.5px;margin-top:0;border-radius:11px;
+  box-shadow:0 3px 0 #7C520C,0 7px 14px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.75);
+}
+.btn.sm.sec{box-shadow:0 3px 0 #0A1517,0 7px 14px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,245,225,.15)}
+.btn.sm.mint{box-shadow:0 3px 0 #146145,0 7px 14px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.75)}
+.btn[disabled]{filter:grayscale(.82) brightness(.62);opacity:.65;pointer-events:none}
+.btn .bic{width:18px;height:18px;flex:0 0 auto;fill:currentColor}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row>.btn{flex:1;min-width:132px}
+
+/* ================= FORM CONTROLS ================= */
+label.fld{
+  display:block;font-size:12.5px;color:var(--brass-l);
+  margin:14px 0 6px;letter-spacing:.35px;font-weight:500;
+}
+input.txt{
+  width:100%;padding:12.5px 14px;border-radius:12px;
+  font-size:16px;font-family:inherit;text-align:center;
+  color:var(--ink);letter-spacing:.8px;
+  background:rgba(8,16,18,.76);
+  border:1px solid rgba(230,180,76,.32);
+  box-shadow:inset 0 3px 8px rgba(0,0,0,.55);
+  transition:border-color .18s,box-shadow .18s;
+}
+input.txt::placeholder{color:var(--dim)}
+input.txt:focus{
+  outline:none;border-color:var(--brass);
+  box-shadow:inset 0 3px 8px rgba(0,0,0,.55),0 0 0 3px rgba(230,180,76,.24);
+}
+.seg{display:flex;gap:6px}
+.seg button{
+  flex:1;padding:10px 4px;font-size:14px;font-weight:600;cursor:pointer;
+  border-radius:11px;color:var(--muted);
+  background:rgba(255,248,232,.05);
+  border:1px solid var(--border-soft);
+  transition:all .16s ease;
+}
+.seg button:hover{background:rgba(255,248,232,.1);color:var(--ink)}
+.seg button.on{
+  color:var(--ink-dark);
+  border-color:#FFF0C7;
+  background:linear-gradient(175deg,#FFF0BE,#E6B44C);
+  box-shadow:0 4px 14px rgba(230,180,76,.35);
+}
+.seg.six button{font-size:13.5px;padding:9.5px 0}
+.chk{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 13px;margin-top:8px;border-radius:12px;
+  font-size:13.5px;cursor:pointer;
+  background:rgba(255,248,232,.045);
+  border:1px solid var(--border-soft);
+  transition:border-color .15s,background .15s;
+}
+.chk:hover{border-color:rgba(230,180,76,.34);background:rgba(255,248,232,.08)}
+.chk input{width:18px;height:18px;accent-color:var(--brass);flex:0 0 auto}
+.note{font-size:12px;color:var(--muted);line-height:1.68}
+.note.box{
+  padding:10px 12px;border-radius:11px;
+  border:1px solid rgba(230,180,76,.38);
+  background:rgba(230,180,76,.10);
+  color:#FFF0C9;
+}
+.divider{
+  height:1px;margin:16px 0 6px;
+  background:linear-gradient(90deg,transparent,var(--border-brass),transparent);
+}
+.hsec{
+  display:flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:600;margin-top:4px;color:var(--brass-l);
+}
+.hsec svg{width:18px;height:18px;fill:var(--brass)}
+
+/* Menu Showcase Legend */
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
+@media (max-width:400px){ .legend{grid-template-columns:repeat(2,1fr)} }
+.legend span{
+  display:flex;align-items:center;gap:7px;font-size:11.5px;
+  padding:6px 8px;border-radius:10px;
+  background:rgba(9,19,21,.58);
+  border:1px solid rgba(230,180,76,.2);
+  color:var(--cream-2);
+}
+.legend i{
+  width:22px;height:22px;border-radius:6px;flex:0 0 auto;display:block;
+  background-size:100% 100%;
+  box-shadow:0 2px 5px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.22);
+}
+
+/* ================= GAME TOP HEADER ================= */
+#gameTop{
+  flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:7px 12px;
+  background:linear-gradient(180deg,rgba(12,23,26,.96),rgba(19,35,38,.88));
+  border-bottom:1px solid var(--border-brass);
+  box-shadow:0 6px 20px rgba(0,0,0,.45);
+  backdrop-filter:blur(10px);
+}
+.icobtn{
+  width:38px;height:38px;flex:0 0 auto;border-radius:11px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(170deg,rgba(255,248,232,.1),rgba(255,248,232,.04));
+  border:1px solid rgba(230,180,76,.3);
+  box-shadow:0 3px 8px rgba(0,0,0,.35);
+  transition:transform .12s,background .15s;
+}
+.icobtn:hover{background:rgba(230,180,76,.18)}
+.icobtn:active{transform:scale(.94)}
+.icobtn svg{width:19px;height:19px;fill:var(--brass-l)}
+.icobtn.off{opacity:.45}.icobtn.off svg{fill:var(--dim)}
+
+#hdBrand{
+  display:none;align-items:center;gap:7px;padding-right:8px;
+  border-right:1px solid var(--border-soft);
+}
+#hdBrand b{
+  font-family:'Charm','Kanit',serif;
+  font-size:17px;color:var(--brass-l);letter-spacing:.6px;white-space:nowrap;
+}
+@media (min-width:680px){ #hdBrand{display:flex} }
+
+#hdInfo{flex:1;min-width:0}
+#hdRound{font-size:13.5px;font-weight:600;line-height:1.15;color:var(--cream)}
+#hdLeft{font-size:10.5px;color:var(--muted);line-height:1.25}
+#hdBar{
+  height:5px;margin-top:4px;background:rgba(0,0,0,.45);
+  overflow:hidden;border-radius:99px;border:1px solid rgba(255,255,255,.07);
+}
+#hdBarIn{
+  height:100%;width:0;transition:width .45s ease;
+  background:linear-gradient(90deg,var(--berry),var(--brass),var(--pistachio));
+}
+#hdRoom{
+  flex:0 0 auto;text-align:center;cursor:pointer;padding:3px 10px;line-height:1.12;
+  border-radius:10px;background:rgba(9,18,20,.7);
+  border:1px dashed var(--brass);
+}
+#hdRoom span{font-size:9.5px;color:var(--muted)}
+#hdRoom b{display:block;font-size:14.5px;color:var(--brass-l);letter-spacing:2.5px}
+
+/* ================= RESPONSIVE GAME STAGE ================= */
+#gameStage{
+  flex:1;min-height:0;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+
+/* ================= BENJARONG PAVILION DRAFT DISPLAY ================= */
+#draft{
+  flex:0 0 auto;
+  display:flex;gap:12px;justify-content:center;align-items:flex-start;
+  padding:7px 10px 4px;
+  --chs:26px;
+}
+#draft.sz0{--chs:clamp(23px,6.8vw,32px)}
+#draft.sz1{--chs:clamp(20px,5.8vw,27px)}
+#draft.sz2{--chs:clamp(17px,4.9vw,23px)}
+
+.dwrap{
+  display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;
+  padding:6px 10px 8px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(28,50,54,.76),rgba(13,25,28,.80));
+  border:1px solid rgba(230,180,76,.26);
+  box-shadow:inset 0 1px 0 rgba(255,248,230,.12),0 6px 16px rgba(0,0,0,.36);
+}
+.dwrap h4{
+  margin:0;font-size:10.5px;font-weight:600;color:var(--brass-l);
+  letter-spacing:.5px;white-space:nowrap;
+}
+.dcol{display:flex;flex-direction:column;gap:5px;align-items:center}
+#draft.sz2 .dcol{gap:3.5px}
+
+/* ----- BENJARONG & TEAKWOOD DOMINO PLAQUE ----- */
+.chip{
+  position:relative;display:flex;padding:3.5px;border-radius:10px;gap:2px;
+  background:linear-gradient(170deg,#FFFDF7 0%,#F3DFB9 55%,#D4B379 100%);
+  border:1px solid rgba(155,109,22,.52);
+  box-shadow:
+    0 5px 12px rgba(0,0,0,.55),
+    0 2px 0 #8F6722,
+    inset 0 1px 0 #FFFFFF;
+  transition:transform .18s cubic-bezier(.2,1.2,.4,1),opacity .24s,box-shadow .2s;
+}
+.chip::before{
+  content:'';position:absolute;z-index:3;pointer-events:none;
+  left:50%;top:4px;bottom:4px;width:1.5px;transform:translateX(-.75px);
+  background:linear-gradient(180deg,rgba(130,85,20,.2),rgba(130,85,20,.55),rgba(130,85,20,.2));
+}
+.chip.vert::before{
+  left:4px;right:4px;top:50%;bottom:auto;width:auto;height:1.5px;transform:translateY(-.75px);
+  background:linear-gradient(90deg,rgba(130,85,20,.2),rgba(130,85,20,.55),rgba(130,85,20,.2));
+}
+/* Brass Seal Number Badge */
+.chip .num{
+  position:absolute;left:-7px;top:-7px;z-index:5;min-width:19px;padding:0.5px 4.5px;
+  font-size:10px;font-weight:700;text-align:center;border-radius:99px;
+  color:#241404;
+  background:linear-gradient(170deg,#FFF4CF 0%,var(--brass) 75%,#B07919 100%);
+  border:1px solid #FFF9E6;
+  box-shadow:0 2px 6px rgba(0,0,0,.65);
+}
+/* Royal White Elephant / Chatra Claim Pin */
+.chip .kg{
+  position:absolute;right:-8px;top:-9px;z-index:5;width:22px;height:22px;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.94));
+}
+.half{
+  position:relative;width:var(--chs);height:var(--chs);overflow:hidden;
+  border-radius:6px;
+  background-size:100% 100%;background-repeat:no-repeat;
+  box-shadow:inset 0 0 0 1px rgba(35,22,8,.28),0 1px 2px rgba(0,0,0,.22);
+}
+/* Golden Pikul / Lotus Star Multipliers */
+.crw{
+  position:absolute;right:1.5px;top:1.5px;z-index:4;
+  display:flex;gap:0.5px;
+  padding:1px 2px;border-radius:6px;
+}
+.crw .cri{
+  width:calc(var(--chs)*.33);height:calc(var(--chs)*.33);
+  fill:#FFE982;
+  filter:drop-shadow(0 1px 2px rgba(18,8,2,.98)) drop-shadow(0 0 2px rgba(170,95,0,.88));
+}
+.chip.selectable{
+  cursor:pointer;
+  box-shadow:
+    0 0 0 2.5px var(--pistachio),
+    0 0 18px rgba(61,196,150,.5),
+    0 6px 14px rgba(0,0,0,.55);
+  animation:trayPulse 1.7s ease-in-out infinite;
+}
+.chip.selectable:hover{transform:scale(1.09) translateY(-1px)}
+@keyframes trayPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+}
+.chip.active{
+  box-shadow:
+    0 0 0 2.5px var(--brass-l),
+    0 0 20px rgba(230,180,76,.58),
+    0 6px 14px rgba(0,0,0,.55);
+}
+.chip.done{opacity:.22;filter:grayscale(.75)}
+.chip.deal{animation:trayDeal .44s cubic-bezier(.2,1.35,.35,1) backwards}
+@keyframes trayDeal{from{transform:translateY(-22px) scale(.62);opacity:0}}
+.emptyhint{font-size:10.5px;color:var(--dim);padding:10px 6px;text-align:center}
+
+/* ================= CARVED GOLDEN TEAKWOOD 5x5 PROVINCE BOARD ================= */
+#boardArea{
+  position:relative;flex:1;min-height:0;
+  display:flex;flex-direction:column;align-items:center;
+  gap:5px;padding:3px 10px;
+}
+#boardOwner{
+  flex:0 0 auto;font-size:12.5px;font-weight:600;letter-spacing:.4px;
+  display:flex;align-items:center;gap:6px;
+  padding:3px 12px;border-radius:99px;
+  background:rgba(12,24,27,.72);
+  border:1px solid rgba(230,180,76,.28);
+}
+#boardOwner svg{width:15px;height:15px;fill:currentColor}
+
+#boardWrap{
+  flex:1;min-height:0;width:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+#board{
+  position:relative;display:grid;gap:4px;padding:12px;
+  border-radius:20px;
+  /* Rich Royal Teakwood & Emerald-Indigo Silk Backing with Gilded Trim */
+  background:
+    radial-gradient(circle at 50% 35%,rgba(44,68,66,.92),rgba(18,30,32,.98) 82%);
+  border:2px solid var(--brass);
+  box-shadow:
+    0 24px 54px rgba(0,0,0,.74),
+    0 0 0 5px rgba(58,36,18,.94),
+    0 0 0 6.5px rgba(230,180,76,.44),
+    inset 0 2px 10px rgba(0,0,0,.68),
+    inset 0 0 0 1px rgba(255,236,188,.22);
+}
+#fxLayer{position:absolute;inset:0;z-index:20;pointer-events:none;overflow:visible}
+
+/* Individual Land Plot Compartment */
+.cell{
+  position:relative;overflow:hidden;
+  width:var(--cs);height:var(--cs);
+  border-radius:calc(var(--cs)*.17);
+  display:flex;align-items:center;justify-content:center;
+  background-color:rgba(8,16,18,.56);
+  background-size:100% 100%;background-repeat:no-repeat;
+  box-shadow:
+    inset 0 2px 5px rgba(0,0,0,.62),
+    inset 0 0 0 1px rgba(230,180,76,.15);
+  transition:transform .16s ease,box-shadow .16s ease,filter .28s ease;
+}
+.cell.has{
+  box-shadow:
+    0 3px 7px rgba(0,0,0,.58),
+    inset 0 1px 1px rgba(255,255,255,.35),
+    inset 0 -2px 3px rgba(0,0,0,.32);
+}
+.cell .crw{right:2px;top:1px}
+.cell .crw .cri{width:calc(var(--cs)*.31);height:calc(var(--cs)*.31)}
+.cell .gh{
+  position:absolute;z-index:3;font-size:calc(var(--cs)*.44);line-height:1;font-weight:700;
+  color:#EAFFF4;text-shadow:0 1px 5px rgba(0,0,0,.95);
+}
+.cell.valid{
+  cursor:pointer;
+  background-color:rgba(61,196,150,.24);
+  box-shadow:
+    inset 0 0 0 2px var(--pistachio),
+    0 0 14px rgba(61,196,150,.4);
+}
+.cell.valid:hover{
+  background-color:rgba(61,196,150,.36);
+  transform:scale(1.04);
+}
+.cell.prev{
+  box-shadow:
+    inset 0 0 0 2.5px var(--brass-l),
+    0 0 20px rgba(253,230,170,.74);
+  z-index:3;
+}
+.cell.pop{animation:bonbonPop .42s cubic-bezier(.2,1.45,.4,1)}
+@keyframes bonbonPop{from{transform:scale(.3) rotate(-10deg)}}
+.cell.castle{
+  box-shadow:
+    0 0 0 2px var(--brass-l),
+    0 0 22px rgba(230,180,76,.65),
+    inset 0 1px 2px rgba(255,255,255,.5);
+}
+.cell.sdim{filter:brightness(.28) saturate(.32)}
+.cell.slit{
+  filter:none;z-index:4;
+  box-shadow:inset 0 0 0 2.5px #FFF2C2,0 0 26px rgba(253,230,170,.9);
+  animation:litPulse .52s ease-out;
+}
+@keyframes litPulse{from{transform:scale(1.15)}}
+.cell.sdone{filter:brightness(.76) saturate(.85)}
+
+/* Score Ribbons & Badges */
+.sbadge{
+  position:absolute;z-index:5;
+  transform:translate(-50%,-50%) scale(.35);opacity:0;
+  padding:5px 13px;text-align:center;white-space:nowrap;border-radius:12px;
+  background:linear-gradient(172deg,#FFF9E8,var(--brass));
+  color:#241304;
+  border:1px solid #FFFDF6;
+  box-shadow:0 10px 26px rgba(0,0,0,.68),0 0 0 2px rgba(230,180,76,.38);
+  animation:sbin .42s cubic-bezier(.2,1.5,.4,1) forwards;
+}
+.sbadge.zero{
+  background:linear-gradient(172deg,#6B7C79,#3E4C4A);
+  color:#EAF2F0;border-color:rgba(255,255,255,.25);
+}
+.sbadge.bonus{
+  background:linear-gradient(172deg,#D6FFF0,var(--pistachio));
+  color:#06291D;
+}
+.sbadge.total{
+  background:linear-gradient(172deg,#FFE0E5,var(--berry));
+  color:#FFF9FA;padding:9px 22px;
+  box-shadow:0 14px 34px rgba(0,0,0,.74),0 0 0 3px rgba(255,240,243,.55);
+}
+@keyframes sbin{to{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.sb-t{font-size:10.5px;font-weight:500;opacity:.9;line-height:1.2}
+.sb-b{font-size:17px;font-weight:700;line-height:1.15}
+.sbadge.total .sb-b{font-size:25px}
+
+#turnBanner{
+  position:absolute;left:50%;top:42%;z-index:30;
+  transform:translate(-50%,-50%) scale(.8);
+  opacity:0;pointer-events:none;
+  padding:10px 24px;font-size:16px;font-weight:700;white-space:nowrap;
+  border-radius:99px;
+  background:linear-gradient(172deg,rgba(24,45,48,.97),rgba(11,22,25,.98));
+  border:1.5px solid var(--brass);
+  box-shadow:0 16px 36px rgba(0,0,0,.75);
+}
+#turnBanner.show{animation:tb 1.28s ease forwards}
+@keyframes tb{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.76)}
+  18%,72%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-62%) scale(.96)}
+}
+
+/* ================= HAND CONTROLS / HUD ================= */
+#handBar{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  gap:9px;padding:3px 8px;min-height:54px;
+}
+#handChip{
+  --chs:clamp(28px,8.2vw,40px);
+  box-shadow:0 0 0 2px var(--brass),0 10px 22px rgba(0,0,0,.6),inset 0 1px 0 #fff;
+}
+#handChip .anchor::after{
+  content:'';position:absolute;inset:2.5px;z-index:4;border-radius:4px;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 0 6px rgba(0,0,0,.5);
+}
+#scoreHud{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  gap:14px;padding:4px 12px;
+  background:rgba(14,27,30,.78);border-radius:99px;border:1px solid var(--border-brass);
+}
+#shName{font-size:13.5px;color:var(--cream-2);font-weight:500}
+#shVal{
+  font-size:30px;font-weight:700;color:var(--brass-l);line-height:1;
+  text-shadow:0 3px 16px rgba(230,180,76,.55);
+}
+#statusMsg{
+  flex:0 0 auto;font-size:12.5px;text-align:center;min-height:20px;
+  padding:0 10px;color:var(--brass-l);
+}
+#statusMsg.warn{color:var(--berry-l)}
+#backToMine{margin-left:7px}
+
+/* ================= GOVERNOR / RULER PLAYER CARDS ================= */
+#players{
+  flex:0 0 auto;display:grid;gap:6px;padding:4px 10px 9px;
+  grid-template-columns:repeat(var(--np,2),1fr);
+}
+.pcard{
+  position:relative;overflow:hidden;padding:7px 6px 6px;
+  text-align:center;cursor:pointer;border-radius:13px;
+  background:linear-gradient(172deg,rgba(31,56,60,.84),rgba(15,28,31,.9));
+  border:1px solid rgba(230,180,76,.22);
+  box-shadow:0 6px 14px rgba(0,0,0,.42);
+  transition:transform .16s,border-color .16s,box-shadow .16s;
+}
+.pcard:hover{border-color:rgba(230,180,76,.48)}
+.pcard .bar{position:absolute;left:0;top:0;width:100%;height:3.5px;background:currentColor;opacity:.95}
+.pcard .phead{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:2px}
+.pcard .pav{
+  width:20px;height:20px;border-radius:50%;flex:0 0 auto;
+  background:rgba(0,0,0,.35);border:1px solid currentColor;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.pcard .pav svg{width:16px;height:16px}
+.pcard .pn{
+  font-size:11.5px;font-weight:600;color:var(--cream);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.pcard .ps{
+  font-size:18.5px;font-weight:700;color:var(--brass-l);line-height:1.12;
+}
+.pcard .pt{
+  font-size:9.5px;color:var(--muted);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.pcard.turn{
+  border-color:var(--brass);
+  background:linear-gradient(172deg,rgba(230,180,76,.26),rgba(24,44,48,.92));
+  box-shadow:0 0 0 2px rgba(230,180,76,.44),0 8px 20px rgba(0,0,0,.5);
+}
+.pcard.turn::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,245,215,.22) 50%,transparent 70%);
+  transform:translateX(-100%);animation:shimmer 2.4s ease-in-out infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+.pcard.viewing{outline:2px dashed var(--pistachio);outline-offset:-3px}
+.pcard.off{opacity:.44}
+.pcard .botb{position:absolute;right:5px;top:6px;width:12px;height:12px;fill:var(--muted)}
+#players.six .pcard{padding:5px 4px}
+#players.six .pcard .pn{font-size:10px}
+#players.six .pcard .ps{font-size:15px}
+#players.six .pcard .pt{font-size:8.5px}
+
+/* ================= DESKTOP WIDESCREEN PAVILION LAYOUT ================= */
+@media (min-width:920px){
+  #gameStage{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    grid-template-rows:1fr auto;
+    max-width:1240px;
+    width:100%;
+    margin:0 auto;
+    padding:10px 16px 12px;
+    gap:10px 18px;
+  }
+  #draft{
+    grid-column:1;
+    grid-row:1 / span 2;
+    flex-direction:row;
+    align-self:stretch;
+    align-items:stretch;
+    justify-content:center;
+    padding:12px 10px;
+    border-radius:18px;
+    background:linear-gradient(170deg,rgba(24,45,49,.86),rgba(12,24,27,.92));
+    border:1px solid var(--border-brass);
+    box-shadow:0 16px 36px rgba(0,0,0,.48);
+    --chs:34px !important;
+  }
+  #draft.sz1{--chs:30px !important}
+  #draft.sz2{--chs:26px !important}
+  .dwrap{flex:1;background:rgba(8,16,18,.42);justify-content:flex-start;padding:10px 6px}
+  .dcol{gap:8px;margin-top:4px}
+  #boardArea{grid-column:2;grid-row:1;padding:2px 6px}
+  #players{
+    grid-column:2;grid-row:2;
+    max-width:860px;width:100%;margin:0 auto;padding:2px 4px 2px;
+  }
+}
+@media (max-height:660px){
+  #boardOwner{font-size:11px;padding:2px 10px}
+  #handBar{min-height:46px}
+  #players{padding-bottom:5px}
+}
+
+/* ================= ROYAL HERITAGE RESULTS ================= */
+.resrow{
+  display:flex;align-items:center;gap:11px;padding:12px 13px;margin-top:8px;
+  border-radius:14px;
+  background:linear-gradient(172deg,rgba(255,248,232,.08),rgba(255,248,232,.025));
+  border:1px solid var(--border-soft);
+  animation:slidein .4s cubic-bezier(.2,1.1,.4,1) backwards;
+}
+@keyframes slidein{from{transform:translateX(-24px);opacity:0}}
+.resrow.win{
+  background:linear-gradient(100deg,rgba(230,180,76,.28),rgba(61,196,150,.12),rgba(255,248,232,.04));
+  border-color:var(--brass);
+  box-shadow:0 0 0 1px rgba(230,180,76,.38),0 12px 26px rgba(0,0,0,.48);
+}
+.resrow .rk{
+  width:36px;flex:0 0 auto;text-align:center;font-size:18px;font-weight:700;color:var(--muted);
+}
+.resrow .rk svg{width:28px;height:28px;margin:0 auto}
+.resrow .rn{
+  flex:1;min-width:0;font-size:15px;font-weight:600;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.resrow .rn small{
+  display:block;font-weight:400;font-size:11px;color:var(--muted);white-space:normal;margin-top:2px;
+}
+.resrow .rs{
+  flex:0 0 auto;font-size:26px;font-weight:700;color:var(--brass-l);
+}
+#confetti{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+#confetti i{
+  position:absolute;top:-20px;width:11px;height:11px;border-radius:50% 0 50% 0;
+  opacity:.92;animation:petalFall linear forwards;
+}
+@keyframes petalFall{to{transform:translateY(112vh) rotate(720deg);opacity:.08}}
+
+/* ================= LOBBY ================= */
+.lobbyrow{
+  display:flex;align-items:center;gap:10px;padding:11px 13px;margin-top:7px;
+  font-size:13.5px;border-radius:12px;
+  background:linear-gradient(172deg,rgba(255,248,232,.075),rgba(255,248,232,.025));
+  border:1px solid var(--border-soft);
+}
+.lobbyrow .dot{
+  width:12px;height:12px;border-radius:50%;flex:0 0 auto;
+  box-shadow:0 0 10px currentColor;border:2px solid #FFF8EE;
+}
+.lobbyrow .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.lobbyrow .tg{
+  font-size:11px;color:var(--brass-l);
+  padding:2px 8px;border-radius:99px;background:rgba(0,0,0,.32);
+}
+#roomBig{
+  text-align:center;font-size:clamp(32px,10.5vw,48px);font-weight:700;
+  letter-spacing:9px;padding:8px 0 6px;
+  background:linear-gradient(175deg,#FFFDF7,var(--brass-l) 45%,var(--brass) 85%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* ================= MODAL / TOAST / ERROR ================= */
+.modal{
+  position:fixed;inset:0;z-index:60;display:none;
+  align-items:center;justify-content:center;padding:16px;
+  background:rgba(5,12,14,.84);backdrop-filter:blur(7px);
+}
+.modal.show{display:flex;animation:fadein .2s}
+@keyframes fadein{from{opacity:0}}
+.modal .panel{max-height:88dvh;overflow-y:auto;animation:popin .26s cubic-bezier(.2,1.2,.4,1)}
+@keyframes popin{from{transform:scale(.92) translateY(14px);opacity:0}}
+
+#toast{
+  position:fixed;left:50%;top:12%;z-index:80;
+  transform:translate(-50%,-16px);opacity:0;
+  max-width:88vw;padding:11px 20px;font-size:13.5px;font-weight:500;
+  text-align:center;pointer-events:none;border-radius:99px;
+  color:var(--cream);
+  background:linear-gradient(172deg,rgba(26,48,52,.97),rgba(12,24,27,.98));
+  border:1px solid var(--brass);
+  box-shadow:0 14px 34px rgba(0,0,0,.72);
+  transition:opacity .24s,transform .24s;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+#errorPanel{
+  position:fixed;left:0;right:0;bottom:0;z-index:99;display:none;
+  padding:11px 14px;max-height:45dvh;overflow:auto;
+  background:linear-gradient(180deg,#8C1D2B,#4F0D16);
+  border-top:2px solid #FFA3B1;color:#fff;font-size:12px;
+}
+#errorPanel.show{display:block}
+#errText{white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,monospace;font-size:11px;line-height:1.55}
+#errClose{
+  margin-top:8px;padding:6px 14px;border-radius:8px;
+  border:1px solid #FFBCBC;background:rgba(0,0,0,.3);color:#fff;cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- ================= BESPOKE THAI HERITAGE SVG ICONS ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!-- Golden Pikul / Thai Lotus Star Multiplier -->
+  <symbol id="i_crown" viewBox="0 0 24 24">
+    <path d="M12 1.2 14.5 6.8 20.4 4.8 17.6 10.3 22.8 12 17.6 13.7 20.4 19.2 14.5 17.2 12 22.8 9.5 17.2 3.6 19.2 6.4 13.7 1.2 12 6.4 10.3 3.6 4.8 9.5 6.8z"/>
+    <circle cx="12" cy="12" r="2.8" fill="rgba(255,255,255,.55)"/>
+  </symbol>
+  <!-- Royal Thai Elephant / Chatra Claim Pin -->
+  <symbol id="i_king" viewBox="0 0 24 24">
+    <path d="M12 1.5 14.2 5h-4.4z"/>
+    <path d="M6.5 9.5c0-2.6 2.4-4.5 5.8-4.5 3.6 0 6.2 2.2 6.2 5.4v6.8h-2.8v-4.2h-1.6v4.2h-2.8v-4.2H9.6v4.2H6.8v-4.7c-.9.5-1.9.6-2.7.1-.9-.5-1.3-1.6-1.1-2.8l1.6-.2c-.1.6.1 1 .5 1.1.5.1 1.1-.3 1.4-1.2z"/>
+    <rect x="4.5" y="18.6" width="15" height="2.6" rx="1.2"/>
+  </symbol>
+  <!-- Golden Thai Phra Chedi -->
+  <symbol id="i_shield" viewBox="0 0 24 24">
+    <path d="M12 1.2 13.3 6.2 15.2 10.2c1.8 2.2 2.8 4.2 3 6.4H5.8c.2-2.2 1.2-4.2 3-6.4L10.7 6.2z"/>
+    <rect x="4" y="17.5" width="16" height="2.2" rx="1"/>
+    <rect x="2.4" y="20.3" width="19.2" height="2.3" rx="1.1"/>
+  </symbol>
+  <symbol id="i_music" viewBox="0 0 24 24"><path d="M9.4 18.2a3 3 0 1 1-2-2.8V5.2l11-2.6v11.3a3 3 0 1 1-2-2.8V6.9l-7 1.7z"/></symbol>
+  <symbol id="i_mute" viewBox="0 0 24 24">
+    <path d="M9.4 18.2a3 3 0 1 1-2-2.8V5.2l11-2.6v11.3a3 3 0 1 1-2-2.8V6.9l-7 1.7z" opacity=".45"/>
+    <path d="M3 3.7 20.3 21 21.7 19.6 4.4 2.3z"/></symbol>
+  <symbol id="i_sound" viewBox="0 0 24 24">
+    <path d="M3.6 9h3.6L12 4.6v14.8L7.2 15H3.6z"/>
+    <path d="M15.2 8.4a5 5 0 0 1 0 7.2l1.5 1.5a7.1 7.1 0 0 0 0-10.2zM17.9 5.2a9 9 0 0 1 0 13.6l1.5 1.5a11.1 11.1 0 0 0 0-16.6z"/></symbol>
+  <symbol id="i_soundoff" viewBox="0 0 24 24">
+    <path d="M3.6 9h3.6L12 4.6v14.8L7.2 15H3.6z"/>
+    <path d="M15.3 8.9 16.7 7.5 19.2 10l2.5-2.5 1.4 1.4L20.6 11.4l2.5 2.5-1.4 1.4-2.5-2.5-2.5 2.5-1.4-1.4 2.5-2.5z"/></symbol>
+  <symbol id="i_menu" viewBox="0 0 24 24"><path d="M3.4 5.4h17.2v2.4H3.4zM3.4 10.8h17.2v2.4H3.4zM3.4 16.2h17.2v2.4H3.4z"/></symbol>
+  <symbol id="i_rotate" viewBox="0 0 24 24"><path d="M12 4.6V1.4L7.4 5.4 12 9.4V6.4a5.8 5.8 0 1 1-5.8 5.8H4.4A7.6 7.6 0 1 0 12 4.6z"/></symbol>
+  <symbol id="i_check" viewBox="0 0 24 24"><path d="M9.6 17.6 4 12l1.7-1.7 3.9 3.9L18.3 5.5 20 7.2z"/></symbol>
+  <symbol id="i_trash" viewBox="0 0 24 24"><path d="M6.4 8h11.2l-.9 13H7.3zM9 3.4h6v2h4.6v2H4.4v-2H9z"/></symbol>
+  <symbol id="i_play" viewBox="0 0 24 24"><path d="M6.6 3.6 19.4 12 6.6 20.4z"/></symbol>
+  <symbol id="i_globe" viewBox="0 0 24 24"><path d="M12 1.8A10.2 10.2 0 1 0 22.2 12 10.2 10.2 0 0 0 12 1.8zm0 2.1c1.3 0 2.7 2 3.3 5.1H8.7C9.3 5.9 10.7 3.9 12 3.9zM4.1 12c0-.7.1-1.4.3-2h3.9a20 20 0 0 0 0 4H4.4a7.9 7.9 0 0 1-.3-2zm4.6 4.1h6.6c-.6 3-2 5-3.3 5s-2.7-2-3.3-5zm7-2.1H8.3a17.6 17.6 0 0 1 0-4h7.4a17.6 17.6 0 0 1 0 4zm1.9 2.1h3.1a8.1 8.1 0 0 1-5 4 13.5 13.5 0 0 0 1.9-4zm.2-2.1a20 20 0 0 0 0-4h3.9a8 8 0 0 1 0 4zM19.8 8h-3.1a13.5 13.5 0 0 0-1.9-4 8.1 8.1 0 0 1 5 4zM9.2 4a13.5 13.5 0 0 0-1.9 4H4.2a8.1 8.1 0 0 1 5-4zM4.2 16.1h3.1a13.5 13.5 0 0 0 1.9 4 8.1 8.1 0 0 1-5-4z"/></symbol>
+  <symbol id="i_book" viewBox="0 0 24 24"><path d="M3.4 3.6h6.2A3 3 0 0 1 12 5v15a3.6 3.6 0 0 0-2.4-.9H3.4zM20.6 3.6h-6.2A3 3 0 0 0 12 5v15a3.6 3.6 0 0 1 2.4-.9h6.2z"/></symbol>
+  <!-- AI Bot Guardian Mask / Yaksha Emblem -->
+  <symbol id="i_bot" viewBox="0 0 24 24">
+    <path d="M12 1.2 15.2 6.5h-6.4z"/>
+    <rect x="4.6" y="7.5" width="14.8" height="12.6" rx="3.2"/>
+    <circle cx="9.2" cy="13.2" r="1.8" fill="#162629"/>
+    <circle cx="14.8" cy="13.2" r="1.8" fill="#162629"/>
+    <path d="M8.5 17.2h7" stroke="#162629" stroke-width="1.8" stroke-linecap="round"/>
+  </symbol>
+  <!-- Royal Siamese Order Medal -->
+  <symbol id="i_medal" viewBox="0 0 24 24">
+    <path d="M8.2 14.5 6 22.4l4.2-2.2 1.8 2.2V15zM15.8 14.5 18 22.4l-4.2-2.2L12 22.4V15z" opacity=".78"/>
+    <circle cx="12" cy="9.4" r="7.2"/>
+    <path d="M12 4.5 13.5 8l3.5.4-2.6 2.4.7 3.5L12 12.6 8.9 14.3l.7-3.5L7 8.4 10.5 8z" fill="rgba(25,18,6,.48)"/>
+  </symbol>
+  <symbol id="i_copy" viewBox="0 0 24 24"><path d="M8 2.6h11.4v14H8zM4.6 6h2v13h10v2H4.6z"/></symbol>
+  <symbol id="i_share" viewBox="0 0 24 24"><path d="M17.6 15.4a3.3 3.3 0 0 0-2.2.9l-5.4-3.2a3.3 3.3 0 0 0 0-2.2l5.4-3.2a3.4 3.4 0 1 0-1.1-2.5 3.6 3.6 0 0 0 .1.8L9 9.2a3.4 3.4 0 1 0 0 5.6l5.4 3.2a3.6 3.6 0 0 0-.1.8 3.4 3.4 0 1 0 3.3-3.4z"/></symbol>
+  <symbol id="i_home" viewBox="0 0 24 24"><path d="M12 2.4 22 11.4h-3v9.8h-5.4v-6H10.4v6H5V11.4H2z"/></symbol>
+  <symbol id="i_refresh" viewBox="0 0 24 24"><path d="M12 4.4A7.6 7.6 0 0 0 4.4 12H1.8l3.6 4.2L9 12H6.4a5.6 5.6 0 1 1 1.7 4l-1.5 1.5A7.6 7.6 0 1 0 12 4.4z"/></symbol>
+  <symbol id="i_eye" viewBox="0 0 24 24"><path d="M12 4.6C6.8 4.6 2.6 8.4 1.2 12c1.4 3.6 5.6 7.4 10.8 7.4S21.4 15.6 22.8 12C21.4 8.4 17.2 4.6 12 4.6zm0 12a4.6 4.6 0 1 1 4.6-4.6 4.6 4.6 0 0 1-4.6 4.6zm0-7a2.4 2.4 0 1 0 2.4 2.4A2.4 2.4 0 0 0 12 9.6z"/></symbol>
+  <symbol id="i_skip" viewBox="0 0 24 24"><path d="M4 4.6 14 12 4 19.4zM16 4.6h4v14.8h-4z"/></symbol>
+  <symbol id="i_plus" viewBox="0 0 24 24"><path d="M10.8 3.6h2.4v7.2h7.2v2.4h-7.2v7.2h-2.4v-7.2H3.6v-2.4h7.2z"/></symbol>
+  <symbol id="i_minus" viewBox="0 0 24 24"><path d="M3.6 10.8h16.8v2.4H3.6z"/></symbol>
+  <symbol id="i_back" viewBox="0 0 24 24"><path d="M11 3.6 12.7 5.3 7.2 10.8H21v2.4H7.2l5.5 5.5L11 20.4 2.6 12z"/></symbol>
+  <!-- Thai Sala Pavilion -->
+  <symbol id="i_castle" viewBox="0 0 24 24">
+    <path d="M12 2 22.5 10.2h-2.8L12 5.2 4.3 10.2H1.5z"/>
+    <path d="M5 10.2h2.2v8.6H5zM16.8 10.2H19v8.6h-2.2zM10.9 10.2h2.2v8.6h-2.2z"/>
+    <rect x="2.5" y="18.8" width="19" height="2.6" rx="1"/>
+  </symbol>
+</defs></svg>
+
+<canvas id="bgCanvas"></canvas>
+<div id="vig"></div>
+
+<div id="app">
+
+  <!-- ================= MAIN MENU ================= -->
+  <section class="screen active" id="screen-menu">
+    <div class="scroller">
+      <canvas id="crestCv" width="280" height="290"></canvas>
+      <div class="brand">
+        <div class="sub-en">SIAM HERITAGE · WONDERS OF THAILAND</div>
+        <h1 class="logo">สยามรมณีย์</h1>
+        <div class="tagline">สถาปัตย์สร้างเมือง 5×5 · มรดกแผ่นดินไทย</div>
+      </div>
+      <div class="panel">
+        <button class="btn" id="btnGoSolo">
+          <svg class="bic"><use href="#i_shield"></use></svg>
+          เล่นคนเดียว (ประชันเจ้าเมืองบอท)
+        </button>
+        <button class="btn mint" id="btnGoOnline">
+          <svg class="bic"><use href="#i_globe"></use></svg>
+          เล่นออนไลน์กับเพื่อน (P2P)
+        </button>
+        <button class="btn sec" id="btnGoRules">
+          <svg class="bic"><use href="#i_book"></use></svg>
+          ตำราสร้างเมือง &amp; กติกาการเล่น
+        </button>
+        <div class="legend" id="legendBox"></div>
+      </div>
+      <div class="vchip">รองรับผู้เล่น 2–6 ท่าน · Siam Benjarong Edition</div>
+    </div>
+  </section>
+
+  <!-- ================= SOLO SETUP ================= -->
+  <section class="screen" id="screen-setup">
+    <div class="scroller">
+      <h2>ตั้งค่าสร้างเมืองเดี่ยว</h2>
+      <div class="panel">
+        <label class="fld">นามเจ้าเมืองของคุณ</label>
+        <input class="txt" id="soloName" maxlength="12" value="เจ้าเมืองสยาม" placeholder="ใส่ชื่อเจ้าเมือง">
+
+        <label class="fld">จำนวนเจ้าเมืองผู้เข้าแข่งขัน</label>
+        <div class="seg six" id="segCount">
+          <button data-v="2">2</button><button data-v="3">3</button><button data-v="4" class="on">4</button>
+          <button data-v="5">5</button><button data-v="6">6</button>
+        </div>
+
+        <label class="fld">ระดับฝีมือเจ้าเมืองบอท</label>
+        <div class="seg" id="segDiff">
+          <button data-v="easy">ขุนนางใหม่</button>
+          <button data-v="normal" class="on">เจ้าเมืองชำนาญ</button>
+          <button data-v="hard">มหาเสนาบดี</button>
+        </div>
+
+        <label class="fld">โบนัสพระราชทาน (กฎเสริมทางการ)</label>
+        <label class="chk">
+          <input type="checkbox" id="optHarmony">
+          <span>แผ่นดินสมบูรณ์ +5 (สร้างครบ 5×5 ช่องโดยไม่ทิ้งแผ่นดินเลย)</span>
+        </label>
+        <label class="chk">
+          <input type="checkbox" id="optMiddle">
+          <span>ศูนย์กลางนครา +10 (พระมหาเจดีย์ทองอยู่กึ่งกลาง 5×5 พอดี)</span>
+        </label>
+
+        <div class="note" style="margin-top:10px">
+          2 ท่าน = 24 แผ่น (ช้างเผือกคนละ 2 เชือก) · 3 ท่าน = 36 แผ่น · 4 ท่าน = 48 แผ่น
+        </div>
+        <div class="note box" style="margin-top:8px">
+          โหมดมหาอาณาจักร 5–6 ท่าน ใช้แผ่นดิน 2 สำรับ (5 ท่าน = 60 แผ่น · 6 ท่าน = 72 แผ่น) กติกาต่อพื้นที่ 5×5 และคิดคะแนนดาวพิกุลทองเหมือนต้นฉบับทุกข้อ
+        </div>
+
+        <div class="row" style="margin-top:15px">
+          <button class="btn sec" id="btnSetupBack"><svg class="bic"><use href="#i_back"></use></svg>กลับ</button>
+          <button class="btn" id="btnStartSolo"><svg class="bic"><use href="#i_play"></use></svg>เริ่มสถาปนาเมือง</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ONLINE MULTIPLAYER ================= -->
+  <section class="screen" id="screen-online">
+    <div class="scroller">
+      <h2>ศาลาออนไลน์ (WebRTC P2P)</h2>
+      <div class="panel">
+        <label class="fld">นามเจ้าเมืองของคุณ</label>
+        <input class="txt" id="onName" maxlength="12" placeholder="ระบุชื่อผู้เล่น">
+
+        <div class="divider"></div>
+        <div class="hsec"><svg><use href="#i_castle"></use></svg>เปิดศาลาสร้างห้องใหม่ (คุณเป็นโฮสต์)</div>
+
+        <label class="fld">จำนวนที่นั่งเจ้าเมืองสูงสุด</label>
+        <div class="seg six" id="segMax">
+          <button data-v="2">2</button><button data-v="3">3</button><button data-v="4" class="on">4</button>
+          <button data-v="5">5</button><button data-v="6">6</button>
+        </div>
+
+        <label class="fld">ระดับบอท (เมื่อเพิ่มบอทเข้าศาลา)</label>
+        <div class="seg" id="segDiff2">
+          <button data-v="easy">ขุนนางใหม่</button>
+          <button data-v="normal" class="on">เจ้าเมืองชำนาญ</button>
+          <button data-v="hard">มหาเสนาบดี</button>
+        </div>
+
+        <label class="chk"><input type="checkbox" id="optHarmony2"><span>กฎเสริม: แผ่นดินสมบูรณ์ +5</span></label>
+        <label class="chk"><input type="checkbox" id="optMiddle2"><span>กฎเสริม: ศูนย์กลางนครา +10</span></label>
+
+        <button class="btn" id="btnCreateRoom"><svg class="bic"><use href="#i_plus"></use></svg>เปิดศาลาสร้างห้อง</button>
+
+        <div class="divider"></div>
+        <div class="hsec"><svg><use href="#i_king"></use></svg>เข้าร่วมศาลาของเพื่อน</div>
+        <label class="fld">รหัสศาลา 5 ตัวอักษร</label>
+        <input class="txt" id="onCode" maxlength="5" placeholder="SIAM9" style="text-transform:uppercase;font-size:23px;letter-spacing:7px">
+        <button class="btn mint" id="btnJoinRoom"><svg class="bic"><use href="#i_play"></use></svg>เข้าร่วม / กลับเข้าเมืองเดิม</button>
+
+        <div class="note" style="margin-top:10px">
+          หากสัญญาณหลุดระหว่างสร้างเมือง: ใช้ “ชื่อเดิม + รหัสห้องเดิม” เพื่อกลับมารับแผ่นดินของคุณต่อได้อัตโนมัติ
+        </div>
+        <div id="netStatus" class="note" style="margin-top:8px;text-align:center;color:var(--brass-l)"></div>
+        <div class="row" style="margin-top:12px">
+          <button class="btn sec" id="btnOnlineBack"><svg class="bic"><use href="#i_back"></use></svg>กลับหน้าหลัก</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MULTIPLAYER LOBBY ================= -->
+  <section class="screen" id="screen-lobby">
+    <div class="scroller">
+      <h2>ศาลาชุมนุมเจ้าเมือง</h2>
+      <div class="panel">
+        <div class="note" style="text-align:center">รหัสศาลา — แจ้งให้เพื่อนกรอกเพื่อเข้าร่วมสร้างเมือง</div>
+        <div id="roomBig">-----</div>
+        <div class="row">
+          <button class="btn sec sm" id="btnCopyCode" style="flex:1"><svg class="bic"><use href="#i_copy"></use></svg>คัดลอกรหัส</button>
+          <button class="btn sec sm" id="btnShareLink" style="flex:1"><svg class="bic"><use href="#i_share"></use></svg>คัดลอกลิงก์เชิญ</button>
+        </div>
+
+        <div class="divider"></div>
+        <div class="hsec"><svg><use href="#i_king"></use></svg>รายนามเจ้าเมืองในศาลา (<span id="lobbyCount">0</span>)</div>
+        <div id="lobbyList"></div>
+
+        <div class="row" id="hostControls" style="margin-top:12px">
+          <button class="btn sec sm" id="btnAddBot" style="flex:1"><svg class="bic"><use href="#i_bot"></use></svg>เพิ่มบอท</button>
+          <button class="btn sec sm" id="btnRemoveBot" style="flex:1"><svg class="bic"><use href="#i_minus"></use></svg>ถอนบอท</button>
+        </div>
+
+        <button class="btn" id="btnStartOnline"><svg class="bic"><use href="#i_play"></use></svg>เริ่มบุกเบิกแผ่นดิน</button>
+        <div id="lobbyMsg" class="note" style="text-align:center;margin-top:10px">รอเจ้าเมืองโฮสต์เริ่มเกม…</div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn sec sm" id="btnLobbyLeave" style="flex:1"><svg class="bic"><use href="#i_back"></use></svg>ออกจากศาลา</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GAMEPLAY SCREEN ================= -->
+  <section class="screen" id="screen-game">
+    <header id="gameTop">
+      <button class="icobtn" id="btnMenu" title="เมนู"><svg><use href="#i_menu"></use></svg></button>
+      <div id="hdBrand"><b>สยามรมณีย์</b></div>
+      <div id="hdInfo">
+        <div id="hdRound">ผลัดที่ 1/12</div>
+        <div id="hdLeft">สำรับแผ่นดินคงเหลือ 48 แผ่น</div>
+        <div id="hdBar"><div id="hdBarIn"></div></div>
+      </div>
+      <div id="hdRoom" class="hide"><span>ศาลา</span><b id="hdRoomCode">-----</b></div>
+      <button class="icobtn" id="btnMusic" title="ดนตรีไทยบรรเลง"><svg id="icoMusic"><use href="#i_music"></use></svg></button>
+      <button class="icobtn" id="btnSfx" title="เสียงเอฟเฟกต์"><svg id="icoSfx"><use href="#i_sound"></use></svg></button>
+    </header>
+
+    <div id="gameStage">
+      <!-- Benjarong Tile Draft Display -->
+      <section id="draft" class="sz0">
+        <div class="dwrap">
+          <h4>แผ่นดินรอบนี้</h4>
+          <div class="dcol" id="colCur">
+            <div class="chip" id="cc0"></div><div class="chip" id="cc1"></div><div class="chip" id="cc2"></div>
+            <div class="chip" id="cc3"></div><div class="chip" id="cc4"></div><div class="chip" id="cc5"></div>
+            <div class="emptyhint" id="curHint">— เริ่มผลัดแรก —</div>
+          </div>
+        </div>
+        <div class="dwrap">
+          <h4 id="lblNxt">จองแผ่นดินรอบหน้า</h4>
+          <div class="dcol" id="colNxt">
+            <div class="chip" id="cn0"></div><div class="chip" id="cn1"></div><div class="chip" id="cn2"></div>
+            <div class="chip" id="cn3"></div><div class="chip" id="cn4"></div><div class="chip" id="cn5"></div>
+            <div class="emptyhint" id="nxtHint">— สำรับหมดแล้ว —</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Carved Teakwood 5x5 Province Board -->
+      <section id="boardArea">
+        <div id="boardOwner">
+          <svg id="ownerIco"><use href="#i_crown"></use></svg>
+          <span id="ownerTxt">เขตคามของคุณ</span>
+        </div>
+        <div id="boardWrap">
+          <div id="board"><div id="fxLayer"></div></div>
+        </div>
+        <div id="turnBanner"></div>
+
+        <div id="handBar">
+          <div id="handChip" class="chip hide"></div>
+          <button class="btn sm sec" id="btnRotate"><svg class="bic"><use href="#i_rotate"></use></svg>หมุนแผ่น</button>
+          <button class="btn sm mint" id="btnConfirm" disabled><svg class="bic"><use href="#i_check"></use></svg>วางแผ่นดิน</button>
+          <button class="btn sm sec" id="btnDiscard" disabled><svg class="bic"><use href="#i_trash"></use></svg>สละแผ่น</button>
+        </div>
+
+        <div id="scoreHud" class="hide">
+          <div id="shName">—</div>
+          <div id="shVal">0</div>
+          <button class="btn sm sec" id="btnSkipScore"><svg class="bic"><use href="#i_skip"></use></svg>ข้ามการนับ</button>
+        </div>
+
+        <div id="statusMsg">กำลังจัดเตรียมแผ่นดินสยาม…<button class="btn sm mint hide" id="backToMine">กลับดูเมืองของคุณ</button></div>
+      </section>
+
+      <!-- Governor Scorecards -->
+      <section id="players">
+        <div class="pcard" id="pc0"><span class="bar"></span><div class="phead"><span class="pav"></span><div class="pn">-</div></div><div class="ps">0</div><div class="pt">-</div></div>
+        <div class="pcard" id="pc1"><span class="bar"></span><div class="phead"><span class="pav"></span><div class="pn">-</div></div><div class="ps">0</div><div class="pt">-</div></div>
+        <div class="pcard" id="pc2"><span class="bar"></span><div class="phead"><span class="pav"></span><div class="pn">-</div></div><div class="ps">0</div><div class="pt">-</div></div>
+        <div class="pcard" id="pc3"><span class="bar"></span><div class="phead"><span class="pav"></span><div class="pn">-</div></div><div class="ps">0</div><div class="pt">-</div></div>
+        <div class="pcard" id="pc4"><span class="bar"></span><div class="phead"><span class="pav"></span><div class="pn">-</div></div><div class="ps">0</div><div class="pt">-</div></div>
+        <div class="pcard" id="pc5"><span class="bar"></span><div class="phead"><span class="pav"></span><div class="pn">-</div></div><div class="ps">0</div><div class="pt">-</div></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ================= FINAL VERDICT ================= -->
+  <section class="screen" id="screen-result">
+    <div id="confetti"></div>
+    <div class="scroller">
+      <canvas id="trophyCv" width="240" height="240" style="width:min(116px,29vw);height:auto"></canvas>
+      <div class="sub-en" style="margin-bottom:-6px">ROYAL CHRONICLES OF SIAM</div>
+      <h2 id="resTitle">ประกาศเกียรติคุณเจ้าเมืองยอดเยี่ยม</h2>
+      <div class="panel">
+        <div id="resList"></div>
+        <div class="row" style="margin-top:16px">
+          <button class="btn" id="btnAgain"><svg class="bic"><use href="#i_refresh"></use></svg>สร้างเมืองรอบใหม่</button>
+          <button class="btn sec" id="btnHome"><svg class="bic"><use href="#i_home"></use></svg>กลับหน้าหลัก</button>
+        </div>
+        <div id="resNote" class="note" style="text-align:center;margin-top:10px"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= MODALS ================= -->
+<div class="modal" id="modalRules">
+  <div class="panel">
+    <h2>ตำราสร้างเมือง · สยามรมณีย์</h2>
+    <div class="note" style="font-size:13px;color:var(--cream-2)">
+      <p><b>เป้าหมาย:</b> ขยายเขตคามลงใน <b>กระดานไม้สักทองขนาด 5×5 ช่อง</b> (รวมพระมหาเจดีย์ทองกลางเมือง) ให้รุ่งเรืองและมีคะแนนสูงสุด</p>
+      <p><b>1) เปิดแผ่นดินคู่:</b> แต่ละผลัดจะเปิดแผ่นดินสยามตามจำนวนช้างเผือก เรียงลำดับตามเลขตราจากน้อยไปมาก (#1–#48)</p>
+      <p><b>2) ส่งช้างเผือกจอง:</b> วางหมุดช้างเผือกประจำตัวบนแผ่นดินที่ต้องการในแถวจองรอบหน้า (1 เชือกต่อ 1 แผ่น)</p>
+      <p><b>3) ลำดับผลัดถัดไป:</b> ผู้ที่จองแผ่นดิน <b>หมายเลขน้อยที่สุด</b> จะได้วางแผ่นดินและเลือกจองแผ่นใหม่ก่อนเป็นคนแรก!</p>
+      <p><b>4) กฎการต่อแผ่นดิน:</b> อย่างน้อย 1 ด้านของแผ่นคู่ต้องวางติดกับ <b>พระมหาเจดีย์ทอง</b> (เชื่อมได้กับภูมิประเทศทุกชนิด) หรือติดกับ <b>ภูมิประเทศชนิดเดียวกัน</b> โดยอาณาเขตรวมต้องไม่เกินกรอบ 5×5</p>
+      <p><b>วางไม่ได้:</b> หากไม่มีตำแหน่งว่างที่ถูกกติกาเลย ต้องกด <b>สละแผ่น</b> แผ่นดินใบนั้นออก</p>
+      <p><b>การนับคะแนน:</b> เขตภูมิประเทศชนิดเดียวกันที่เชื่อมติดกัน = <b>จำนวนช่องในเขต × จำนวนดาวพิกุลทอง (★)</b> ในเขตนั้น (หากไม่มีดาวเลย = 0 คะแนน)</p>
+      <p><b>กรณีคะแนนเท่ากัน:</b> ตัดสินจากเขตภูมิประเทศเดียวที่ใหญ่ที่สุด หากยังเท่ากันดูจำนวนดาวพิกุลทองรวมทั้งหมด</p>
+      <p><b>โบนัสพระราชทาน:</b> แผ่นดินสมบูรณ์ +5 (เต็ม 25 ช่องไม่สละแผ่นเลย) · ศูนย์กลางนครา +10 (พระมหาเจดีย์ทองอยู่กึ่งกลาง 5×5 พอดี)</p>
+    </div>
+    <button class="btn" id="btnRulesClose"><svg class="bic"><use href="#i_check"></use></svg>เข้าใจกติกาแล้ว</button>
+  </div>
+</div>
+
+<div class="modal" id="modalMenu">
+  <div class="panel" style="max-width:390px">
+    <h2>พักการสร้างเมือง · เมนูศาลา</h2>
+    <button class="btn sec" id="btnMenuRules"><svg class="bic"><use href="#i_book"></use></svg>อ่านตำรากติกาการเล่น</button>
+    <button class="btn sec" id="btnMenuRestart"><svg class="bic"><use href="#i_refresh"></use></svg>เริ่มสร้างเมืองรอบใหม่</button>
+    <button class="btn berry" id="btnMenuQuit"><svg class="bic"><use href="#i_home"></use></svg>ออกจากเมืองกลับหน้าหลัก</button>
+    <button class="btn" id="btnMenuClose"><svg class="bic"><use href="#i_check"></use></svg>กลับไปสร้างเมืองต่อ</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div id="errorPanel">
+  <b>แจ้งเตือนจากระบบ (ยังสามารถเล่นต่อได้)</b>
+  <div id="errText"></div>
+  <button id="errClose">ซ่อนข้อความนี้</button>
+</div>
+
+<script>
+/* =====================================================================
+   สยามรมณีย์ — SIAM HERITAGE · Wonders of Thailand
+   Thailand Landscape & Benjarong Art · 2–6 Players · Solo + WebRTC P2P
+   ===================================================================== */
+(function(){
+'use strict';
+
+/* ---------------- Error Guard ---------------- */
+function showError(where,err){
+  try{
+    var p=document.getElementById('errorPanel'),t=document.getElementById('errText');
+    if(!p||!t) return;
+    var m=(err&&err.stack)?err.stack:String(err);
+    t.textContent=('['+where+'] '+m+'\n\n'+(t.textContent||'')).slice(0,2600);
+    p.classList.add('show');
+  }catch(e){}
+}
+window.addEventListener('error',function(e){ showError('สคริปต์',e.message+' (บรรทัด '+e.lineno+')'); });
+window.addEventListener('unhandledrejection',function(e){ showError('Promise',e.reason); });
+function guard(n,f){ return function(){ try{ return f.apply(this,arguments); }catch(e){ showError(n,e); } }; }
+function $(id){ return document.getElementById(id); }
+function on(id,ev,fn,nm){ var el=$(id); if(el) el.addEventListener(ev,guard(nm||id,fn)); }
+var SVGNS='http://www.w3.org/2000/svg';
+function icon(id,cls){
+  var s=document.createElementNS(SVGNS,'svg');
+  if(cls) s.setAttribute('class',cls);
+  var u=document.createElementNS(SVGNS,'use');
+  u.setAttribute('href','#'+id);
+  s.appendChild(u); return s;
+}
+function setIcon(sv,id){
+  if(!sv) return;
+  var u=sv.querySelector('use'); if(!u) return;
+  u.setAttribute('href','#'+id);
+}
+
+/* ---------------- Thai Noble / Governor Avatars ---------------- */
+function chefAvatarSvg(idx,isBot){
+  var crowns=['#F6CA56','#4CD4A4','#FF7E92','#6AB8FF','#CE9EFF','#FFE29A'];
+  var cc=crowns[idx%crowns.length];
+  if(isBot){
+    // Thai Guardian Yaksha / Khon Mask Avatar for AI Bots
+    return '<svg viewBox="0 0 24 24">'+
+      '<path d="M12 1.4 15.2 7.5H8.8z" fill="#F6CA56"/>'+
+      '<circle cx="12" cy="14" r="6.6" fill="'+cc+'"/>'+
+      '<circle cx="9.5" cy="13.5" r="1.4" fill="#FFF9EE"/><circle cx="14.5" cy="13.5" r="1.4" fill="#FFF9EE"/>'+
+      '<circle cx="9.5" cy="13.5" r=".7" fill="#142224"/><circle cx="14.5" cy="13.5" r=".7" fill="#142224"/>'+
+      '<path d="M8.5 16.8h7" stroke="#FFF9EE" stroke-width="1.5" stroke-linecap="round"/>'+
+      '<path d="M8.5 16.8 7.6 15.3M15.5 16.8l.9-1.5" stroke="#FFF9EE" stroke-width="1.2" stroke-linecap="round"/></svg>';
+  }
+  // Thai Chada / Noble Crown Portrait for Human Players
+  return '<svg viewBox="0 0 24 24">'+
+    '<path d="M12 1.2 14.8 7.8H9.2z" fill="#F6CA56"/>'+
+    '<path d="M7.4 8.2h9.2l-.8 2.2H8.2z" fill="'+cc+'"/>'+
+    '<circle cx="12" cy="14.6" r="6" fill="#F3CFAF"/>'+
+    '<circle cx="9.8" cy="14.2" r="1.1" fill="#23160E"/><circle cx="14.2" cy="14.2" r="1.1" fill="#23160E"/>'+
+    '<path d="M9.8 16.7c.6.8 1.4 1.2 2.2 1.2s1.6-.4 2.2-1.2" fill="none" stroke="#8F3B2B" stroke-width="1.3" stroke-linecap="round"/></svg>';
+}
+
+/* =====================================================================
+   BESPOKE THAILAND HERITAGE & LANDSCAPE TILE ART (HTML5 Canvas)
+   7 Iconic Regions of Thailand with Benjarong Borders & Rich Detail
+   ===================================================================== */
+var ART=(function(){
+  var S=192, cache={};
+  var P={
+    wheat :{c0:'#FFF3B8',c1:'#EBB338',c2:'#9E680E',rim:'#5E3B04'}, // ทุ่งรวงทองสุพรรณ (Golden Jasmine Rice Field)
+    forest:{c0:'#B9F6D0',c1:'#2FA364',c2:'#115432',rim:'#07301B'}, // ป่าสักทองล้านนา (Lanna Teak & Elephant Forest)
+    water :{c0:'#BDF5FF',c1:'#229FC4',c2:'#0E5278',rim:'#072D47'}, // อ่าวมรกตอันดามัน (Andaman Bay & Longtail Boat)
+    grass :{c0:'#EFFFBA',c1:'#8EC938',c2:'#4A7D12',rim:'#294A06'}, // สวนผลไม้จันทบุรี (Thai Tropical Orchard)
+    swamp :{c0:'#FAD8E4',c1:'#8C6245',c2:'#3B291E',rim:'#24160E'}, // ตลาดน้ำคลองสยาม (Floating Market & Lotus Canal)
+    mine  :{c0:'#FFB8C9',c1:'#9E1F3F',c2:'#3D0919',rim:'#21030B'}, // เหมืองพลอยทับทิมสยาม (Siamese Star Ruby & Kanok Gold)
+    castle:{c0:'#FFF6D6',c1:'#E5A832',c2:'#7D4E09',rim:'#472A03'}  // พระมหาเจดีย์ทอง (Grand Golden Phra Chedi)
+  };
+
+  function thaiTileFrame(x,p){
+    var g=x.createRadialGradient(S*.38,S*.26,S*.06,S*.5,S*.52,S*.76);
+    g.addColorStop(0,p.c0);
+    g.addColorStop(.52,p.c1);
+    g.addColorStop(1,p.c2);
+    x.fillStyle=g;
+    x.fillRect(0,0,S,S);
+
+    // Subtle Benjarong Gold Inner Frame & Corner Kanok Diamonds
+    x.save();
+    x.strokeStyle='rgba(255,238,184,.26)';
+    x.lineWidth=2;
+    x.strokeRect(5,5,S-10,S-10);
+    var cs=[[10,10],[S-10,10],[10,S-10],[S-10,S-10]];
+    x.fillStyle='rgba(255,235,170,.38)';
+    for(var i=0;i<cs.length;i++){
+      x.save(); x.translate(cs[i][0],cs[i][1]); x.rotate(Math.PI/4);
+      x.fillRect(-4,-4,8,8); x.restore();
+    }
+    x.restore();
+
+    var vg=x.createRadialGradient(S*.5,S*.5,S*.34,S*.5,S*.5,S*.76);
+    vg.addColorStop(0,'rgba(0,0,0,0)');
+    vg.addColorStop(1,'rgba(8,14,12,.38)');
+    x.fillStyle=vg;
+    x.fillRect(0,0,S,S);
+  }
+
+  // 1. ทุ่งรวงทอง (Golden Rice Paddy & Thai Barn Roof)
+  function drawRiceField(x){
+    x.save();
+    // Sunlit golden horizon glow
+    x.fillStyle='rgba(255,250,210,.55)';
+    x.beginPath(); x.arc(S*.5,S*.32,26,0,Math.PI*2); x.fill();
+
+    // Terraced golden paddy waves
+    x.fillStyle='#C78516';
+    x.beginPath(); x.ellipse(S*.3,S*.84,82,32,0,Math.PI,0); x.fill();
+    x.fillStyle='#DDA026';
+    x.beginPath(); x.ellipse(S*.72,S*.88,88,36,0,Math.PI,0); x.fill();
+
+    // Bundled Golden Jasmine Rice Sheaves (รวงข้าวหอมมะลิ)
+    var stalks=[-34,-12,12,34];
+    for(var i=0;i<stalks.length;i++){
+      var sx=S*.5+stalks[i];
+      x.save();
+      x.translate(sx,S*.78);
+      var bend=(i<2?-1:1)*(0.18+Math.abs(i-1.5)*0.08);
+      x.strokeStyle='#6E4305'; x.lineWidth=3.5; x.lineCap='round';
+      x.beginPath(); x.moveTo(0,0); x.quadraticCurveTo(bend*30,-34,bend*52,-56); x.stroke();
+      // Plump golden rice grains along the arch
+      for(var k=1;k<=5;k++){
+        var t=k/5.4;
+        var gx=bend*48*t, gy=-54*t;
+        x.save(); x.translate(gx,gy); x.rotate(bend*1.2);
+        x.fillStyle=(k%2===0)?'#FFF5B8':'#FFD359';
+        x.strokeStyle='#8A5608'; x.lineWidth=1.2;
+        x.beginPath(); x.ellipse(0,0,7.5,4,0.3,0,Math.PI*2); x.fill(); x.stroke();
+        x.restore();
+      }
+      x.restore();
+    }
+    // Red silk tie ribbon on central rice bundle
+    x.fillStyle='#C92E42';
+    x.fillRect(S*.5-18,S*.70,36,7);
+    x.restore();
+  }
+
+  // 2. ป่าสักทองล้านนา (Northern Lanna Forest & Thai Elephant)
+  function drawLannaForest(x){
+    x.save();
+    // Misty northern mountain ridge
+    x.fillStyle='rgba(12,56,34,.45)';
+    x.beginPath();
+    x.moveTo(10,S*.72); x.lineTo(S*.32,S*.30); x.lineTo(S*.58,S*.54);
+    x.lineTo(S*.78,S*.26); x.lineTo(S-10,S*.72); x.closePath(); x.fill();
+
+    // Lush layered Teak & Banyan canopies
+    var trees=[[S*.27,S*.44,24,'#1E7546'],[S*.74,S*.42,26,'#1B6B40'],[S*.5,S*.34,30,'#46BA78']];
+    for(var i=0;i<trees.length;i++){
+      var tr=trees[i];
+      x.fillStyle='#4D2E18';
+      x.fillRect(tr[0]-4,tr[1]+10,8,34);
+      x.fillStyle=tr[3];
+      x.beginPath(); x.arc(tr[0],tr[1],tr[2],0,Math.PI*2); x.fill();
+      x.fillStyle='rgba(220,255,232,.28)';
+      x.beginPath(); x.arc(tr[0]-6,tr[1]-7,tr[2]*.52,0,Math.PI*2); x.fill();
+    }
+
+    // Sacred White-Ivory Thai Elephant with Royal Red-Gold Blanket
+    x.translate(S*.52,S*.64);
+    x.fillStyle='rgba(5,28,16,.42)';
+    x.beginPath(); x.ellipse(0,20,38,9,0,0,Math.PI*2); x.fill();
+    // Body & legs
+    x.fillStyle='#F5EFE4';
+    x.strokeStyle='#2E4739'; x.lineWidth=2.2;
+    x.beginPath(); x.ellipse(2,0,28,20,0,0,Math.PI*2); x.fill(); x.stroke();
+    x.fillRect(-19,8,9,15); x.fillRect(-4,9,9,14); x.fillRect(13,8,9,15);
+    // Head & raised auspicious trunk
+    x.beginPath(); x.arc(-22,-6,14,0,Math.PI*2); x.fill(); x.stroke();
+    x.lineWidth=7; x.strokeStyle='#F5EFE4'; x.lineCap='round';
+    x.beginPath(); x.moveTo(-32,-4); x.quadraticCurveTo(-44,4,-40,-16); x.stroke();
+    // Ivory tusk
+    x.strokeStyle='#FFE394'; x.lineWidth=3.2;
+    x.beginPath(); x.moveTo(-29,1); x.quadraticCurveTo(-38,5,-37,-1); x.stroke();
+    // Ornate Red & Gold Saddle Cloth (ผ้าปกหลังช้าง)
+    x.fillStyle='#D4374A';
+    x.fillRect(-9,-15,24,18);
+    x.strokeStyle='#F7CA59'; x.lineWidth=2.2;
+    x.strokeRect(-9,-15,24,18);
+    // Eye
+    x.fillStyle='#1A241E';
+    x.beginPath(); x.arc(-25,-8,2,0,Math.PI*2); x.fill();
+    x.restore();
+  }
+
+  // 3. อ่าวมรกตอันดามัน (Andaman Turquoise Sea, Karst Island & Longtail Boat)
+  function drawAndamanBay(x){
+    x.save();
+    // Iconic Limestone Karst Cliff (เขาตะปู / เกาะหินปูนอันดามัน)
+    x.fillStyle='#1D6353';
+    x.beginPath();
+    x.moveTo(S*.56,S*.60); x.lineTo(S*.62,S*.20); x.lineTo(S*.76,S*.18);
+    x.lineTo(S*.82,S*.34); x.lineTo(S*.78,S*.60); x.closePath(); x.fill();
+    x.fillStyle='#3BA87C';
+    x.beginPath(); x.arc(S*.69,S*.21,13,0,Math.PI*2); x.fill();
+
+    // Sparkling turquoise sea ripples
+    x.strokeStyle='rgba(215,252,255,.55)'; x.lineWidth=3; x.lineCap='round';
+    x.beginPath(); x.moveTo(22,S*.62); x.lineTo(S-22,S*.62); x.stroke();
+    x.beginPath(); x.moveTo(34,S*.82); x.lineTo(S-38,S*.82); x.stroke();
+
+    // Traditional Thai Wooden Longtail Boat (เรือหัวโทงผูกผ้าสี)
+    x.translate(S*.46,S*.69);
+    x.fillStyle='rgba(4,28,44,.42)';
+    x.beginPath(); x.ellipse(0,10,48,8,0,0,Math.PI*2); x.fill();
+    // Teak hull with sweeping high prow
+    x.fillStyle='#8A4D22';
+    x.strokeStyle='#47230A'; x.lineWidth=2.2;
+    x.beginPath();
+    x.moveTo(-50,-22);
+    x.quadraticCurveTo(-36,8,-18,8);
+    x.lineTo(36,8);
+    x.quadraticCurveTo(46,4,50,-6);
+    x.lineTo(28,-4);
+    x.lineTo(-26,-4);
+    x.quadraticCurveTo(-38,-8,-45,-24);
+    x.closePath();
+    x.fill(); x.stroke();
+    // Sun canopy roof
+    x.fillStyle='#F5E7CE';
+    x.fillRect(-14,-17,34,9);
+    x.strokeStyle='#6E3B16'; x.lineWidth=1.8;
+    x.beginPath(); x.moveTo(-10,-8); x.lineTo(-10,-4); x.moveTo(16,-8); x.lineTo(16,-4); x.stroke();
+    // Festive Thai Three-Color Bow Ribbons (ผ้าผูกหัวเรือ)
+    x.strokeStyle='#FF4F6D'; x.lineWidth=3.2;
+    x.beginPath(); x.moveTo(-45,-19); x.lineTo(-34,-8); x.stroke();
+    x.strokeStyle='#FFD447';
+    x.beginPath(); x.moveTo(-47,-22); x.lineTo(-39,-10); x.stroke();
+    x.restore();
+  }
+
+  // 4. สวนผลไม้จันทบุรี (Thai Tropical Orchard: Durian, Mangosteen & Golden Mango)
+  function drawThaiOrchard(x){
+    x.save();
+    x.translate(S*.5,S*.54);
+    x.fillStyle='rgba(25,48,6,.38)';
+    x.beginPath(); x.ellipse(0,22,52,14,0,0,Math.PI*2); x.fill();
+
+    // Lush Banana / Mango leaves backdrop
+    x.fillStyle='#2B6E18';
+    x.beginPath(); x.ellipse(-26,-16,28,12,-.5,0,Math.PI*2); x.fill();
+    x.beginPath(); x.ellipse(26,-16,28,12,.5,0,Math.PI*2); x.fill();
+
+    // King of Fruits: Spiky Golden-Green Durian (ทุเรียนหมอนทอง)
+    x.save();
+    x.translate(-14,-4);
+    x.fillStyle='#9AB828';
+    for(var i=0;i<16;i++){
+      var a=i*Math.PI*2/16;
+      x.beginPath();
+      x.moveTo(Math.cos(a-.2)*22,Math.sin(a-.2)*25);
+      x.lineTo(Math.cos(a)*31,Math.sin(a)*34);
+      x.lineTo(Math.cos(a+.2)*22,Math.sin(a+.2)*25);
+      x.closePath(); x.fill();
+    }
+    var dg=x.createRadialGradient(-6,-8,3,0,0,26);
+    dg.addColorStop(0,'#DCE856'); dg.addColorStop(1,'#7A9918');
+    x.fillStyle=dg;
+    x.beginPath(); x.ellipse(0,0,23,26,0,0,Math.PI*2); x.fill();
+    // Stem
+    x.fillStyle='#6B4419'; x.fillRect(-3,-36,6,11);
+    // Creamy golden durian pulp window
+    x.fillStyle='#FFE054';
+    x.beginPath(); x.ellipse(3,3,10,14,0.15,0,Math.PI*2); x.fill();
+    x.restore();
+
+    // Queen of Fruits: Royal Purple Mangosteen (มังคุด)
+    x.save();
+    x.translate(22,8);
+    var mg=x.createRadialGradient(-5,-6,2,0,0,20);
+    mg.addColorStop(0,'#9E4B8A'); mg.addColorStop(.6,'#59194B'); mg.addColorStop(1,'#300827');
+    x.fillStyle=mg;
+    x.beginPath(); x.arc(0,0,19,0,Math.PI*2); x.fill();
+    // Green calyx crown
+    x.fillStyle='#5EC447';
+    for(var p=0;p<4;p++){
+      var pa=p*Math.PI/2+.4;
+      x.beginPath(); x.ellipse(Math.cos(pa)*6,-16+Math.sin(pa)*3,6,4,pa,0,Math.PI*2); x.fill();
+    }
+    x.restore();
+    x.restore();
+  }
+
+  // 5. ตลาดน้ำคลองสยาม (Floating Market & Pink Sacred Lotus Canal)
+  function drawLotusCanal(x){
+    x.save();
+    // Deep tranquil canal water base
+    var wg=x.createLinearGradient(0,S*.2,0,S);
+    wg.addColorStop(0,'#27696B'); wg.addColorStop(1,'#143A3D');
+    x.fillStyle=wg;
+    x.fillRect(10,10,S-20,S-20);
+
+    // Emerald Lily Pads (ใบบัวหลวง)
+    var pads=[[S*.28,S*.68,24],[S*.74,S*.64,22],[S*.52,S*.34,20]];
+    for(var i=0;i<pads.length;i++){
+      var pd=pads[i];
+      x.fillStyle='#2E8F5B';
+      x.beginPath(); x.arc(pd[0],pd[1],pd[2],0.25,Math.PI*2-0.25); x.lineTo(pd[0],pd[1]); x.closePath(); x.fill();
+    }
+
+    // Blooming Pink Thai Sacred Lotus (ดอกบัวหลวงชมพู)
+    var lx=S*.68, ly=S*.56;
+    var petals=[-0.9,-0.45,0,0.45,0.9];
+    for(var k=0;k<petals.length;k++){
+      x.save(); x.translate(lx,ly+6); x.rotate(petals[k]);
+      var lg=x.createLinearGradient(0,-30,0,0);
+      lg.addColorStop(0,'#FF7597'); lg.addColorStop(.55,'#FFBFD0'); lg.addColorStop(1,'#FFF5F8');
+      x.fillStyle=lg;
+      x.strokeStyle='#B83256'; x.lineWidth=1.3;
+      x.beginPath(); x.ellipse(0,-14,8.5,17,0,0,Math.PI*2); x.fill(); x.stroke();
+      x.restore();
+    }
+    x.fillStyle='#FFD54F';
+    x.beginPath(); x.arc(lx,ly,6,0,Math.PI*2); x.fill();
+
+    // Wooden Canal Boat with Ngob Farmer Hat
+    x.save();
+    x.translate(S*.38,S*.46);
+    x.rotate(-0.22);
+    x.fillStyle='#9E5E2B'; x.strokeStyle='#4A260B'; x.lineWidth=2;
+    x.beginPath();
+    x.moveTo(-36,0); x.quadraticCurveTo(0,16,36,0);
+    x.quadraticCurveTo(0,-14,-36,0); x.fill(); x.stroke();
+    // Colorful fruit baskets inside boat
+    x.fillStyle='#FFB833'; x.beginPath(); x.arc(-8,0,7,0,Math.PI*2); x.fill();
+    x.fillStyle='#E8435A'; x.beginPath(); x.arc(7,0,7,0,Math.PI*2); x.fill();
+    x.restore();
+    x.restore();
+  }
+
+  // 6. เหมืองพลอยทับทิมสยาม (Siamese Star Ruby & Royal Kanok Gold Filigree)
+  function drawSiameseRuby(x){
+    x.save();
+    x.translate(S*.5,S*.5);
+    // 8-Pointed Golden Benjarong Starburst Pedestal
+    for(var i=0;i<12;i++){
+      x.save(); x.rotate(i*Math.PI/6);
+      x.fillStyle=(i%2===0)?'#FFE285':'#C98C22';
+      x.beginPath(); x.moveTo(0,-S*.38); x.lineTo(11,-S*.18); x.lineTo(-11,-S*.18); x.closePath(); x.fill();
+      x.restore();
+    }
+    // Gold bezel setting
+    var bz=x.createLinearGradient(-34,-34,34,34);
+    bz.addColorStop(0,'#FFF4B8'); bz.addColorStop(.5,'#E6AC39'); bz.addColorStop(1,'#8C5A0B');
+    x.fillStyle=bz;
+    x.beginPath(); x.arc(0,0,42,0,Math.PI*2); x.fill();
+
+    // Deep Faceted Chanthaburi Pigeon-Blood Ruby (ทับทิมสยามเจียระไน)
+    var rg=x.createRadialGradient(-10,-12,4,0,0,36);
+    rg.addColorStop(0,'#FF7A95');
+    rg.addColorStop(.38,'#E01B46');
+    rg.addColorStop(.78,'#8A0826');
+    rg.addColorStop(1,'#420210');
+    x.fillStyle=rg;
+    x.beginPath(); x.arc(0,0,34,0,Math.PI*2); x.fill();
+
+    // Facet octagon lines & 6-ray star asterism
+    x.strokeStyle='rgba(255,215,225,.48)'; x.lineWidth=1.6;
+    x.beginPath(); x.arc(0,0,21,0,Math.PI*2); x.stroke();
+    x.strokeStyle='rgba(255,248,250,.78)'; x.lineWidth=2;
+    for(var r=0;r<3;r++){
+      x.save(); x.rotate(r*Math.PI/3);
+      x.beginPath(); x.moveTo(0,-20); x.lineTo(0,20); x.stroke();
+      x.restore();
+    }
+    x.fillStyle='#FFFFFF';
+    x.beginPath(); x.arc(-8,-8,4.5,0,Math.PI*2); x.fill();
+    x.restore();
+  }
+
+  // 7. พระมหาเจดีย์ทอง (Grand Golden Phra Chedi Centerpiece)
+  function drawGoldenChedi(x){
+    x.save();
+    x.translate(S*.5,S*.54);
+    // Radiant Dharma Sunburst Halo
+    var hg=x.createRadialGradient(0,-14,6,0,-14,68);
+    hg.addColorStop(0,'rgba(255,252,220,.75)');
+    hg.addColorStop(.55,'rgba(255,212,102,.28)');
+    hg.addColorStop(1,'rgba(255,212,102,0)');
+    x.fillStyle=hg;
+    x.beginPath(); x.arc(0,-14,68,0,Math.PI*2); x.fill();
+
+    // White Marble & Gold Multi-Tier Base (ฐานปัทม์ลูกแก้วอกไก่)
+    x.fillStyle='#FFF9EC'; x.strokeStyle='#9E680E'; x.lineWidth=2;
+    x.fillRect(-52,28,104,11); x.strokeRect(-52,28,104,11);
+    x.fillStyle='#F5C353';
+    x.fillRect(-42,19,84,10); x.strokeRect(-42,19,84,10);
+
+    // Bell-Shaped Golden Phra Chedi Dome (องค์ระฆังทองคำ)
+    var cg=x.createLinearGradient(-32,0,32,0);
+    cg.addColorStop(0,'#C98718');
+    cg.addColorStop(.32,'#FFF2AC');
+    cg.addColorStop(.58,'#F0B93A');
+    cg.addColorStop(1,'#8C5808');
+    x.fillStyle=cg;
+    x.beginPath();
+    x.moveTo(-34,19);
+    x.quadraticCurveTo(-30,-8,-13,-22);
+    x.lineTo(-5,-58);
+    x.lineTo(0,-76);
+    x.lineTo(5,-58);
+    x.lineTo(13,-22);
+    x.quadraticCurveTo(30,-8,34,19);
+    x.closePath();
+    x.fill();
+    x.strokeStyle='#7A4B06'; x.lineWidth=2; x.stroke();
+
+    // Harmika & Chatra Spire Rings (ปล้องไฉนและยอดฉัตร)
+    x.strokeStyle='#FFF7CC'; x.lineWidth=2.4;
+    for(var y=-28;y>=-54;y-=7){
+      var hw=Math.max(4,(62+y)*0.28);
+      x.beginPath(); x.moveTo(-hw,y); x.lineTo(hw,y); x.stroke();
+    }
+    x.fillStyle='#FFFBE0';
+    x.beginPath(); x.arc(0,-76,4,0,Math.PI*2); x.fill();
+    x.restore();
+  }
+
+  function build(t){
+    var c=document.createElement('canvas'); c.width=c.height=S;
+    var x=c.getContext('2d'), p=P[t];
+    thaiTileFrame(x,p);
+    if(t==='wheat') drawRiceField(x);
+    else if(t==='forest') drawLannaForest(x);
+    else if(t==='water') drawAndamanBay(x);
+    else if(t==='grass') drawThaiOrchard(x);
+    else if(t==='swamp') drawLotusCanal(x);
+    else if(t==='mine') drawSiameseRuby(x);
+    else if(t==='castle') drawGoldenChedi(x);
+    return c.toDataURL('image/png');
+  }
+  return {
+    url:function(t){ if(!cache[t]) cache[t]=build(t); return cache[t]; },
+    css:function(t){ return 'url('+this.url(t)+')'; },
+    pal:function(t){ return P[t]; },
+    preload:function(){ for(var k in P) if(P.hasOwnProperty(k)) this.url(k); }
+  };
+})();
+
+/* =====================================================================
+   THAILAND GOLDEN TWILIGHT LANDSCAPE SCENE (Canvas Background)
+   Misty Doi Mountains, Temple & Chedi Skyline, Chao Phraya River & Pikul Petals
+   ===================================================================== */
+var BG=(function(){
+  var cv,ctx,st,sctx,W=0,H=0,DPR=1,raf=0,petals=[],boats=[],running=false;
+
+  function drawStatic(){
+    if(!st) st=document.createElement('canvas');
+    st.width=Math.floor(W*DPR); st.height=Math.floor(H*DPR);
+    sctx=st.getContext('2d'); sctx.setTransform(DPR,0,0,DPR,0,0);
+    var c=sctx;
+
+    // Twilight Siamese Sky: Deep Teal Zenith -> Warm Amber Horizon
+    var sg=c.createLinearGradient(0,0,0,H*.74);
+    sg.addColorStop(0,'#0B181C');
+    sg.addColorStop(.42,'#162F35');
+    sg.addColorStop(.78,'#354B46');
+    sg.addColorStop(1,'#6B5638');
+    c.fillStyle=sg; c.fillRect(0,0,W,H);
+
+    // Subtle Thai Prajam Yam Lattice Watermark in Upper Sky
+    c.save();
+    c.strokeStyle='rgba(230,180,76,.035)';
+    c.lineWidth=1;
+    var step=64;
+    for(var gx=0;gx<W+step;gx+=step){
+      for(var gy=0;gy<H*.48;gy+=step){
+        c.beginPath();
+        c.moveTo(gx,gy-16); c.lineTo(gx+16,gy); c.lineTo(gx,gy+16); c.lineTo(gx-16,gy);
+        c.closePath(); c.stroke();
+      }
+    }
+    c.restore();
+
+    // Warm Golden Sun / Full Moon Glow Behind Chedi Skyline
+    var sunX=W*.72, sunY=H*.46, sunR=Math.min(W,H)*.22;
+    var rg=c.createRadialGradient(sunX,sunY,4,sunX,sunY,sunR*1.8);
+    rg.addColorStop(0,'rgba(255,228,150,.28)');
+    rg.addColorStop(.5,'rgba(230,165,70,.10)');
+    rg.addColorStop(1,'rgba(230,165,70,0)');
+    c.fillStyle=rg; c.beginPath(); c.arc(sunX,sunY,sunR*1.8,0,Math.PI*2); c.fill();
+
+    // Distant Layered Northern Doi Mountains
+    c.fillStyle='#1C363A';
+    c.beginPath();
+    c.moveTo(0,H*.68);
+    for(var x=0;x<=W+80;x+=80){
+      var mh=H*.52+Math.sin(x*0.008)*H*.06+Math.cos(x*0.021)*H*.03;
+      c.lineTo(x,mh);
+    }
+    c.lineTo(W,H*.72); c.lineTo(0,H*.72); c.closePath(); c.fill();
+
+    // Royal Siamese Skyline Silhouette (Wat Phra Kaew / Wat Arun Spires & Sala)
+    var hz=H*.70;
+    var s=Math.min(W,H)/780*1.35;
+    var tx=W*.22;
+    c.save();
+    c.fillStyle='#122427';
+    // Grand Prang / Chedi spires
+    c.beginPath();
+    c.moveTo(tx-95*s,hz);
+    c.lineTo(tx-85*s,hz-38*s);
+    c.lineTo(tx-68*s,hz-55*s);
+    c.lineTo(tx-60*s,hz-105*s);
+    c.lineTo(tx-52*s,hz-55*s);
+    c.lineTo(tx-35*s,hz-38*s);
+    c.lineTo(tx-25*s,hz);
+    c.closePath(); c.fill();
+
+    // Tiered Thai Temple Roof with Chofa Finials
+    c.beginPath();
+    c.moveTo(tx-15*s,hz);
+    c.lineTo(tx-15*s,hz-42*s);
+    c.lineTo(tx-28*s,hz-42*s);
+    c.lineTo(tx+25*s,hz-84*s);
+    c.lineTo(tx+28*s,hz-96*s); // Chofa spire
+    c.lineTo(tx+32*s,hz-84*s);
+    c.lineTo(tx+85*s,hz-42*s);
+    c.lineTo(tx+72*s,hz-42*s);
+    c.lineTo(tx+72*s,hz);
+    c.closePath(); c.fill();
+
+    // Subtle Golden Spire Tips
+    c.strokeStyle='rgba(230,180,76,.35)'; c.lineWidth=1.8;
+    c.beginPath();
+    c.moveTo(tx-60*s,hz-105*s); c.lineTo(tx-60*s,hz-122*s);
+    c.moveTo(tx+28*s,hz-84*s); c.lineTo(tx+28*s,hz-98*s);
+    c.stroke();
+    c.restore();
+
+    // Chao Phraya River Foreground & Golden Shimmering Bank
+    var wg=c.createLinearGradient(0,hz,0,H);
+    wg.addColorStop(0,'#172E33');
+    wg.addColorStop(.25,'#112327');
+    wg.addColorStop(1,'#091417');
+    c.fillStyle=wg;
+    c.fillRect(0,hz,W,H-hz);
+
+    var goldLine=c.createLinearGradient(0,0,W,0);
+    goldLine.addColorStop(0,'rgba(230,180,76,.1)');
+    goldLine.addColorStop(.5,'rgba(253,230,170,.35)');
+    goldLine.addColorStop(1,'rgba(230,180,76,.1)');
+    c.fillStyle=goldLine;
+    c.fillRect(0,hz,W,2);
+  }
+
+  function drawRiverBoat(c,x,y,sc){
+    c.save();
+    c.translate(x,y); c.scale(sc,sc);
+    c.fillStyle='rgba(8,16,18,.68)';
+    c.beginPath();
+    c.moveTo(-34,-8); c.quadraticCurveTo(-24,6,-12,6);
+    c.lineTo(24,6); c.quadraticCurveTo(32,4,36,-4);
+    c.lineTo(22,-2); c.lineTo(-20,-2); c.closePath();
+    c.fill();
+    c.fillStyle='rgba(230,180,76,.28)';
+    c.fillRect(-10,-9,20,6);
+    c.restore();
+  }
+
+  function resize(){
+    if(!cv) return;
+    DPR=Math.min(window.devicePixelRatio||1,2);
+    W=window.innerWidth; H=window.innerHeight;
+    cv.width=Math.floor(W*DPR); cv.height=Math.floor(H*DPR);
+    cv.style.width=W+'px'; cv.style.height=H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    petals=[];
+    // Gentle Golden Bodhi Leaves / Pikul Petals drifting in the breeze (NO glowing orbs/lanterns)
+    for(var i=0;i<18;i++){
+      petals.push({
+        x:Math.random()*W,
+        y:Math.random()*H,
+        s:2.2+Math.random()*2.6,
+        vx:8+Math.random()*12,
+        vy:5+Math.random()*8,
+        rot:Math.random()*6.28,
+        vr:(Math.random()-.5)*1.4
+      });
+    }
+    boats=[
+      {x:W*.18,y:H*.78,s:.85,sp:9},
+      {x:W*.72,y:H*.85,s:1.1,sp:-7}
+    ];
+    drawStatic();
+  }
+
+  function frame(ts){
+    if(!running){ raf=0; return; }
+    var t=ts/1000,i;
+    ctx.clearRect(0,0,W,H);
+    if(st) ctx.drawImage(st,0,0,W,H);
+
+    // Gentle Golden Water Ripples on Chao Phraya River
+    ctx.save();
+    ctx.strokeStyle='rgba(230,180,76,.14)';
+    ctx.lineWidth=1.8;
+    for(i=0;i<5;i++){
+      var ry=H*.74+i*H*.042;
+      var rw=26+12*Math.sin(t*1.1+i);
+      var rx=W*.68+Math.sin(t*.5+i*1.7)*30;
+      ctx.beginPath(); ctx.moveTo(rx-rw,ry); ctx.lineTo(rx+rw,ry); ctx.stroke();
+    }
+    ctx.restore();
+
+    // Gliding River Teak Boats
+    for(i=0;i<boats.length;i++){
+      var b=boats[i];
+      b.x+=b.sp*0.016;
+      if(b.sp>0&&b.x>W+60) b.x=-60;
+      if(b.sp<0&&b.x<-60) b.x=W+60;
+      drawRiverBoat(ctx,b.x,b.y+Math.sin(t*1.4+i)*1.5,b.sp<0?-b.s:b.s);
+    }
+
+    // Soft Drifting Golden Pikul Petals
+    for(i=0;i<petals.length;i++){
+      var p=petals[i];
+      p.x+=p.vx*0.016;
+      p.y+=p.vy*0.016+Math.sin(t+i)*0.15;
+      p.rot+=p.vr*0.016;
+      if(p.x>W+15) p.x=-15;
+      if(p.y>H+15){ p.y=-15; p.x=Math.random()*W; }
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rot);
+      ctx.globalAlpha=.24;
+      ctx.fillStyle=(i%3===0)?'#FF9EB0':'#FBE29A';
+      ctx.beginPath();
+      ctx.moveTo(0,-p.s);
+      ctx.quadraticCurveTo(p.s,0,0,p.s);
+      ctx.quadraticCurveTo(-p.s,0,0,-p.s);
+      ctx.fill();
+      ctx.restore();
+    }
+    raf=requestAnimationFrame(frame);
+  }
+
+  return {
+    init:function(){
+      cv=$('bgCanvas'); if(!cv) return;
+      ctx=cv.getContext('2d');
+      resize(); running=true; raf=requestAnimationFrame(frame);
+      window.addEventListener('resize',function(){ resize(); });
+      document.addEventListener('visibilitychange',function(){
+        if(document.hidden){ running=false; if(raf){ cancelAnimationFrame(raf); raf=0; } }
+        else if(!running){ running=true; raf=requestAnimationFrame(frame); }
+      });
+    }
+  };
+})();
+
+/* ---------- Hero Benjarong Thai Pavilion Crest & Royal Phan Phum Trophy ---------- */
+function drawCrest(){
+  var c=$('crestCv'); if(!c) return;
+  var x=c.getContext('2d'),W=c.width,H=c.height;
+  x.clearRect(0,0,W,H);
+  var cx=W*.5, cy=H*.52;
+
+  // 16-Petal Lotus Benjarong Medallion
+  for(var i=0;i<16;i++){
+    var a=i*Math.PI*2/16;
+    x.save();
+    x.translate(cx,cy); x.rotate(a);
+    x.fillStyle=(i%2===0)?'#F5C762':'#B87D1B';
+    x.beginPath();
+    x.moveTo(0,-116); x.quadraticCurveTo(18,-96,12,-82); x.lineTo(-12,-82); x.quadraticCurveTo(-18,-96,0,-116);
+    x.fill();
+    x.restore();
+  }
+
+  var bg=x.createRadialGradient(cx-20,cy-28,12,cx,cy,98);
+  bg.addColorStop(0,'#24565B');
+  bg.addColorStop(.68,'#133236');
+  bg.addColorStop(1,'#0B1D20');
+  x.fillStyle=bg;
+  x.beginPath(); x.arc(cx,cy,94,0,Math.PI*2); x.fill();
+  x.strokeStyle='#FFE39E'; x.lineWidth=4; x.stroke();
+  x.strokeStyle='rgba(217,75,98,.55)'; x.lineWidth=2;
+  x.beginPath(); x.arc(cx,cy,85,0,Math.PI*2); x.stroke();
+
+  // Golden Thai Sala & Phra Chedi Emblem inside Crest
+  x.fillStyle='#FFF6DF';
+  x.fillRect(cx-52,cy+44,104,10);
+  x.fillStyle='#E8B243';
+  x.fillRect(cx-42,cy+35,84,9);
+
+  // Pillars
+  x.fillStyle='#FFF8E8';
+  x.fillRect(cx-32,cy+2,7,33);
+  x.fillRect(cx+25,cy+2,7,33);
+  x.fillRect(cx-12,cy+2,6,33);
+  x.fillRect(cx+6,cy+2,6,33);
+
+  // Tiered Thai Roof (หลังคาจัตุรมุขช่อฟ้าใบระกา)
+  x.fillStyle='#D94159';
+  x.strokeStyle='#FFE399'; x.lineWidth=2.5;
+  x.beginPath();
+  x.moveTo(cx-54,cy+4);
+  x.quadraticCurveTo(cx-26,cy-8,cx,cy-36);
+  x.quadraticCurveTo(cx+26,cy-8,cx+54,cy+4);
+  x.closePath();
+  x.fill(); x.stroke();
+
+  x.beginPath();
+  x.moveTo(cx-36,cy-14);
+  x.quadraticCurveTo(cx-16,cy-26,cx,cy-54);
+  x.quadraticCurveTo(cx+16,cy-26,cx+36,cy-14);
+  x.closePath();
+  x.fill(); x.stroke();
+
+  // Golden Mondop Spire
+  x.fillStyle='#FFE699';
+  x.beginPath();
+  x.moveTo(cx-6,cy-52); x.lineTo(cx,cy-80); x.lineTo(cx+6,cy-52); x.closePath();
+  x.fill();
+}
+
+function drawTrophy(){
+  var c=$('trophyCv'); if(!c) return;
+  var x=c.getContext('2d'),W=c.width,H=c.height;
+  x.clearRect(0,0,W,H);
+  var cx=W*.5;
+
+  // Radiant Golden Halo
+  var rg=x.createRadialGradient(cx,H*.45,10,cx,H*.45,108);
+  rg.addColorStop(0,'rgba(253,230,170,.42)');
+  rg.addColorStop(1,'rgba(253,230,170,0)');
+  x.fillStyle=rg; x.beginPath(); x.arc(cx,H*.45,108,0,Math.PI*2); x.fill();
+
+  // Royal Golden Phan Phum (พานพุ่มทองคำเกียรติยศ)
+  var gg=x.createLinearGradient(cx-50,H*.15,cx+50,H*.88);
+  gg.addColorStop(0,'#FFF5C4'); gg.addColorStop(.5,'#E6B245'); gg.addColorStop(1,'#966210');
+
+  // Lotus-bud Phum Top
+  x.fillStyle=gg;
+  x.beginPath();
+  x.moveTo(cx,H*.10);
+  x.quadraticCurveTo(cx+46,H*.26,cx+38,H*.48);
+  x.lineTo(cx-38,H*.48);
+  x.quadraticCurveTo(cx-46,H*.26,cx,H*.10);
+  x.closePath(); x.fill();
+  x.strokeStyle='#7A4B08'; x.lineWidth=2; x.stroke();
+
+  // Ruby & Emerald Jewel Inlays on Phum
+  x.fillStyle='#D93854';
+  x.beginPath(); x.arc(cx,H*.33,10,0,Math.PI*2); x.fill();
+  x.fillStyle='#3DC496';
+  x.beginPath(); x.arc(cx-19,H*.38,6,0,Math.PI*2); x.arc(cx+19,H*.38,6,0,Math.PI*2); x.fill();
+
+  // Ornate Phan Tray Bowl & Pedestal
+  x.fillStyle=gg;
+  x.beginPath();
+  x.moveTo(cx-58,H*.48); x.lineTo(cx+58,H*.48);
+  x.lineTo(cx+36,H*.63); x.lineTo(cx-36,H*.63);
+  x.closePath(); x.fill(); x.stroke();
+
+  x.fillRect(cx-12,H*.63,24,20);
+  x.beginPath();
+  x.moveTo(cx-24,H*.82); x.lineTo(cx+24,H*.82);
+  x.lineTo(cx+46,H*.92); x.lineTo(cx-46,H*.92);
+  x.closePath(); x.fill(); x.stroke();
+}
+
+/* ---------------- Game Data (Exact 48-Tile Mathematical Set) ---------------- */
+var T={
+  wheat :{th:'ทุ่งรวงทอง'},
+  forest:{th:'ป่าสักล้านนา'},
+  water :{th:'อ่าวอันดามัน'},
+  grass :{th:'สวนผลไม้ไทย'},
+  swamp :{th:'ตลาดน้ำคลองบัว'},
+  mine  :{th:'เหมืองทับทิมสยาม'},
+  castle:{th:'พระมหาเจดีย์ทอง'}
+};
+var CH={W:'wheat',F:'forest',S:'water',G:'grass',M:'swamp',N:'mine'};
+var DOM_STR="W0W0 W0W0 F0F0 F0F0 F0F0 F0F0 S0S0 S0S0 S0S0 G0G0 G0G0 M0M0 "+
+            "W0F0 W0S0 W0G0 W0M0 F0S0 F0G0 "+
+            "W1F0 W1S0 W1G0 W1M0 W1N0 F1W0 F1W0 F1W0 F1W0 F1S0 F1G0 "+
+            "S1W0 S1W0 S1F0 S1F0 S1F0 S1F0 W0G1 S0G1 W0M1 G0M1 W0N1 "+
+            "W0G2 S0G2 W0M2 G0M2 W0N2 M0N2 M0N2 W0N3";
+var DOMS=DOM_STR.trim().split(/\s+/).map(function(s,i){
+  return {id:i+1,a:{t:CH[s.charAt(0)],c:+s.charAt(1)},b:{t:CH[s.charAt(2)],c:+s.charAt(3)}};
+});
+var COLORS=['#F5C451','#4AD4A3','#FF788E','#66B5FF','#CA9BFF','#F7DFA8'];
+var BOTNAMES=['ขุนแผน','แม่หญิงจันทร์','หมื่นทิพย์','แม่หญิงบัว','หลวงเดช','แม่หญิงพิกุล'];
+var GS=9,CEN=4,DIRS=[[0,1],[1,0],[0,-1],[-1,0]],ARROWS=['→','↓','←','↑'];
+
+/* ---------------- Thai Pentatonic Ranat-Ek & Khong Wong Audio ---------------- */
+var AU={
+  ctx:null,master:null,mg:null,sg:null,musicOn:true,sfxOn:true,timer:null,next:0,step:0,ready:false,
+  init:function(){
+    if(this.ctx) return;
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
+      this.ctx=new AC();
+      this.master=this.ctx.createGain(); this.master.gain.value=.88; this.master.connect(this.ctx.destination);
+      this.mg=this.ctx.createGain(); this.mg.gain.value=this.musicOn?.12:0; this.mg.connect(this.master);
+      this.sg=this.ctx.createGain(); this.sg.gain.value=this.sfxOn?.48:0; this.sg.connect(this.master);
+      this.ready=true;
+    }catch(e){ showError('เสียง',e); }
+  },
+  unlock:function(){
+    this.init();
+    if(this.ctx&&this.ctx.state==='suspended'){ try{ this.ctx.resume(); }catch(e){} }
+    if(this.ready&&this.musicOn) this.startMusic();
+  },
+  startMusic:function(){
+    if(!this.ready||this.timer) return;
+    var s=this; this.next=this.ctx.currentTime+.08; this.step=0;
+    this.timer=setInterval(function(){ try{ s.sched(); }catch(e){} },70);
+  },
+  stopMusic:function(){ if(this.timer){ clearInterval(this.timer); this.timer=null; } },
+  sched:function(){
+    var t=this.ctx.currentTime;
+    while(this.next<t+.45){ this.tick(this.next,this.step); this.next+=.28; this.step++; }
+  },
+  mtof:function(m){ return 440*Math.pow(2,(m-69)/12); },
+  tone:function(t,f,d,ty,g,dest){
+    if(!this.ready) return;
+    var o=this.ctx.createOscillator(),gn=this.ctx.createGain();
+    o.type=ty||'sine'; o.frequency.setValueAtTime(f,t);
+    gn.gain.setValueAtTime(0,t);
+    gn.gain.linearRampToValueAtTime(g,t+Math.min(.028,d*.2));
+    gn.gain.exponentialRampToValueAtTime(.0008,t+d);
+    o.connect(gn); gn.connect(dest||this.sg); o.start(t); o.stop(t+d+.05);
+  },
+  /* Serene Thai Pentatonic Khong-Wong & Ranat-Ek Ensemble (Ching-Chap Rhythm) */
+  tick:function(t,s){
+    // Pentatonic phrases in F major pentatonic (F G A C D -> 65, 67, 69, 72, 74, 77, 79, 81)
+    var phrases=[
+      [77,74,72,69,72,74,77,81],
+      [79,77,74,72,69,67,69,72],
+      [74,77,79,81,79,77,74,72],
+      [72,69,67,65,67,69,72,65]
+    ];
+    var pIdx=Math.floor(s/8)%4;
+    var sub=s%8;
+    var note=phrases[pIdx][sub];
+
+    // Khong Wong Yai (warm resonant bronze gong circle on even beats)
+    if(sub%2===0){
+      this.tone(t,this.mtof(note-12),.55,'sine',.075,this.mg);
+    }
+    // Ranat Ek (wooden xylophone octave pairs)
+    this.tone(t,this.mtof(note),.24,'triangle',.045,this.mg);
+    if(sub%4===0){
+      // Soft Ching bell shimmer
+      this.tone(t,2637,.16,'sine',.014,this.mg);
+    }
+  },
+  sfx:function(n){
+    if(!this.ready||!this.sfxOn) return;
+    var t=this.ctx.currentTime,i;
+    try{ switch(n){
+      case 'click': this.tone(t,880,.05,'triangle',.14); this.tone(t+.015,1320,.04,'sine',.07); break;
+      case 'claim': this.tone(t,659,.09,'triangle',.20); this.tone(t+.065,988,.16,'sine',.18); break;
+      case 'place': this.tone(t,220,.11,'sine',.26); this.tone(t+.025,587,.09,'triangle',.15); break;
+      case 'bad': this.tone(t,185,.15,'sawtooth',.16); this.tone(t+.1,138,.19,'sawtooth',.14); break;
+      case 'turn': this.tone(t,659,.09,'triangle',.15); this.tone(t+.08,988,.14,'sine',.14); break;
+      case 'round': this.tone(t,587,.11,'sine',.16); this.tone(t+.09,880,.18,'triangle',.15); break;
+      case 'score': this.tone(t,880,.08,'triangle',.17); this.tone(t+.06,1318,.13,'sine',.15); break;
+      case 'bonus': this.tone(t,988,.1,'triangle',.18); this.tone(t+.08,1318,.1,'triangle',.16); this.tone(t+.16,1760,.22,'sine',.16); break;
+      case 'total': this.tone(t,587,.12,'sine',.2); this.tone(t+.1,880,.12,'sine',.18); this.tone(t+.2,1175,.3,'triangle',.18); break;
+      case 'win': var m=[587,659,784,880,1046,1175,1318];
+        for(i=0;i<m.length;i++) this.tone(t+i*.11,m[i],.32,'triangle',.19); break;
+      case 'discard': this.tone(t,330,.1,'triangle',.14); this.tone(t+.09,220,.15,'sine',.13); break;
+    } }catch(e){}
+  }
+};
+function sfx(n){ try{ AU.sfx(n); }catch(e){} }
+
+/* ---------------- Core Game Rules Engine (100% Preserved) ---------------- */
+function newGrid(){ var g=new Array(81),i; for(i=0;i<81;i++) g[i]=null; g[CEN*GS+CEN]={t:'castle',c:0}; return g; }
+function at(g,r,c){ if(r<0||c<0||r>=GS||c>=GS) return undefined; return g[r*GS+c]; }
+function occBounds(g){
+  var r0=99,r1=-1,c0=99,c1=-1,r,c;
+  for(r=0;r<9;r++) for(c=0;c<9;c++) if(g[r*9+c]){
+    if(r<r0)r0=r; if(r>r1)r1=r; if(c<c0)c0=c; if(c>c1)c1=c; }
+  if(r1<0){ r0=r1=c0=c1=CEN; }
+  return {r0:r0,r1:r1,c0:c0,c1:c1};
+}
+function viewWindow(g){
+  var b=occBounds(g);
+  return {r0:Math.max(0,b.r1-4),r1:Math.min(8,b.r0+4),c0:Math.max(0,b.c1-4),c1:Math.min(8,b.c0+4)};
+}
+function touches(g,r,c,t,er,ec){
+  for(var i=0;i<4;i++){
+    var nr=r+DIRS[i][0],nc=c+DIRS[i][1];
+    if(nr===er&&nc===ec) continue;
+    var cell=at(g,nr,nc);
+    if(cell&&(cell.t==='castle'||cell.t===t)) return true;
+  }
+  return false;
+}
+function canPlace(g,dom,r,c,dir){
+  var d=DIRS[dir],r2=r+d[0],c2=c+d[1];
+  if(r<0||c<0||r>8||c>8||r2<0||c2<0||r2>8||c2>8) return false;
+  if(g[r*9+c]||g[r2*9+c2]) return false;
+  var b=occBounds(g);
+  if(Math.max(b.r1,r,r2)-Math.min(b.r0,r,r2)>4) return false;
+  if(Math.max(b.c1,c,c2)-Math.min(b.c0,c,c2)>4) return false;
+  return touches(g,r,c,dom.a.t,r2,c2)||touches(g,r2,c2,dom.b.t,r,c);
+}
+function allPlacements(g,dom){
+  var out=[],r,c,d;
+  for(r=0;r<9;r++) for(c=0;c<9;c++) for(d=0;d<4;d++) if(canPlace(g,dom,r,c,d)) out.push({r:r,c:c,dir:d});
+  return out;
+}
+function applyToGrid(g,dom,r,c,dir){
+  var d=DIRS[dir];
+  g[r*9+c]={t:dom.a.t,c:dom.a.c};
+  g[(r+d[0])*9+(c+d[1])]={t:dom.b.t,c:dom.b.c};
+  return [r*9+c,(r+d[0])*9+(c+d[1])];
+}
+function scoreRegions(g){
+  var seen=new Array(81),i;
+  for(i=0;i<81;i++) seen[i]=false;
+  var total=0,best=0,crowns=0,regions=[],occ=0;
+  for(i=0;i<81;i++) if(g[i]) occ++;
+  for(i=0;i<81;i++){
+    var cell=g[i];
+    if(!cell||cell.t==='castle'||seen[i]) continue;
+    var t=cell.t,stack=[i],size=0,cr=0,cells=[],k;
+    seen[i]=true;
+    while(stack.length){
+      var j=stack.pop(); size++; cr+=g[j].c; cells.push(j);
+      var r=Math.floor(j/9),c=j%9;
+      for(k=0;k<4;k++){
+        var nr=r+DIRS[k][0],nc=c+DIRS[k][1];
+        if(nr<0||nc<0||nr>8||nc>8) continue;
+        var m=nr*9+nc;
+        if(!seen[m]&&g[m]&&g[m].t===t){ seen[m]=true; stack.push(m); }
+      }
+    }
+    var openSet={},openN=0,q,z;
+    for(q=0;q<cells.length;q++){
+      var rr=Math.floor(cells[q]/9),cc=cells[q]%9;
+      for(z=0;z<4;z++){
+        var ar=rr+DIRS[z][0],ac=cc+DIRS[z][1];
+        if(ar<0||ac<0||ar>8||ac>8) continue;
+        var ix=ar*9+ac;
+        if(!g[ix]&&!openSet[ix]){ openSet[ix]=1; openN++; }
+      }
+    }
+    total+=size*cr; crowns+=cr; if(size>best) best=size;
+    regions.push({t:t,size:size,cr:cr,open:openN,cells:cells});
+  }
+  return {total:total,best:best,crowns:crowns,regions:regions,occ:occ};
+}
+function analyze(p,opts){
+  var g=p.grid||newGrid(), s=scoreRegions(g);
+  var harmony=(opts&&opts.harmony&&s.occ===25&&(p.discarded||0)===0)?5:0;
+  var middle=0;
+  if(opts&&opts.middle){
+    var b=occBounds(g);
+    if(b.r1-b.r0===4&&b.c1-b.c0===4&&b.r0+2===CEN&&b.c0+2===CEN) middle=10;
+  }
+  return {base:s.total,harmony:harmony,middle:middle,total:s.total+harmony+middle,
+          best:s.best,crowns:s.crowns,occ:s.occ,regions:s.regions};
+}
+
+/* ---------------- Match State ---------------- */
+var ST=null,LOCAL_INDEX=0,viewIdx=0,handDir=0,selAnchor=null,PCTX=null;
+var botTimer=null,CELLS=[],CHIPS={},HAND=null,currentScreen='menu';
+var SCORING=false,SKIP=false,scoreToken=0,resultShown=false,lastTurnKey='';
+var BADGES=[];
+
+function sleep(ms){
+  return new Promise(function(res){
+    if(SKIP||ms<=0){ res(); return; }
+    var t0=Date.now();
+    var iv=setInterval(function(){
+      if(SKIP||Date.now()-t0>=ms){ clearInterval(iv); res(); }
+    },40);
+  });
+}
+function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)),t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function tokenPlayer(tk){ return parseInt(tk.substring(1).split('_')[0],10); }
+function isHost(){ return NET.mode!=='client'; }
+function myIndex(){ return (NET.mode==='client')?NET.myIndex:LOCAL_INDEX; }
+function turnInfo(){
+  if(!ST||ST.phase!=='play') return null;
+  var tk=ST.order[ST.ti]; if(!tk) return null;
+  return {tk:tk,pi:tokenPlayer(tk),step:ST.step};
+}
+function curEntryOf(tk){
+  for(var i=0;i<ST.cur.length;i++) if(ST.cur[i].owner===tk&&!ST.cur[i].done) return ST.cur[i];
+  return null;
+}
+function makeDeck(n){
+  var copies=(n>=5)?2:1,arr=[],c,i;
+  for(c=0;c<copies;c++) for(i=1;i<=48;i++) arr.push({n:i,u:c*48+i});
+  return arr;
+}
+function drawColumn(){
+  var k=Math.min(ST.colSize,ST.deck.length);
+  var a=ST.deck.splice(0,k).map(function(d){ return {n:d.n,u:d.u,owner:null,done:false}; });
+  a.sort(function(x,y){ return (x.n-bN(y))||(x.u-y.u); });
+  return a;
+}
+function bN(y){ return y.n; }
+
+/* ---------------- Game Flow ---------------- */
+function startGame(){
+  scoreToken++; SCORING=false; SKIP=false; resultShown=false; lastTurnKey='';
+  if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+  clearFx(); clearScoreClasses(); clearConfetti();
+  var n=ST.players.length,total=12*n;
+  ST.colSize=(n===2)?4:n;
+  ST.totalRounds=total/ST.colSize;
+  ST.deck=shuffle(makeDeck(n)).slice(0,total);
+  ST.players.forEach(function(p,i){
+    p.grid=newGrid(); p.discarded=0; p.color=COLORS[i];
+    if(typeof p.online==='undefined') p.online=true;
+  });
+  var pins=(n===2)?2:1,toks=[],i,k;
+  for(i=0;i<n;i++) for(k=0;k<pins;k++) toks.push('p'+i+'_'+k);
+  ST.tokens=toks; ST.cur=[]; ST.nxt=drawColumn();
+  ST.order=shuffle(toks.slice()); ST.ti=0; ST.step='claim'; ST.round=0;
+  ST.lastPlaced=null; ST.dealAnim=Date.now(); ST.phase='play'; ST.results=null;
+  viewIdx=myIndex(); handDir=0; selAnchor=null;
+  $('handBar').classList.remove('hide'); $('scoreHud').classList.add('hide');
+  go('game'); sfx('round');
+  toast('ส่งช้างเผือกจองแผ่นดินเพื่อกำหนดลำดับผลัดแรก');
+}
+function beginRound(){
+  if(!ST.nxt.length){ endGame(); return; }
+  ST.cur=ST.nxt.slice().sort(function(a,b){ return (a.n-b.n)||(a.u-b.u); });
+  ST.order=ST.cur.map(function(e){ return e.owner; });
+  ST.nxt=drawColumn();
+  ST.ti=0; ST.step='place'; ST.round++; ST.dealAnim=Date.now();
+  sfx('round');
+}
+function afterClaim(){
+  ST.ti++;
+  if(ST.ti>=ST.order.length) beginRound();
+  else ST.step=ST.cur.length?'place':'claim';
+}
+function afterPlace(){
+  var free=false,i;
+  for(i=0;i<ST.nxt.length;i++) if(!ST.nxt[i].owner) free=true;
+  if(free) ST.step='claim';
+  else{
+    ST.ti++;
+    if(ST.ti>=ST.order.length) beginRound();
+    else ST.step='place';
+  }
+}
+function endGame(){
+  ST.phase='result';
+  ST.results=ST.players.map(function(p,i){
+    var a=analyze(p,ST.opts);
+    return {idx:i,name:p.name,bot:!!p.bot,color:p.color,base:a.base,harmony:a.harmony,
+            middle:a.middle,total:a.total,best:a.best,crowns:a.crowns,occ:a.occ,disc:p.discarded||0};
+  });
+  ST.results.sort(function(a,b){
+    if(b.total!==a.total) return b.total-a.total;
+    if(b.best!==a.best) return b.best-a.best;
+    return b.crowns-a.crowns;
+  });
+}
+function applyAction(pi,ac){
+  if(!ST||ST.phase!=='play') return false;
+  var t=turnInfo(); if(!t||t.pi!==pi) return false;
+  if(ac.t==='claim'){
+    if(t.step!=='claim') return false;
+    var e=null,i;
+    for(i=0;i<ST.nxt.length;i++) if(ST.nxt[i].u===ac.u) e=ST.nxt[i];
+    if(!e||e.owner) return false;
+    e.owner=t.tk; sfx('claim'); afterClaim(); return true;
+  }
+  if(ac.t==='place'){
+    if(t.step!=='place') return false;
+    var en=curEntryOf(t.tk); if(!en) return false;
+    var dom=DOMS[en.n-1],p=ST.players[pi];
+    if(!canPlace(p.grid,dom,ac.r,ac.c,ac.dir)) return false;
+    var cells=applyToGrid(p.grid,dom,ac.r,ac.c,ac.dir);
+    en.done=true; ST.lastPlaced={pi:pi,cells:cells,ts:Date.now()};
+    sfx('place'); afterPlace(); return true;
+  }
+  if(ac.t==='discard'){
+    if(t.step!=='place') return false;
+    var en2=curEntryOf(t.tk); if(!en2) return false;
+    var p2=ST.players[pi];
+    if(allPlacements(p2.grid,DOMS[en2.n-1]).length>0) return false;
+    en2.done=true; p2.discarded=(p2.discarded||0)+1;
+    sfx('discard'); afterPlace(); return true;
+  }
+  return false;
+}
+function act(a){
+  if(SCORING) return;
+  if(isHost()){
+    if(!applyAction(myIndex(),a)){ sfx('bad'); toast('ไม่สามารถวางแผ่นดินตามตำแหน่งนั้นได้'); }
+    sync();
+  }else{
+    if(NET.conn&&NET.conn.open) NET.conn.send({t:'act',a:a});
+    else toast('สัญญาณกับศาลาโฮสต์ขาดหาย');
+  }
+}
+function sync(){
+  selAnchor=null;
+  if(isHost()) NET.broadcast();
+  render();
+  if(isHost()){
+    scheduleBot();
+    if(ST&&ST.phase==='result') enterResult();
+  }
+}
+
+/* ---------------- BOT GOVERNOR AI ---------------- */
+function evalPlace(grid,dom,pl,lv){
+  var g=grid.slice();
+  applyToGrid(g,dom,pl.r,pl.c,pl.dir);
+  var s=scoreRegions(g),v=s.total,i,rg;
+  if(lv==='easy') return v+Math.random()*2;
+  var pot=0;
+  for(i=0;i<s.regions.length;i++){
+    rg=s.regions[i];
+    if(rg.cr>0) pot+=rg.cr*Math.min(rg.open,4)*.45;
+    else pot+=Math.min(rg.open,3)*Math.min(rg.size,4)*.09;
+  }
+  v+=pot;
+  if(lv==='hard'){
+    var w=viewWindow(g),holes=0,r,c,d;
+    for(r=w.r0;r<=w.r1;r++) for(c=w.c0;c<=w.c1;c++){
+      var k=r*9+c; if(g[k]) continue;
+      var free=0;
+      for(d=0;d<4;d++){
+        var nr=r+DIRS[d][0],nc=c+DIRS[d][1];
+        if(nr<w.r0||nr>w.r1||nc<w.c0||nc>w.c1) continue;
+        if(!g[nr*9+nc]) free++;
+      }
+      if(free===0) holes++;
+    }
+    v-=holes*1.3;
+    var b=occBounds(g);
+    v-=((b.r1-b.r0)+(b.c1-b.c0))*.12;
+    v+=Math.random()*.35;
+  }else v+=Math.random()*1.1;
+  return v;
+}
+function botChoosePlacement(p,dom,pls){
+  if(p.botLevel==='easy') return pls[Math.floor(Math.random()*pls.length)];
+  var best=pls[0],bv=-1e9,i;
+  for(i=0;i<pls.length;i++){ var v=evalPlace(p.grid,dom,pls[i],p.botLevel); if(v>bv){ bv=v; best=pls[i]; } }
+  return best;
+}
+function botChooseClaim(p){
+  var av=[],i;
+  for(i=0;i<ST.nxt.length;i++) if(!ST.nxt[i].owner) av.push({e:ST.nxt[i],idx:i});
+  if(!av.length) return null;
+  if(p.botLevel==='easy') return av[Math.floor(Math.random()*av.length)].e.u;
+  var best=av[0].e,bv=-1e9,j,k;
+  for(j=0;j<av.length;j++){
+    var dom=DOMS[av[j].e.n-1],pls=allPlacements(p.grid,dom),v;
+    if(!pls.length) v=-60;
+    else{
+      var bp=-1e9;
+      for(k=0;k<pls.length;k++){ var x=evalPlace(p.grid,dom,pls[k],p.botLevel); if(x>bp) bp=x; }
+      v=bp;
+    }
+    v+=(dom.a.c+dom.b.c)*1.3;
+    v-=av[j].idx*(p.botLevel==='hard'?1.5:.85);
+    v+=Math.random()*(p.botLevel==='hard'?.4:1.4);
+    if(v>bv){ bv=v; best=av[j].e; }
+  }
+  return best.u;
+}
+function scheduleBot(){
+  if(!isHost()||SCORING) return;
+  if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+  var t=turnInfo(); if(!t) return;
+  var p=ST.players[t.pi]; if(!p) return;
+  var need=p.bot||(p.online===false&&NET.mode==='host');
+  if(!need) return;
+  botTimer=setTimeout(guard('เจ้าเมืองบอท',botAct),p.bot?680:3000);
+}
+function botAct(){
+  botTimer=null;
+  var t=turnInfo(); if(!t) return;
+  var p=ST.players[t.pi];
+  if(!p||(!p.bot&&p.online!==false)) return;
+  var lv=p.bot?(p.botLevel||(ST.opts&&ST.opts.botLevel)||'normal'):'normal';
+  if(p.bot&&!p.botLevel) p.botLevel=lv;
+  var tmp={grid:p.grid,botLevel:lv};
+  if(t.step==='claim'){
+    var u=botChooseClaim(tmp);
+    if(u!=null) applyAction(t.pi,{t:'claim',u:u});
+  }else{
+    var en=curEntryOf(t.tk); if(!en) return;
+    var dom=DOMS[en.n-1],pls=allPlacements(p.grid,dom);
+    if(!pls.length) applyAction(t.pi,{t:'discard'});
+    else{ var pl=botChoosePlacement(tmp,dom,pls); applyAction(t.pi,{t:'place',r:pl.r,c:pl.c,dir:pl.dir}); }
+  }
+  sync();
+}
+
+/* ---------------- P2P MULTIPLAYER NETWORK ---------------- */
+var NET={
+  mode:'off',peer:null,conns:[],conn:null,code:'',myName:'',myIndex:0,libLoading:false,
+  broadcast:function(){
+    if(this.mode!=='host'||!ST) return;
+    var s; try{ s=JSON.stringify(ST); }catch(e){ showError('เครือข่าย',e); return; }
+    for(var i=0;i<this.conns.length;i++){
+      var c=this.conns[i];
+      try{ if(c&&c.open) c.send({t:'state',s:s,seat:c.__pidx}); }catch(e){}
+    }
+  },
+  closeAll:function(){
+    for(var i=0;i<this.conns.length;i++){
+      var c=this.conns[i];
+      try{ if(c&&c.open) c.send({t:'closed'}); }catch(e){}
+    }
+  },
+  reset:function(){
+    try{ if(this.mode==='host') this.closeAll(); }catch(e){}
+    try{ if(this.peer&&!this.peer.destroyed) this.peer.destroy(); }catch(e){}
+    this.peer=null; this.conns=[]; this.conn=null; this.mode='off'; this.code='';
+  }
+};
+function loadPeer(cb){
+  if(window.Peer){ cb(true); return; }
+  if(NET.libLoading){ setTimeout(function(){ loadPeer(cb); },400); return; }
+  NET.libLoading=true;
+  var urls=['https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js',
+            'https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js'],i=0;
+  (function next(){
+    if(i>=urls.length){ NET.libLoading=false; cb(false); return; }
+    var s=document.createElement('script');
+    s.src=urls[i++];
+    s.onload=function(){ NET.libLoading=false; cb(!!window.Peer); };
+    s.onerror=next;
+    document.head.appendChild(s);
+  })();
+}
+function randCode(){
+  var A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',s='';
+  for(var i=0;i<5;i++) s+=A.charAt(Math.floor(Math.random()*A.length));
+  return s;
+}
+function peerOpts(){
+  return {debug:0,config:{iceServers:[
+    {urls:'stun:stun.l.google.com:19302'},
+    {urls:'stun:global.stun.twilio.com:3478'}]}};
+}
+function netStatus(m){ var e=$('netStatus'); if(e) e.textContent=m||''; }
+
+function hostCreate(name,maxP,lvl,harmony,middle){
+  netStatus('กำลังเปิดศาลาออนไลน์…');
+  loadPeer(function(ok){
+    if(!ok){ netStatus('โหลดระบบออนไลน์ไม่สำเร็จ — โปรดตรวจสอบอินเทอร์เน็ต'); return; }
+    var tries=0;
+    (function mk(){
+      var code=randCode(),p;
+      try{ p=new Peer('msnsucree-'+code,peerOpts()); }
+      catch(e){ showError('เครือข่าย',e); netStatus('เปิดศาลาไม่สำเร็จ'); return; }
+      NET.peer=p;
+      p.on('open',guard('โฮสต์',function(){
+        NET.mode='host'; NET.code=code; NET.myIndex=0; NET.myName=name; NET.conns=[]; LOCAL_INDEX=0;
+        ST={phase:'lobby',code:code,
+            opts:{maxPlayers:maxP,botLevel:lvl,harmony:harmony,middle:middle},
+            players:[{name:name,bot:false,online:true,color:COLORS[0],discarded:0}],
+            deck:[],cur:[],nxt:[],order:[],ti:0,step:'claim',round:0,totalRounds:12,colSize:4,tokens:[]};
+        try{ localStorage.setItem('msn_sucree_last',JSON.stringify({code:code,name:name,host:true})); }catch(e){}
+        netStatus(''); go('lobby'); renderLobby(); toast('เปิดศาลาสำเร็จ รหัส: '+code);
+      }));
+      p.on('connection',guard('การเชื่อมต่อ',function(c){
+        NET.conns.push(c);
+        c.on('data',guard('ข้อมูลผู้เล่น',function(d){ onHostData(c,d); }));
+        c.on('close',guard('ตัดการเชื่อมต่อ',function(){ hostDrop(c); }));
+        c.on('error',function(){ hostDrop(c); });
+      }));
+      p.on('error',guard('เครือข่าย',function(err){
+        var ty=err&&err.type?err.type:'';
+        if(ty==='unavailable-id'&&tries<4){ tries++; try{p.destroy();}catch(e){} mk(); return; }
+        if(ty==='peer-unavailable') return;
+        netStatus('แจ้งเตือนเครือข่าย: '+(ty||'ไม่ทราบสาเหตุ'));
+      }));
+      p.on('disconnected',function(){ try{ p.reconnect(); }catch(e){} });
+    })();
+  });
+}
+function hostDrop(conn){
+  if(!ST) return;
+  var idx=(typeof conn.__pidx==='number')?conn.__pidx:-1;
+  NET.conns=NET.conns.filter(function(c){ return c!==conn; });
+  if(idx>=0&&ST.players[idx]){
+    ST.players[idx].online=false;
+    toast(ST.players[idx].name+' สัญญาณขาดหายชั่วคราว');
+  }
+  if(ST.phase==='lobby'&&idx>0&&ST.players[idx]&&!ST.players[idx].bot){
+    ST.players.splice(idx,1);
+    ST.players.forEach(function(p,i){ p.color=COLORS[i]; });
+    NET.conns.forEach(function(c){ if(typeof c.__pidx==='number'&&c.__pidx>idx) c.__pidx--; });
+  }
+  renderLobby(); sync();
+}
+function onHostData(conn,d){
+  if(!d||!ST) return;
+  if(d.t==='join'){
+    var name=(d.name||'เจ้าเมือง').toString().slice(0,12).trim()||'เจ้าเมือง';
+    var found=-1,i;
+    for(i=0;i<ST.players.length;i++)
+      if(!ST.players[i].bot&&ST.players[i].name.toLowerCase()===name.toLowerCase()){ found=i; break; }
+    if(found===0){ try{ conn.send({t:'reject',msg:'นามนี้เป็นของเจ้าเมืองโฮสต์'}); }catch(e){} return; }
+    if(found>0){
+      var live=false;
+      NET.conns.forEach(function(c){ if(c!==conn&&c.__pidx===found&&c.open) live=true; });
+      if(live){ try{ conn.send({t:'reject',msg:'นามนี้กำลังอยู่ในศาลาแล้ว'}); }catch(e){} return; }
+      conn.__pidx=found; ST.players[found].online=true;
+      if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+      try{ conn.send({t:'welcome',idx:found,code:ST.code}); }catch(e){}
+      toast(name+' กลับเข้าสู่เมืองแล้ว');
+      scheduleBot();
+    }else{
+      if(ST.phase!=='lobby'){ try{ conn.send({t:'reject',msg:'เริ่มสร้างเมืองแล้ว — ใช้ชื่อเดิมเพื่อกลับเข้าเมือง'}); }catch(e){} return; }
+      if(ST.players.length>=ST.opts.maxPlayers){ try{ conn.send({t:'reject',msg:'ที่นั่งในศาลาเต็มแล้ว'}); }catch(e){} return; }
+      var ix=ST.players.length;
+      ST.players.push({name:name,bot:false,online:true,color:COLORS[ix],discarded:0});
+      conn.__pidx=ix;
+      try{ conn.send({t:'welcome',idx:ix,code:ST.code}); }catch(e){}
+      toast(name+' เข้าร่วมศาลา');
+    }
+    renderLobby(); sync(); return;
+  }
+  if(d.t==='act'){
+    if(typeof conn.__pidx!=='number') return;
+    if(!applyAction(conn.__pidx,d.a)){ try{ conn.send({t:'nope'}); }catch(e){} }
+    sync(); return;
+  }
+}
+function clientJoin(code,name){
+  netStatus('กำลังเชื่อมต่อศาลา…');
+  loadPeer(function(ok){
+    if(!ok){ netStatus('โหลดระบบออนไลน์ไม่สำเร็จ'); return; }
+    var p;
+    try{ p=new Peer(null,peerOpts()); }catch(e){ showError('เครือข่าย',e); netStatus('เชื่อมต่อไม่สำเร็จ'); return; }
+    NET.peer=p; NET.mode='client'; NET.code=code; NET.myName=name;
+    p.on('open',guard('ผู้เข้าร่วม',function(){
+      var c=p.connect('msnsucree-'+code,{reliable:true});
+      NET.conn=c;
+      var to=setTimeout(function(){ if(!c.open) netStatus('ไม่พบศาลารหัสนี้ — โปรดตรวจสอบรหัสอีกครั้ง'); },12000);
+      c.on('open',guard('เชื่อมต่อ',function(){
+        clearTimeout(to); netStatus('เชื่อมต่อสำเร็จ — กำลังเข้าศาลา…'); c.send({t:'join',name:name});
+      }));
+      c.on('data',guard('รับข้อมูล',function(d){ onClientData(d); }));
+      c.on('close',function(){ toast('ขาดการเชื่อมต่อกับโฮสต์'); netStatus('ขาดการเชื่อมต่อ — กด “เข้าร่วม” อีกครั้งเพื่อกลับเข้าเมืองเดิม'); });
+      c.on('error',function(){ netStatus('สัญญาณการเชื่อมต่อขัดข้อง'); });
+    }));
+    p.on('error',guard('เครือข่าย',function(err){
+      var ty=err&&err.type?err.type:'';
+      netStatus(ty==='peer-unavailable'?('ไม่พบศาลารหัส '+code):('ปัญหาเครือข่าย: '+ty));
+    }));
+  });
+}
+function onClientData(d){
+  if(!d) return;
+  if(d.t==='welcome'){
+    NET.myIndex=d.idx; LOCAL_INDEX=d.idx; viewIdx=d.idx;
+    try{ localStorage.setItem('msn_sucree_last',JSON.stringify({code:NET.code,name:NET.myName,host:false})); }catch(e){}
+    netStatus(''); toast('เข้าสู่ศาลาเรียบร้อย'); return;
+  }
+  if(d.t==='reject'){ netStatus(d.msg); toast(d.msg); return; }
+  if(d.t==='nope'){ sfx('bad'); toast('ไม่สามารถทำรายการนั้นได้'); return; }
+  if(d.t==='closed'){
+    toast('โฮสต์ปิดศาลาแล้ว');
+    scoreToken++; SCORING=false; clearFx(); clearScoreClasses();
+    NET.reset(); ST=null; go('menu'); return;
+  }
+  if(d.t==='state'){
+    var prev=ST?ST.phase:'';
+    try{ ST=JSON.parse(d.s); }catch(e){ showError('ข้อมูลเกม',e); return; }
+    if(typeof d.seat==='number'){ NET.myIndex=d.seat; LOCAL_INDEX=d.seat; }
+    if(viewIdx>=ST.players.length) viewIdx=myIndex();
+    if(ST.phase==='lobby'){ go('lobby'); renderLobby(); }
+    else if(ST.phase==='play'){
+      if(prev!=='play'){
+        resultShown=false; scoreToken++; SCORING=false; clearFx(); clearScoreClasses(); clearConfetti();
+        viewIdx=myIndex(); lastTurnKey='';
+        $('handBar').classList.remove('hide'); $('scoreHud').classList.add('hide');
+      }
+      if(currentScreen!=='game') go('game');
+      render();
+    }
+    else if(ST.phase==='result') enterResult();
+  }
+}
+
+/* ---------------- Screen Navigation & Toast ---------------- */
+function go(name){
+  currentScreen=name;
+  ['menu','setup','online','lobby','game','result'].forEach(function(s){
+    var el=$('screen-'+s); if(el) el.classList.toggle('active',s===name);
+  });
+  if(name!=='result') clearConfetti();
+  if(name==='game') requestAnimationFrame(function(){ if(!SCORING) render(); });
+}
+var toastT=null;
+function toast(m){
+  var el=$('toast'); if(!el) return;
+  el.textContent=m; el.classList.add('show');
+  if(toastT) clearTimeout(toastT);
+  toastT=setTimeout(function(){ el.classList.remove('show'); },2300);
+}
+
+/* ---------------- UI Builders ---------------- */
+function buildHalf(side){
+  var h=document.createElement('span');
+  h.className='half '+side; h.dataset.side=side;
+  var cr=document.createElement('span'); cr.className='crw';
+  for(var i=0;i<3;i++) cr.appendChild(icon('i_crown','cri'));
+  h.appendChild(cr); h._cr=cr;
+  return h;
+}
+function paintHalf(h,half){
+  h.style.backgroundImage=ART.css(half.t);
+  for(var i=0;i<3;i++) h._cr.children[i].style.display=(i<half.c)?'':'none';
+}
+function buildChip(el){
+  var num=document.createElement('span'); num.className='num';
+  var a=buildHalf('a'),b=buildHalf('b'),kg=icon('i_king','kg');
+  el.appendChild(num); el.appendChild(a); el.appendChild(b); el.appendChild(kg);
+  el._num=num; el._a=a; el._b=b; el._kg=kg;
+}
+function buildCells(){
+  var b=$('board'); if(!b) return;
+  CELLS=[];
+  var frag=document.createDocumentFragment(),r,c,i;
+  for(r=0;r<9;r++) for(c=0;c<9;c++){
+    var d=document.createElement('div');
+    d.className='cell'; d.dataset.r=r; d.dataset.c=c;
+    var cr=document.createElement('span'); cr.className='crw';
+    for(i=0;i<3;i++) cr.appendChild(icon('i_crown','cri'));
+    var gh=document.createElement('span'); gh.className='gh';
+    d.appendChild(cr); d.appendChild(gh);
+    d._cr=cr; d._gh=gh; d._bg='';
+    CELLS.push(d); frag.appendChild(d);
+  }
+  b.appendChild(frag);
+}
+function buildLegend(){
+  var box=$('legendBox'); if(!box) return;
+  ['wheat','forest','water','grass','swamp','mine'].forEach(function(k){
+    var s=document.createElement('span');
+    var i=document.createElement('i');
+    i.style.backgroundImage=ART.css(k);
+    var t=document.createElement('span'); t.textContent=T[k].th;
+    s.appendChild(i); s.appendChild(t); box.appendChild(s);
+  });
+}
+
+/* ---------------- Rendering ---------------- */
+function fillChip(el,entry,kind){
+  if(!el) return;
+  if(!entry){ el.style.display='none'; return; }
+  el.style.display='';
+  var d=DOMS[entry.n-1],cls='chip';
+  el._num.textContent='#'+entry.n;
+  paintHalf(el._a,d.a); paintHalf(el._b,d.b);
+  if(entry.owner){
+    var pi=tokenPlayer(entry.owner);
+    el._kg.style.display='';
+    el._kg.style.fill=(ST.players[pi]&&ST.players[pi].color)||'#fff';
+  }else el._kg.style.display='none';
+  if(entry.done) cls+=' done';
+  var t=turnInfo();
+  if(kind==='nxt'&&!entry.owner&&t&&t.step==='claim'&&t.pi===myIndex()&&!ST.players[t.pi].bot) cls+=' selectable';
+  if(kind==='cur'&&!entry.done&&t&&entry.owner===t.tk) cls+=' active';
+  if(kind==='nxt'&&ST.dealAnim&&(Date.now()-ST.dealAnim)<600) cls+=' deal';
+  el.className=cls;
+  el.dataset.uid=entry.u;
+}
+function renderCols(){
+  for(var i=0;i<6;i++){ fillChip(CHIPS['cc'+i],ST.cur[i],'cur'); fillChip(CHIPS['cn'+i],ST.nxt[i],'nxt'); }
+  $('curHint').style.display=ST.cur.length?'none':'';
+  $('nxtHint').style.display=ST.nxt.length?'none':'';
+  $('lblNxt').textContent=ST.cur.length?'จองแผ่นดินรอบหน้า':'จองลำดับผลัดแรก';
+  var cz=(ST.colSize<=4)?'sz0':((ST.colSize===5)?'sz1':'sz2');
+  var dr=$('draft');
+  dr.classList.remove('sz0','sz1','sz2'); dr.classList.add(cz);
+}
+function computePCTX(){
+  PCTX=null;
+  if(SCORING) return;
+  var t=turnInfo();
+  if(!t||t.step!=='place'||t.pi!==myIndex()) return;
+  if(ST.players[t.pi].bot) return;
+  var en=curEntryOf(t.tk); if(!en) return;
+  var dom=DOMS[en.n-1];
+  var pls=allPlacements(ST.players[t.pi].grid,dom);
+  PCTX={dom:dom,pls:pls,entry:en};
+  var has=false,i;
+  for(i=0;i<pls.length;i++) if(pls[i].dir===handDir) has=true;
+  if(!has&&pls.length){ handDir=pls[0].dir; selAnchor=null; }
+}
+function layoutBoard(g){
+  var w=viewWindow(g);
+  var rows=w.r1-w.r0+1,cols=w.c1-w.c0+1;
+  var wrap=$('boardWrap'),board=$('board');
+  var aw=Math.max(60,wrap.clientWidth-8),ah=Math.max(60,wrap.clientHeight-8);
+  var gap=4,pad=28;
+  var cs=Math.floor(Math.min((aw-pad-(cols-1)*gap)/cols,(ah-pad-(rows-1)*gap)/rows));
+  cs=Math.max(16,Math.min(cs,86));
+  board.style.setProperty('--cs',cs+'px');
+  board.style.gridTemplateColumns='repeat('+cols+', '+cs+'px)';
+  return w;
+}
+function paintCell(el,cell){
+  var i,bg=cell?ART.css(cell.t):'';
+  if(el._bg!==bg){ el.style.backgroundImage=bg; el._bg=bg; }
+  for(i=0;i<3;i++) el._cr.children[i].style.display=(cell&&i<cell.c)?'':'none';
+}
+function renderBoard(){
+  if(!CELLS.length||!ST||!ST.players[viewIdx]) return;
+  var p=ST.players[viewIdx],g=p.grid||newGrid();
+  var w=layoutBoard(g),i;
+  var vmap={};
+  if(PCTX&&viewIdx===myIndex())
+    for(i=0;i<PCTX.pls.length;i++) if(PCTX.pls[i].dir===handDir) vmap[PCTX.pls[i].r*9+PCTX.pls[i].c]=1;
+  var pa=-1,pb=-1;
+  if(selAnchor&&PCTX){
+    pa=selAnchor.r*9+selAnchor.c;
+    pb=(selAnchor.r+DIRS[selAnchor.dir][0])*9+(selAnchor.c+DIRS[selAnchor.dir][1]);
+  }
+  var lp=(ST.lastPlaced&&ST.lastPlaced.pi===viewIdx&&(Date.now()-ST.lastPlaced.ts)<800)?ST.lastPlaced.cells:null;
+  for(var r=0;r<9;r++) for(var c=0;c<9;c++){
+    var k=r*9+c,el=CELLS[k];
+    if(r<w.r0||r>w.r1||c<w.c0||c>w.c1){ el.style.display='none'; continue; }
+    el.style.display='';
+    var cell=g[k],cls='cell';
+    el._gh.textContent='';
+    if(cell){
+      cls+=' has';
+      if(cell.t==='castle') cls+=' castle';
+      paintCell(el,cell);
+      if(lp&&(lp[0]===k||lp[1]===k)) cls+=' pop';
+    }else if(k===pa){ cls+=' prev has'; paintCell(el,{t:PCTX.dom.a.t,c:PCTX.dom.a.c}); }
+    else if(k===pb){ cls+=' prev has'; paintCell(el,{t:PCTX.dom.b.t,c:PCTX.dom.b.c}); }
+    else{
+      paintCell(el,null);
+      if(vmap[k]){ cls+=' valid'; el._gh.textContent=ARROWS[handDir]; }
+    }
+    el.className=cls;
+  }
+  if(!SCORING){
+    $('ownerTxt').textContent=(viewIdx===myIndex()?'เขตคามของคุณ ('+p.name+')':'เขตคามของ '+p.name);
+    $('boardOwner').style.color=p.color||'var(--brass-l)';
+    setIcon($('ownerIco'),viewIdx===myIndex()?'i_crown':'i_eye');
+  }
+}
+function renderHand(){
+  var br=$('btnRotate'),bc=$('btnConfirm'),bd=$('btnDiscard');
+  if(!PCTX){
+    HAND.classList.add('hide');
+    br.disabled=true; bc.disabled=true; bd.disabled=true; return;
+  }
+  HAND.classList.remove('hide');
+  paintHalf(HAND._a,PCTX.dom.a); paintHalf(HAND._b,PCTX.dom.b);
+  HAND._a.classList.add('anchor');
+  var vert=(handDir===1||handDir===3);
+  HAND.classList.toggle('vert',vert);
+  HAND.style.flexDirection=(handDir===0?'row':handDir===1?'column':handDir===2?'row-reverse':'column-reverse');
+  br.disabled=PCTX.pls.length<=1;
+  bc.disabled=!selAnchor;
+  bd.disabled=PCTX.pls.length>0;
+}
+function renderPlayers(){
+  var box=$('players'),n=ST.players.length;
+  box.style.setProperty('--np',n<=4?n:3);
+  box.classList.toggle('six',n>4);
+  var t=turnInfo();
+  for(var i=0;i<6;i++){
+    var el=$('pc'+i);
+    if(i>=n){ el.style.display='none'; continue; }
+    el.style.display='';
+    var p=ST.players[i],s=scoreRegions(p.grid||newGrid());
+    el.style.color=p.color||COLORS[i];
+    var av=el.querySelector('.pav');
+    var avKey=i+'_'+(p.bot?1:0);
+    if(av&&el._avKey!==avKey){ av.innerHTML=chefAvatarSvg(i,!!p.bot); el._avKey=avKey; }
+    el.querySelector('.pn').textContent=(i===myIndex()?'★ ':'')+p.name;
+    el.querySelector('.ps').textContent=s.total;
+    el.querySelector('.pt').textContent='ดาวพิกุล '+s.crowns+' · '+s.occ+'/25'+((p.discarded>0)?' · สละ '+p.discarded:'');
+    if(!el._bot){ el._bot=icon('i_bot','botb'); el.appendChild(el._bot); }
+    el._bot.style.display=p.bot?'':'none';
+    var cls='pcard';
+    if(t&&t.pi===i) cls+=' turn';
+    if(viewIdx===i) cls+=' viewing';
+    if(p.online===false&&!p.bot) cls+=' off';
+    el.className=cls;
+  }
+}
+function renderStatus(){
+  var el=$('statusMsg'),btn=$('backToMine'); if(!el) return;
+  el.classList.remove('warn');
+  var t=turnInfo(),txt='—',showBack=false;
+  if(t){
+    var p=ST.players[t.pi],mine=(t.pi===myIndex()&&!p.bot);
+    if(mine&&viewIdx!==myIndex()){ txt='ถึงตาของคุณแล้ว — กำลังชมเมืองของผู้อื่นอยู่'; showBack=true; }
+    else if(t.step==='claim'){
+      txt=mine?'ตาคุณ: แตะแผ่นดินในแถวจองรอบหน้าเพื่อส่งช้างเผือกจอง':'รอ '+p.name+' เลือกจองแผ่นดิน…';
+    }else{
+      if(mine){
+        if(PCTX&&PCTX.pls.length===0){ el.classList.add('warn'); txt='ไม่มีพื้นที่ว่างที่ต่อได้ตามกฎ — ต้องกด “สละแผ่น”'; }
+        else if(selAnchor) txt='กด “วางแผ่นดิน” หรือแตะช่องเดิมซ้ำเพื่อยืนยัน';
+        else txt='ตาคุณ: แตะช่องสีเขียวมรกตในกระดานเพื่อวางแผ่นดิน';
+      }else txt='รอ '+p.name+' ขยายเขตคาม…';
+    }
+  }
+  el.childNodes[0].nodeValue=txt;
+  btn.classList.toggle('hide',!showBack);
+}
+function showTurnBanner(txt,color){
+  var b=$('turnBanner'); if(!b) return;
+  b.textContent=txt; b.style.color=color||'var(--brass-l)';
+  b.classList.remove('show'); void b.offsetWidth; b.classList.add('show');
+}
+function render(){
+  try{
+    if(!ST||ST.phase!=='play'||SCORING) return;
+    if(viewIdx>=ST.players.length) viewIdx=myIndex();
+    var t=turnInfo();
+    var key=ST.round+'|'+ST.ti+'|'+ST.step;
+    if(key!==lastTurnKey){
+      if(lastTurnKey&&t){
+        sfx('turn');
+        var pp=ST.players[t.pi];
+        if(t.pi===myIndex()&&!pp.bot){ viewIdx=myIndex(); showTurnBanner('ถึงผลัดของคุณ!',pp.color); }
+      }
+      lastTurnKey=key;
+    }
+    computePCTX();
+    $('hdRound').textContent='ผลัดที่ '+Math.max(1,ST.round)+'/'+ST.totalRounds;
+    $('hdLeft').textContent='สำรับเหลือ '+ST.deck.length+' แผ่น · เจ้าเมือง '+ST.players.length+' ท่าน';
+    $('hdBarIn').style.width=Math.round(Math.max(0,ST.round-1)/ST.totalRounds*100)+'%';
+    var hr=$('hdRoom');
+    if(NET.mode==='off'||!ST.code) hr.classList.add('hide');
+    else{ hr.classList.remove('hide'); $('hdRoomCode').textContent=ST.code; }
+    renderCols(); renderBoard(); renderHand(); renderPlayers(); renderStatus();
+  }catch(e){ showError('การแสดงผล',e); }
+}
+
+/* ---------------- ROYAL SCORE TALLY CEREMONY ---------------- */
+function clearFx(){ var f=$('fxLayer'); if(f) while(f.firstChild) f.removeChild(f.firstChild); BADGES=[]; }
+function clearScoreClasses(){
+  for(var i=0;i<CELLS.length;i++) CELLS[i].classList.remove('sdim','slit','sdone');
+}
+function setAllDim(on){
+  for(var i=0;i<CELLS.length;i++){
+    var el=CELLS[i];
+    if(el.style.display==='none') continue;
+    el.classList.toggle('sdim',!!on);
+    if(on) el.classList.remove('slit','sdone');
+  }
+}
+function lightCells(cs){
+  for(var i=0;i<cs.length;i++){ var el=CELLS[cs[i]]; if(el){ el.classList.remove('sdim'); el.classList.add('slit'); } }
+}
+function doneCells(cs){
+  for(var i=0;i<cs.length;i++){ var el=CELLS[cs[i]]; if(el){ el.classList.remove('slit'); el.classList.add('sdone'); } }
+}
+function centerOf(cs){
+  var sx=0,sy=0,n=0;
+  for(var i=0;i<cs.length;i++){
+    var el=CELLS[cs[i]];
+    if(!el||el.style.display==='none') continue;
+    sx+=el.offsetLeft+el.offsetWidth/2; sy+=el.offsetTop+el.offsetHeight/2; n++;
+  }
+  return n?{x:sx/n,y:sy/n}:{x:0,y:0};
+}
+function makeBadge(d){
+  var e=document.createElement('div');
+  e.className='sbadge'+(d.cls?' '+d.cls:'');
+  var a=document.createElement('div'); a.className='sb-t'; a.textContent=d.title;
+  var b=document.createElement('div'); b.className='sb-b'; b.textContent=d.big;
+  e.appendChild(a); e.appendChild(b);
+  var pos=centerOf(d.cells);
+  e.style.left=pos.x+'px'; e.style.top=(pos.y+(d.dy||0))+'px';
+  $('fxLayer').appendChild(e); d.el=e;
+}
+function badge(cells,title,big,cls,dy){
+  var d={cells:cells,title:title,big:big,cls:cls,dy:dy||0};
+  BADGES.push(d); makeBadge(d);
+}
+function relayoutBadges(){
+  var f=$('fxLayer'); if(!f) return;
+  while(f.firstChild) f.removeChild(f.firstChild);
+  for(var i=0;i<BADGES.length;i++) makeBadge(BADGES[i]);
+}
+function setHud(name,val){ $('shName').textContent=name; $('shVal').textContent=val; }
+function tickTo(from,to,dur,tok){
+  return new Promise(function(res){
+    if(SKIP||from===to){ $('shVal').textContent=to; res(); return; }
+    var t0=performance.now();
+    (function step(){
+      if(tok!==scoreToken){ res(); return; }
+      var k=Math.min(1,(performance.now()-t0)/dur);
+      $('shVal').textContent=Math.round(from+(to-from)*k);
+      if(k<1&&!SKIP) requestAnimationFrame(step);
+      else{ $('shVal').textContent=to; res(); }
+    })();
+  });
+}
+function occupiedCells(g){ var a=[],i; for(i=0;i<81;i++) if(g[i]) a.push(i); return a; }
+
+function runScoreShow(){
+  var tok=++scoreToken;
+  SCORING=true; SKIP=false; PCTX=null; selAnchor=null;
+  if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+  $('handBar').classList.add('hide');
+  $('scoreHud').classList.remove('hide');
+  $('backToMine').classList.add('hide');
+  go('game');
+  renderCols(); renderPlayers();
+  return (async function(){
+    for(var i=0;i<ST.players.length;i++){
+      if(tok!==scoreToken) return;
+      var p=ST.players[i];
+      viewIdx=i; clearFx(); clearScoreClasses(); renderBoard(); renderPlayers();
+      $('ownerTxt').textContent='ตรวจนับความรุ่งเรืองเมืองของ: '+p.name;
+      $('boardOwner').style.color=p.color||'var(--brass-l)';
+      setIcon($('ownerIco'),'i_crown');
+      setHud(p.name,0);
+      $('statusMsg').classList.remove('warn');
+      $('statusMsg').childNodes[0].nodeValue='จำนวนช่องภูมิประเทศ × จำนวนดาวพิกุลทอง (★) = คะแนนเขตคาม';
+      showTurnBanner('ประเมินเมืองของ '+p.name,p.color);
+      await sleep(640);
+      if(tok!==scoreToken) return;
+      var A=analyze(p,ST.opts),run=0,k;
+      setAllDim(true);
+      var regs=A.regions.slice().sort(function(a,b){ return (b.size*b.cr)-(a.size*a.cr); });
+      for(k=0;k<regs.length;k++){
+        if(tok!==scoreToken) return;
+        var rg=regs[k],pts=rg.size*rg.cr;
+        lightCells(rg.cells);
+        if(rg.cr>0){
+          badge(rg.cells,T[rg.t].th+'  '+rg.size+' × '+rg.cr+'★','+'+pts);
+          sfx('score');
+          await tickTo(run,run+pts,430,tok);
+          run+=pts; await sleep(170);
+        }else{
+          badge(rg.cells,T[rg.t].th+'  '+rg.size+' × 0★','0','zero');
+          await sleep(140);
+        }
+        doneCells(rg.cells);
+      }
+      if(tok!==scoreToken) return;
+      var occ=occupiedCells(p.grid);
+      if(A.harmony){
+        badge(occ,'แผ่นดินสมบูรณ์','+5','bonus',-38); sfx('bonus');
+        await tickTo(run,run+A.harmony,340,tok); run+=A.harmony; await sleep(180);
+      }
+      if(A.middle){
+        badge(occ,'ศูนย์กลางนครา','+10','bonus',-76); sfx('bonus');
+        await tickTo(run,run+A.middle,340,tok); run+=A.middle; await sleep(180);
+      }
+      if(tok!==scoreToken) return;
+      clearScoreClasses();
+      badge(occ,p.name,'รวม '+A.total+' แต้ม','total');
+      sfx('total');
+      await sleep(1100);
+    }
+    if(tok!==scoreToken) return;
+    clearFx(); clearScoreClasses();
+    SCORING=false;
+    $('scoreHud').classList.add('hide');
+    showResult();
+  })();
+}
+function enterResult(){
+  if(resultShown) return;
+  resultShown=true;
+  try{
+    runScoreShow().catch(function(e){
+      showError('นับคะแนน',e); SCORING=false; $('scoreHud').classList.add('hide'); showResult();
+    });
+  }catch(e){ showError('นับคะแนน',e); SCORING=false; showResult(); }
+}
+function clearConfetti(){ var b=$('confetti'); if(b) while(b.firstChild) b.removeChild(b.firstChild); }
+function confetti(){
+  var b=$('confetti'); if(!b) return;
+  clearConfetti();
+  for(var i=0;i<36;i++){
+    var d=document.createElement('i');
+    d.style.left=(Math.random()*100)+'%';
+    d.style.background=COLORS[i%COLORS.length];
+    d.style.animationDelay=(Math.random()*1.3)+'s';
+    d.style.animationDuration=(2.4+Math.random()*1.9)+'s';
+    b.appendChild(d);
+  }
+}
+function showResult(){
+  try{
+    if(!ST||ST.phase!=='result') return;
+    go('result');
+    drawTrophy();
+    var list=$('resList');
+    while(list.firstChild) list.removeChild(list.firstChild);
+    var res=ST.results||[];
+    $('resTitle').textContent=res.length?('เจ้าเมืองผู้ยิ่งใหญ่: '+res[0].name):'สรุปผลการสถาปนาเมือง';
+    $('resNote').textContent='กรณีแต้มเท่ากัน ตัดสินด้วยเขตภูมิประเทศเดียวที่ใหญ่ที่สุด ตามด้วยจำนวนดาวพิกุลทองรวม';
+    res.forEach(function(r,i){
+      var row=document.createElement('div');
+      row.className='resrow'+(i===0?' win':'');
+      row.style.animationDelay=(i*.12)+'s';
+      var rk=document.createElement('div'); rk.className='rk';
+      if(i<3){
+        var m=icon('i_medal','');
+        m.style.fill=(i===0?'#F5CA69':(i===1?'#E3E8F5':'#DA9866'));
+        rk.appendChild(m);
+      }else rk.textContent=(i+1);
+      var nm=document.createElement('div'); nm.className='rn';
+      nm.textContent=r.name+(r.bot?' (บอท)':'');
+      nm.style.color=r.color||'';
+      var sm=document.createElement('small');
+      var ex=[];
+      if(r.harmony) ex.push('แผ่นดินสมบูรณ์ +5');
+      if(r.middle) ex.push('ศูนย์กลางนครา +10');
+      if(r.disc) ex.push('สละ '+r.disc+' แผ่น');
+      sm.textContent='คะแนนพื้นที่ '+r.base+' · ดาวพิกุล '+r.crowns+'★ · เขตใหญ่สุด '+r.best+' ช่อง'+(ex.length?' · '+ex.join(' · '):'');
+      nm.appendChild(sm);
+      var sc=document.createElement('div'); sc.className='rs'; sc.textContent=r.total;
+      row.appendChild(rk); row.appendChild(nm); row.appendChild(sc);
+      list.appendChild(row);
+    });
+    confetti();
+    setTimeout(function(){ sfx('win'); },280);
+    $('btnAgain').style.display=(NET.mode==='client')?'none':'';
+  }catch(e){ showError('หน้าผลคะแนน',e); }
+}
+
+/* ---------------- Lobby Rendering ---------------- */
+function renderLobby(){
+  try{
+    if(!ST) return;
+    $('roomBig').textContent=ST.code||'-----';
+    var list=$('lobbyList');
+    while(list.firstChild) list.removeChild(list.firstChild);
+    (ST.players||[]).forEach(function(p,i){
+      var row=document.createElement('div'); row.className='lobbyrow';
+      var dot=document.createElement('span'); dot.className='dot';
+      dot.style.background=COLORS[i]; dot.style.color=COLORS[i];
+      var nm=document.createElement('span'); nm.className='nm';
+      nm.textContent=p.name+(i===myIndex()?' (คุณ)':'')+(p.bot?' [บอท]':'');
+      var tg=document.createElement('span'); tg.className='tg';
+      var lv={easy:'ขุนนางใหม่',normal:'เจ้าเมืองชำนาญ',hard:'มหาเสนาบดี'};
+      tg.textContent=p.bot?(lv[p.botLevel||ST.opts.botLevel]||'เจ้าเมืองชำนาญ')
+                          :(i===0?'โฮสต์ศาลา':(p.online===false?'สัญญาณหลุด':'พร้อมสร้างเมือง'));
+      row.appendChild(dot); row.appendChild(nm); row.appendChild(tg);
+      list.appendChild(row);
+    });
+    $('lobbyCount').textContent=(ST.players||[]).length+'/'+((ST.opts&&ST.opts.maxPlayers)||4);
+    var host=(NET.mode==='host');
+    $('hostControls').style.display=host?'':'none';
+    $('btnStartOnline').style.display=host?'':'none';
+    $('lobbyMsg').textContent=host
+      ? (ST.players.length>=2?'เจ้าเมืองครบองค์ประชุมแล้ว พร้อมเริ่ม!':'ต้องมีเจ้าเมืองอย่างน้อย 2 ท่าน (เพิ่มบอทได้)')
+      : 'กำลังรอเจ้าเมืองโฮสต์เริ่มเปิดสำรับแผ่นดิน…';
+  }catch(e){ showError('ศาลาชุมนุม',e); }
+}
+
+/* ---------------- Segmented Buttons ---------------- */
+function setSeg(id,v){
+  var s=$(id); if(!s) return;
+  Array.prototype.forEach.call(s.children,function(b){ b.classList.toggle('on',b.dataset.v===String(v)); });
+}
+function getSeg(id,def){
+  var s=$(id); if(!s) return def;
+  var o=s.querySelector('.on'); return o?o.dataset.v:def;
+}
+function bindSeg(id){
+  var s=$(id); if(!s) return;
+  s.addEventListener('click',guard(id,function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    setSeg(id,b.dataset.v); sfx('click');
+  }));
+}
+
+/* ---------------- Initialization & Self-Test ---------------- */
+function init(){
+  ART.preload();
+  BG.init(); drawCrest();
+  buildCells(); buildLegend();
+  ['cc0','cc1','cc2','cc3','cc4','cc5','cn0','cn1','cn2','cn3','cn4','cn5'].forEach(function(id){
+    var el=$(id); if(el){ buildChip(el); CHIPS[id]=el; }
+  });
+  HAND=$('handChip');
+  HAND._a=buildHalf('a'); HAND._b=buildHalf('b');
+  HAND.appendChild(HAND._a); HAND.appendChild(HAND._b);
+
+  var unlocked=false;
+  function unlock(){ if(unlocked) return; unlocked=true; AU.unlock(); }
+  document.addEventListener('pointerdown',unlock);
+  document.addEventListener('keydown',unlock);
+
+  bindSeg('segCount'); bindSeg('segDiff'); bindSeg('segMax'); bindSeg('segDiff2');
+
+  on('btnGoSolo','click',function(){ sfx('click'); go('setup'); });
+  on('btnGoOnline','click',function(){ sfx('click'); go('online'); });
+  on('btnGoRules','click',function(){ sfx('click'); $('modalRules').classList.add('show'); });
+  on('btnRulesClose','click',function(){ sfx('click'); $('modalRules').classList.remove('show'); });
+  on('btnSetupBack','click',function(){ sfx('click'); go('menu'); });
+  on('btnOnlineBack','click',function(){ sfx('click'); NET.reset(); go('menu'); });
+
+  on('btnStartSolo','click',function(){
+    sfx('click'); AU.unlock();
+    var n=parseInt(getSeg('segCount','4'),10),lv=getSeg('segDiff','normal');
+    var nm=($('soloName').value||'เจ้าเมืองสยาม').trim().slice(0,12)||'เจ้าเมืองสยาม';
+    NET.reset(); NET.mode='off'; LOCAL_INDEX=0;
+    var ps=[{name:nm,bot:false,online:true,discarded:0}];
+    for(var i=1;i<n;i++) ps.push({name:BOTNAMES[i-1],bot:true,botLevel:lv,online:true,discarded:0});
+    ST={phase:'lobby',code:'',
+        opts:{maxPlayers:n,botLevel:lv,harmony:$('optHarmony').checked,middle:$('optMiddle').checked},
+        players:ps,deck:[],cur:[],nxt:[],order:[],ti:0,step:'claim',round:0,totalRounds:12,colSize:4,tokens:[]};
+    startGame(); sync();
+  });
+
+  on('btnCreateRoom','click',function(){
+    sfx('click'); AU.unlock();
+    var nm=($('onName').value||'').trim().slice(0,12);
+    if(!nm){ toast('กรุณาระบุนามเจ้าเมืองของคุณก่อน'); return; }
+    hostCreate(nm,parseInt(getSeg('segMax','4'),10),getSeg('segDiff2','normal'),
+               $('optHarmony2').checked,$('optMiddle2').checked);
+  });
+  on('btnJoinRoom','click',function(){
+    sfx('click'); AU.unlock();
+    var nm=($('onName').value||'').trim().slice(0,12);
+    var cd=($('onCode').value||'').trim().toUpperCase();
+    if(!nm){ toast('กรุณาระบุนามเจ้าเมืองของคุณ'); return; }
+    if(cd.length!==5){ toast('รหัสศาลาต้องมี 5 ตัวอักษร'); return; }
+    NET.reset(); ST=null; resultShown=false; scoreToken++; SCORING=false;
+    clearFx(); clearScoreClasses();
+    clientJoin(cd,nm);
+    go('lobby'); $('roomBig').textContent=cd;
+    $('lobbyMsg').textContent='กำลังติดต่อศาลารหัส '+cd+'…';
+    $('hostControls').style.display='none'; $('btnStartOnline').style.display='none';
+    $('lobbyCount').textContent='0/–';
+    var ll=$('lobbyList'); while(ll.firstChild) ll.removeChild(ll.firstChild);
+  });
+  on('btnCopyCode','click',function(){
+    sfx('click');
+    var c=(ST&&ST.code)||''; if(!c) return;
+    if(navigator.clipboard) navigator.clipboard.writeText(c).then(function(){ toast('คัดลอกรหัสศาลาแล้ว: '+c); },function(){ toast('รหัสศาลา: '+c); });
+    else toast('รหัสศาลา: '+c);
+  });
+  on('btnShareLink','click',function(){
+    sfx('click');
+    var c=(ST&&ST.code)||''; if(!c) return;
+    var link=location.origin+location.pathname+'?room='+c;
+    if(navigator.clipboard) navigator.clipboard.writeText(link).then(function(){ toast('คัดลอกลิงก์เชิญเข้าศาลาแล้ว'); },function(){ toast('รหัสศาลา: '+c); });
+    else toast('รหัสศาลา: '+c);
+  });
+  on('hdRoom','click',function(){
+    var c=(ST&&ST.code)||''; if(!c) return;
+    sfx('click');
+    if(navigator.clipboard) navigator.clipboard.writeText(c).then(function(){ toast('คัดลอกรหัสศาลา: '+c); },function(){ toast('รหัสศาลา: '+c); });
+    else toast('รหัสศาลา: '+c);
+  });
+  on('btnAddBot','click',function(){
+    sfx('click');
+    if(NET.mode!=='host'||!ST||ST.phase!=='lobby') return;
+    if(ST.players.length>=ST.opts.maxPlayers){ toast('ที่นั่งในศาลาเต็มแล้ว'); return; }
+    var ix=ST.players.length;
+    ST.players.push({name:BOTNAMES[ix%BOTNAMES.length],bot:true,botLevel:ST.opts.botLevel,
+                     online:true,color:COLORS[ix],discarded:0});
+    renderLobby(); NET.broadcast();
+  });
+  on('btnRemoveBot','click',function(){
+    sfx('click');
+    if(NET.mode!=='host'||!ST||ST.phase!=='lobby') return;
+    for(var i=ST.players.length-1;i>0;i--) if(ST.players[i].bot){ ST.players.splice(i,1); break; }
+    ST.players.forEach(function(p,i){ p.color=COLORS[i]; });
+    renderLobby(); NET.broadcast();
+  });
+  on('btnStartOnline','click',function(){
+    sfx('click'); AU.unlock();
+    if(NET.mode!=='host'||!ST) return;
+    if(ST.players.length<2){ toast('ต้องมีเจ้าเมืองอย่างน้อย 2 ท่านจึงจะเริ่มได้'); return; }
+    startGame(); sync();
+  });
+  on('btnLobbyLeave','click',function(){ sfx('click'); NET.reset(); ST=null; go('menu'); });
+
+  $('draft').addEventListener('click',guard('จองแผ่นดิน',function(e){
+    var chip=e.target.closest('.chip'); if(!chip||SCORING) return;
+    if(!chip.classList.contains('selectable')){ sfx('bad'); return; }
+    chip.style.transform='scale(1.16)';
+    setTimeout(function(){ chip.style.transform=''; },180);
+    act({t:'claim',u:parseInt(chip.dataset.uid,10)});
+  }));
+
+  $('board').addEventListener('click',guard('วางแผ่นดิน',function(e){
+    var cell=e.target.closest('.cell'); if(!cell||SCORING) return;
+    if(!PCTX) return;
+    if(viewIdx!==myIndex()){ viewIdx=myIndex(); sfx('click'); render(); return; }
+    var r=+cell.dataset.r,c=+cell.dataset.c,i,ok=false,other=-1;
+    for(i=0;i<PCTX.pls.length;i++){
+      if(PCTX.pls[i].r===r&&PCTX.pls[i].c===c){
+        if(PCTX.pls[i].dir===handDir) ok=true;
+        else if(other<0) other=PCTX.pls[i].dir;
+      }
+    }
+    if(ok){
+      if(selAnchor&&selAnchor.r===r&&selAnchor.c===c&&selAnchor.dir===handDir) act({t:'place',r:r,c:c,dir:handDir});
+      else{ selAnchor={r:r,c:c,dir:handDir}; sfx('click'); render(); }
+    }else if(other>=0){ handDir=other; selAnchor={r:r,c:c,dir:handDir}; sfx('click'); render(); }
+    else sfx('bad');
+  }));
+
+  on('backToMine','click',function(){ viewIdx=myIndex(); sfx('click'); render(); });
+
+  on('btnRotate','click',function(){
+    if(!PCTX||!PCTX.pls.length) return;
+    if(viewIdx!==myIndex()) viewIdx=myIndex();
+    var dirs={},i;
+    for(i=0;i<PCTX.pls.length;i++) dirs[PCTX.pls[i].dir]=1;
+    for(i=1;i<=4;i++){ var d=(handDir+i)%4; if(dirs[d]){ handDir=d; break; } }
+    if(selAnchor){
+      var ok=false;
+      for(i=0;i<PCTX.pls.length;i++)
+        if(PCTX.pls[i].r===selAnchor.r&&PCTX.pls[i].c===selAnchor.c&&PCTX.pls[i].dir===handDir) ok=true;
+      selAnchor=ok?{r:selAnchor.r,c:selAnchor.c,dir:handDir}:null;
+    }
+    sfx('click'); render();
+  });
+  on('btnConfirm','click',function(){ if(selAnchor&&PCTX) act({t:'place',r:selAnchor.r,c:selAnchor.c,dir:selAnchor.dir}); });
+  on('btnDiscard','click',function(){
+    if(!PCTX||PCTX.pls.length>0){ sfx('bad'); toast('ยังมีพื้นที่ว่างในเขตคามที่วางได้ตามกติกา'); return; }
+    act({t:'discard'});
+  });
+  on('btnSkipScore','click',function(){ SKIP=true; sfx('click'); });
+
+  $('players').addEventListener('click',guard('ชมเขตคาม',function(e){
+    var card=e.target.closest('.pcard'); if(!card||SCORING) return;
+    var ix=parseInt(card.id.replace('pc',''),10);
+    if(!ST||!ST.players[ix]) return;
+    viewIdx=ix; sfx('click'); render();
+  }));
+
+  on('btnMusic','click',function(){
+    AU.unlock(); AU.musicOn=!AU.musicOn;
+    if(AU.mg) AU.mg.gain.value=AU.musicOn?.12:0;
+    if(AU.musicOn) AU.startMusic(); else AU.stopMusic();
+    $('btnMusic').classList.toggle('off',!AU.musicOn);
+    setIcon($('icoMusic'),AU.musicOn?'i_music':'i_mute');
+    toast(AU.musicOn?'เปิดเสียงดนตรีไทยบรรเลง':'ปิดเสียงดนตรีบรรเลง');
+  });
+  on('btnSfx','click',function(){
+    AU.unlock(); AU.sfxOn=!AU.sfxOn;
+    if(AU.sg) AU.sg.gain.value=AU.sfxOn?.48:0;
+    $('btnSfx').classList.toggle('off',!AU.sfxOn);
+    setIcon($('icoSfx'),AU.sfxOn?'i_sound':'i_soundoff');
+    if(AU.sfxOn) sfx('click');
+    toast(AU.sfxOn?'เปิดเสียงเอฟเฟกต์':'ปิดเสียงเอฟเฟกต์');
+  });
+
+  on('btnMenu','click',function(){ sfx('click'); $('modalMenu').classList.add('show'); });
+  on('btnMenuClose','click',function(){ sfx('click'); $('modalMenu').classList.remove('show'); });
+  on('btnMenuRules','click',function(){ sfx('click'); $('modalMenu').classList.remove('show'); $('modalRules').classList.add('show'); });
+  on('btnMenuRestart','click',function(){
+    sfx('click'); $('modalMenu').classList.remove('show');
+    if(NET.mode==='client'){ toast('เฉพาะเจ้าเมืองโฮสต์เท่านั้นที่เริ่มรอบใหม่ได้'); return; }
+    if(!ST){ go('menu'); return; }
+    startGame(); sync();
+  });
+  on('btnMenuQuit','click',function(){
+    sfx('click'); $('modalMenu').classList.remove('show');
+    scoreToken++; SCORING=false; clearFx(); clearScoreClasses();
+    if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+    NET.reset(); ST=null; go('menu');
+  });
+  on('btnAgain','click',function(){
+    sfx('click');
+    if(NET.mode==='client'){ toast('รอเจ้าเมืองโฮสต์เริ่มรอบใหม่'); return; }
+    if(!ST){ go('menu'); return; }
+    startGame(); sync();
+  });
+  on('btnHome','click',function(){
+    sfx('click'); scoreToken++; SCORING=false; clearFx(); clearScoreClasses(); clearConfetti();
+    if(botTimer){ clearTimeout(botTimer); botTimer=null; }
+    NET.reset(); ST=null; go('menu');
+  });
+  on('errClose','click',function(){ $('errorPanel').classList.remove('show'); });
+
+  var rz=null;
+  window.addEventListener('resize',function(){
+    if(rz) clearTimeout(rz);
+    rz=setTimeout(function(){
+      try{
+        if(SCORING){
+          if(ST&&ST.players[viewIdx]) renderBoard();
+          relayoutBadges();
+        }else render();
+      }catch(e){}
+    },100);
+  });
+
+  try{
+    var qs=new URLSearchParams(location.search);
+    var rc=(qs.get('room')||'').toUpperCase();
+    var last=null;
+    try{ last=JSON.parse(localStorage.getItem('msn_sucree_last')||'null'); }catch(e){}
+    if(last&&last.name){ $('onName').value=last.name; $('soloName').value=last.name; }
+    if(rc.length===5){
+      $('onCode').value=rc; go('online');
+      netStatus('พบรหัสศาลา '+rc+' จากลิงก์เชิญ — ระบุนามเจ้าเมืองแล้วกด “เข้าร่วม”');
+    }else if(last&&last.code&&!last.host) $('onCode').value=last.code;
+  }catch(e){ showError('ลิงก์เชิญ',e); }
+
+  /* ---- Built-in Verification Self-Test ---- */
+  try{
+    if(DOMS.length!==48) throw new Error('จำนวนแผ่นดินไม่ครบ 48 แผ่น: '+DOMS.length);
+    if(CELLS.length!==81) throw new Error('สร้างช่องกระดานไม่ครบ: '+CELLS.length);
+    var g1=newGrid();
+    if(allPlacements(g1,DOMS[0]).length===0) throw new Error('หาตำแหน่งวางเริ่มต้นไม่พบ');
+    if(canPlace(g1,DOMS[0],4,4,0)) throw new Error('อนุญาตให้วางทับพระมหาเจดีย์ทอง');
+    if(canPlace(g1,DOMS[0],0,0,0)) throw new Error('อนุญาตให้วางแยกจากเขตคาม');
+    var g2=newGrid();
+    g2[4*9+5]={t:'forest',c:1}; g2[4*9+6]={t:'forest',c:1}; g2[3*9+5]={t:'forest',c:0};
+    var s2=scoreRegions(g2);
+    if(s2.total!==6) throw new Error('สูตรคะแนนผิดพลาด: ได้ '+s2.total);
+    if(s2.crowns!==2||s2.best!==3) throw new Error('นับดาวพิกุล/ขนาดเขตผิดพลาด');
+    if(makeDeck(5).length!==96||makeDeck(4).length!==48) throw new Error('สร้างสำรับแผ่นดินผิดพลาด');
+    if(ART.url('wheat').indexOf('data:image')!==0) throw new Error('วาดภาพแผ่นดินไม่สำเร็จ');
+  }catch(e){ showError('ตรวจสอบระบบ',e); }
+}
+
+try{ init(); }catch(e){ showError('เริ่มต้นระบบ',e); }
+})();
+</script>
+</body>
+</html>
